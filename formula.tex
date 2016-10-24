@@ -1,0 +1,373 @@
+\input{common.tex}
+\title{Formula Collection}
+\author{Chang-ye Tu}
+\maketitle
+
+\begin{align*}
+  &a\cdot (b\times c) = b\cdot (c\times a) = c\cdot (a\times b) \\
+  &a\times (b\times c) = b(a\cdot c) - c(a\cdot b) \\
+  &(a\times b)\cdot(c\times d) = (a\cdot c)(b\cdot d) - (a\cdot d)(b\cdot c)
+\end{align*}
+
+\begin{align*}
+  \curl\nabla\psi&= 0 \\
+  \divv(\curl a)&= 0 \\
+  \curl(\curl a)&= \nabla(\divv a) - \Delta a \\
+  \divv(\psi a)&= \nabla\psi\cdot a + \psi\divv a \\
+  \curl(\psi a)&= \nabla\psi\times a + \psi\curl a \\
+  \divv(a\times b)&= (\curl a)\cdot b - (\curl b)\cdot a \\
+  \curl(a\times b)&= a(\divv b) - b(\divv a) + (b\cdot\nabla)a -(a\cdot\nabla)b \\
+  \nabla(a\cdot b)&= (a\cdot\nabla)b + (b\cdot\nabla)a - (\curl a)\times b - (\curl b)\times a 
+\end{align*}
+
+\begin{align*}
+  \intvv{\divv a} &= \intss{\nu\cdot a} \\
+  \intvv{\curl a} &= \intss{\nu\times a}
+\end{align*}
+
+\begin{align*}
+  \intss{u(\nu\times\nabla v)} &= -\intss{v(\nu\times\nabla u)} \\
+  \intss{\langle\nu\times\nabla v, a\rangle} &= -\intss{v\langle\nu, \curl a\rangle} \\
+\end{align*}
+
+proof: 
+\begin{align*}
+  \intss{\nu\times\nabla(uv)} &= \intss{u(\nu\times\nabla v)} + \intss{v(\nu\times\nabla u)} = \intvv{\curl\nabla(uv)} \equiv 0 \\
+  \intss{\langle\nu\times\nabla u, a\rangle} &= -\intss{\langle a\times\nabla u, \nu\rangle} =-\intvv{\divv(a\times\nabla u)} =-\intvv{\langle\curl a, \nabla u\rangle} \\ 
+  &=-\intvv{\divv(u\curl a)} =-\intss{u\langle\nu,\curl a\rangle} \\
+\end{align*}
+
+\begin{align*}
+  &\intvv{u\Delta v+\nabla u\cdot\nabla v}=\intss{u\frac{\partial v}{\partial\nu}} \\
+  &\intvv{a\cdot\Delta b+\curl a\cdot\curl b + \divv a\,\divv b}=\intss{(\nu\times a)\cdot(\curl b)+(\nu\cdot a)(\divv b)}
+\end{align*}
+
+\begin{align*}
+  \intvv{v\cdot\curl u - \curl v\cdot u}=\intss{(v\times\nu)\cdot((\nu\times u)\times\nu)} = \intss{v_{\text t}\cdot u_{\text T}}
+\end{align*}
+
+\begin{align*}
+  \nabla_y\cdot q\,e^{ikx\cdot y} &= (ikx\cdot q)\,e^{ikx\cdot y} \\
+  \nabla_y\times q\,e^{ikx\cdot y} &= (ikx\times q)\,e^{ikx\cdot y} \\
+  \nabla_y\times(\nabla_y\times q\,e^{ikx\cdot y}) &= \left(ikx\times\left(ikx\times q\right)\right)e^{ikx\cdot y} \\
+  &= -k^2 x\times(x\times q)\,e^{ikx\cdot y} \\ 
+  &= k^2 x\times(q\times x)\,e^{ikx\cdot y} \\
+\end{align*}
+
+\begin{align*}
+  u(x)= &\ints{\left\{\frac{\partial u}{\partial\nu}(y)\Phi(x,y)-u(y)\frac{\partial\Phi(x,y)}{\partial\nu(y)}\right\}}(y)\\
+        &-\intv{\left\{\Delta u(y)+k^2 u(y)\right\}\Phi(x,y)}(y),\quad x\in\Omega
+\end{align*}
+
+\begin{align*}
+  u(x)= &\ints{\left\{u(y)\frac{\partial\Phi(x,y)}{\partial\nu(y)}-\frac{\partial u}{\partial\nu}(y)\Phi(x,y)\right\}}(y),\quad x\in\mathbb{R}^3\setminus\overline{\Omega}
+\end{align*}
+
+\begin{align*}
+  u^\infty(\hat{x})= &\ints{\left\{u(y)\frac{\partial e^{-ik\hat{x}\cdot y}}{\partial\nu(y)}-\frac{\partial u}{\partial\nu}(y)e^{-ik\hat{x}\cdot y}\right\}}(y),\quad\hat{x}\in\mathbb{S}^2
+\end{align*}
+
+\begin{align*}
+  E(x)= &-\curl\ints{\nu(y)\times E(y)\Phi(x,y)}(y)\\
+        &+\nabla\ints{\nu(y)\cdot E(y)\Phi(x,y)}(y)\\
+        &-ik\ints{\nu(y)\times H(y)\Phi(x,y)}(y)\\
+        &+\curl\intv{\bigl\{\curl E(y)-ikH(y)\bigr\}\Phi(x,y)}(y)\\
+        &-\nabla\intv{\divv E(y)\Phi(x,y)}(y)\\
+        &+ik\intv{\bigl\{\curl H(y)+ikE(y)\bigr\}\Phi(x,y)}(y).
+\end{align*}
+
+$x\in\Omega$:  
+\begin{align*}
+  E(x) &= -\curl\ints{\nu(y)\times E(y)\Phi(x,y)}(y)-\frac{i}{k}\curl^2\ints{\nu(y)\times H(y)\Phi(x,y)}(y), \\
+  H(x) &= -\curl\ints{\nu(y)\times H(y)\Phi(x,y)}(y)+\frac{i}{k}\curl^2\ints{\nu(y)\times E(y)\Phi(x,y)}(y).
+\end{align*}
+
+$x\in\mathbb{R}^3\setminus\overline{\Omega}$: 
+\begin{align*}
+  E(x) &= \curl\ints{\nu(y)\times E(y)\Phi(x,y)}(y)+\frac{i}{k}\curl^2\ints{\nu(y)\times H(y)\Phi(x,y)}(y), \\
+  H(x) &= \curl\ints{\nu(y)\times H(y)\Phi(x,y)}(y)-\frac{i}{k}\curl^2\ints{\nu(y)\times E(y)\Phi(x,y)}(y).
+\end{align*}
+
+\begin{align*}
+  E^\infty(\hat{x}) &= ik\hat{x}\times\ints{\left\{\nu(y)\times E(y) + \left(\nu(y)\times H(y)\right)\times\hat{x}\right\}e^{ik\hat{x}\cdot y}}(y), \\
+  H^\infty(\hat{x}) &= ik\hat{x}\times\ints{\left\{\nu(y)\times H(y) - \left(\nu(y)\times E(y)\right)\times\hat{x}\right\}e^{ik\hat{x}\cdot y}}(y)
+\end{align*}
+
+\begin{align*}
+  \ints{\varphi\Div u}=-\ints{\nabla_{\text{t}}\varphi\cdot u}
+\end{align*} 
+
+\end{document}
+
+Given $r = |{\bf x}|,\,{\bf n} = \frac{{\bf x}}{|{\bf x}|} = \frac{{\bf x}}{r}$,
+\begin{align*}
+  \nabla\cdot[{\bf n}f(r)] &= \frac{2}{r} f + \frac{\partial f}{\partial r} \\
+  \nabla\times[{\bf n}f(r)] &=0 \\
+  &\text{Special Case: }\nabla\cdot{\bf x} = 3,\quad\nabla\times{\bf x} = 0 \\
+  ({\bf a}\cdot\nabla){\bf n}f(r) &= \frac{f(r)}{r}[{\bf a}-{\bf n}({\bf a}\cdot{\bf n})] + {\bf n}({\bf a}\cdot{\bf n})\frac{\partial f}{\partial r} \\
+  \nabla({\bf x}\cdot{\bf a}) &= {\bf a} + {\bf x}(\nabla\cdot{\bf a}) + i({\bf L}\times{\bf a}),\qquad{\bf L}=\frac{1}{i}({\bf x}\times\nabla) 
+\end{align*}
+
+
+\begin{dfn}[Silver-M\"uller radiation condition]
+  \begin{align*}
+    \lim_{|x|\to\infty}(x\times H+|x|E)&=0\\
+    \lim_{|x|\to\infty}(x\times E-|x|H)&=0
+  \end{align*}
+\end{dfn}
+ 
+\begin{align*}
+  \mathcal{S}f(x) &= \ints{\Phi(x,y)f(y)}(y), \qquad f\in L_2(\bdr),\, x\in\mathbb{R}^3\setminus\bdr 
+\end{align*}
+
+\begin{align*}
+  \lim_{\substack{y\to x\\y\in\Gamma_+(x)}}\mathcal{S}f(y)=
+  \lim_{\substack{y\to x\\y\in\Gamma_-(x)}}\mathcal{S}f(y)=
+  \ints{\Phi(x,y)f(y)}(y)=:Sf(x)
+\end{align*}
+
+\begin{align*}
+  Kf(x):=\frac{1}{4\pi}\lim_{\varepsilon\downarrow 0}\int_{|x-y|\geqslant
+         \varepsilon}\frac{(x-y)\cdot\nu(y)}{|x-y|^3}e^{ik|x-y|}(1-ik|x-y|)f(y)
+         \,d\sigma(y)
+\end{align*}
+
+\begin{align*}
+  \lim_{\substack{y\to x\\y\in\Gamma_{\pm}(x)}}\nabla\mathcal{S}f(y)
+  \cdot\nu(x)=\bigl(\mp\frac{1}{2}I+K^*\bigr)f(x)
+\end{align*}
+  
+\begin{align*}
+  \lim_{\substack{y\to x\\y\in\Gamma_{\pm}(x)}}\divv \mathcal{S}a(y) &= 
+  \mp\frac{1}{2}\nu(x)\cdot a(x)+\pv\ints{\divv_x\{\Phi(x,y)a(y)\}}(y)\\
+  \lim_{\substack{y\to x\\y\in\Gamma_{\pm}(x)}}\curl \mathcal{S}a(y) &= 
+  \mp\frac{1}{2}\nu(x)\times a(x)+\pv\ints{\curl_x\{\Phi(x,y)a(y)\}}(y)
+\end{align*}
+
+\begin{align*}
+  \lim_{\substack{y\to x\\y\in\Gamma_{\pm}(x)}}\nu(x)\times\curl\mathcal{S}
+  a(y) =\pm\frac{1}{2}a(x)+\pv\ints{\nu(x)\times\curl_x\{\Phi(x,y)a(y)\}}(y)
+\end{align*}
+
+\begin{align*}
+  \lim_{\substack{y_{\pm}\to x\\y_{\pm}\in\Gamma_{\pm}(x)}}\nu(x)\times
+  \bigl(\curl\curl\mathcal{S}a(y_+)-\curl\curl\mathcal{S}a(y_-)\bigr)=0 
+\end{align*}
+
+\begin{align*}
+  Ma(x) &= \nu(x)\times\pv\ints{\curl_x\{\Phi(x,y)a(y)\}}(y)\\
+  Na(x) &= \nu(x)\times\pv\ints{\curl\curl_x\{\Phi(x,y)a(y)\}}(y)
+\end{align*}
+
+\begin{multline*}
+  \ints{\Bigl\{\frac{1}{2}|E|^2 (h\cdot\nu)-\re\bigl((\overline{E}\cdot h)
+  (E\cdot\nu)\bigr)\Bigr\}}\\
+  =\intv{\re\Bigl\{\frac{1}{2}|E|^2(\divv h)-(\overline{E}\cdot h)(\divv E)
+  -\overline{E}\cdot(\nabla h)E+(h\times\overline{E})\cdot(\curl E)\Bigr\}},
+  \label{eq:Rellich}
+\end{multline*}
+
+\begin{align*}
+  \curl_x \left\{a(y)\frac{e^{ik|x-y|}}{|x-y|}\right\} &= ik\frac{e^{ik|x|}}{|x|}\left\{e^{-ik\hat{x}\cdot y}(\hat{x}\times a) + O\left(\frac{|a|}{|x|}\right)\right\} \\
+  \curl\curl_x \left\{a(y)\frac{e^{ik|x-y|}}{|x-y|}\right\} &= k^2\frac{e^{ik|x|}}{|x|}\left\{e^{-ik\hat{x}\cdot y}\,\hat{x}\times(\hat{x}\times a) + O\left(\frac{|a|}{|x|}\right)\right\} 
+\end{align*}
+
+\begin{align*}
+  \Div{Ma} &= -k^2\nu\cdot Sa-K^*(\Div a)\quad\text{ for tangential $a$} \\
+  \Div(\nu\times E) &= -\nu\cdot\curl E
+\end{align*}
+
+\begin{align*}
+  \re{ab} &= \re{a}\re{b} - \im{a}\im{b} \\
+  \im{ab} &= \re{a}\im{b} + \im{a}\re{b} 
+\end{align*}
+
+\begin{multline*}
+  (\alpha I + M)(\beta I + M)^{-1}(\gamma I + M) \\= (\alpha - \beta + \gamma)I + M + (\alpha - \beta)(\gamma - \beta)(\beta I + M)^{-1}
+\end{multline*}
+
+\begin{align*}
+  (A^{-1}+B^{-1})^{-1} = A(A+B)^{-1}B
+\end{align*}
+
+\begin{align*}
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    F^{-1}         & -F^{-1}BD^{-1} \\
+    -D^{-1}CF^{-1} & D^{-1} + D^{-1}CF^{-1}BD^{-1} 
+  \end{pmatrix}\text{ where }F=A-BD^{-1}C \\
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    A^{-1} + A^{-1}BE^{-1}CA^{-1} & -A^{-1}BE^{-1} \\
+    -E^{-1}CA^{-1}                & E^{-1}
+  \end{pmatrix}\text{ where }E=D-CA^{-1}B
+  \\
+  \begin{pmatrix}
+    A & B \\
+    O & D
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    A^{-1} & -A^{-1}BD^{-1} \\
+    O & D^{-1}
+  \end{pmatrix} \\
+  \begin{pmatrix}
+    A & O \\
+    C & D
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    A^{-1} & O \\ 
+    -D^{-1}CA^{-1} & D^{-1}
+  \end{pmatrix} \\
+  \begin{pmatrix}
+    A & B \\
+    C & O
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    O & C^{-1} \\ 
+    B^{-1} & -B^{-1}AC^{-1}
+  \end{pmatrix} \\
+  \begin{pmatrix}
+    O & B \\
+    C & D
+  \end{pmatrix}^{-1} &=
+  \begin{pmatrix}
+    -C^{-1}DB^{-1} & C^{-1} \\
+    B^{-1} & O  
+  \end{pmatrix} 
+\end{align*}
+
+Schur complement $1$:
+\begin{align*}
+  \begin{pmatrix}
+    I & O \\
+    -CA^{-1} & I
+  \end{pmatrix} 
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A & B \\
+    O & D-CA^{-1}B  
+  \end{pmatrix}  
+\end{align*}
+\begin{align*}
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} 
+  \begin{pmatrix}
+    I & -A^{-1}B \\
+    O & I  
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A & O \\
+    C & D-CA^{-1}B  
+  \end{pmatrix}
+\end{align*}
+
+\begin{align*}
+  \begin{pmatrix}
+    I & O \\
+    -CA^{-1} & I
+  \end{pmatrix} 
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} 
+  \begin{pmatrix}
+    I & -A^{-1}B \\
+    O & I  
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A & O \\
+    O & D-CA^{-1}B  
+  \end{pmatrix}  
+\end{align*}
+
+Schur complement $2$:
+\begin{align*}
+  \begin{pmatrix}
+    I & -BD^{-1} \\
+    O & I
+  \end{pmatrix} 
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A-BD^{-1}C & O \\
+    C & D  
+  \end{pmatrix}  
+\end{align*}
+
+\begin{align*}
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix}  
+  \begin{pmatrix}
+    I & O \\
+    -D^{-1}C & I  
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A-BD^{-1}C & B \\
+    O & D  
+  \end{pmatrix}  
+\end{align*}
+
+\begin{align*}
+  \begin{pmatrix}
+    I & -BD^{-1} \\
+    O & I
+  \end{pmatrix} 
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} 
+  \begin{pmatrix}
+    I & O \\
+    -D^{-1}C & I  
+  \end{pmatrix} =  
+  \begin{pmatrix}
+    A-BD^{-1}C & O \\
+    O & D  
+  \end{pmatrix}  
+\end{align*}
+\begin{align*}
+  \begin{vmatrix}
+    A & B \\
+    C & D 
+  \end{vmatrix} = |A||D-CA^{-1}B| = |D||A-BD^{-1}C|
+\end{align*}
+
+\begin{align*}
+  Mg(P)=\sup_{r>0}\,\dashint_{\partial D\cap B_r(P)}|g(Q)|d\sigma(Q)
+\end{align*}
+
+(Nedelec p.10) 
+$\frac{\sin(k r)}{r}$ satisfies
+\begin{align*}
+  \Delta u + k^2 u = 0
+\end{align*}
+in free space. hint:
+\begin{align*}
+  \Delta u + k^2 u = \frac{\partial^2 u}{\partial r^2} + \frac{2}{r}\frac{\partial u}{\partial r} + k^2 u
+\end{align*}
+
+%\texttt{expand(diff(sin(k*r)/r, r, 2) + 2/r * diff(sin(k*r)/r, r) + k*k* sin(k*r)/r);}
+
+%maxima: use the following code to solve
+%$$\frac{d^2 E}{dr^2} + \frac{2}{r}\frac{dE}{dr} + E = 0$$ 
+%(%i14) load('contrib_ode);
+%(%i15) contrib_ode('diff(E, r, 2) + 2/r * 'diff(E, r) + E =0, E, r);
+%                                   %i r         - %i r
+%                             %k2 %e       %k1 %e
+%(%o15)                  [E = ---------- + ------------]
+%                                 r             r

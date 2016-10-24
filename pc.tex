@@ -1,0 +1,1258 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,graphicx,hyperref,booktabs}
+\usepackage[mathscr]{eucal}
+\usepackage[T1]{fontenc}
+\usepackage{stix}
+\usepackage[a4paper,inner=1.5cm,outer=3cm,top=2cm,bottom=3cm,bindingoffset=1cm]{geometry}
+\usepackage[numbers,sort&compress]{natbib}
+
+\theoremstyle{definition}
+\newtheorem{lmm}{Lemma}
+\newtheorem{thm}{Theorem}
+\newtheorem{dfn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{prp}{Proposition}
+\newtheorem{ex}{Example}
+
+% Definition of various shortcuts.
+\newcommand\bdr{\Gamma}
+\newcommand\Div{\divv_\bdr}
+\newcommand\Curl{\curl_\bdr}
+\newcommand\lTT{{\bf L}^2_\text{t}}
+\newcommand\lTS{\lTT(\mathbb{S}^2)}
+\newcommand\Hhp{{\bf H}^{\frac{1}{2}}}
+\newcommand\Hhm{{\bf H}^{-\frac{1}{2}}}
+\newcommand\Hhpg{\Hhp(\bdr)}
+\newcommand\Hhmg{\Hhm(\bdr)}
+\newcommand\lTD{\Hhm(\Div)}
+\newcommand\lTC{\Hhm(\Curl)}
+\newcommand\lT{L_{2,\text{t}}(\bdr)}
+\newcommand\nltwo[1]{\left\|#1\right\|_{L_2(\bdr)}}
+\newcommand\nltwod[1]{\left\|#1\right\|_{\lTD}}
+\newcommand\nltwoc[1]{\left\|#1\right\|_{\lTC}}
+
+\newcommand\intv[2][y]{\int_{\Omega}#2\,\text{d}V(#1)}
+\newcommand\intvn[1]{\int_{\Omega}#1\,\text{d}V}
+\newcommand\intvnn[1]{\int_{\Omega}#1}
+
+\newcommand\ints[2][y]{\int_{\bdr}#2\,\text{d}\sigma(#1)}
+\newcommand\intsn[1]{\int_{\bdr}#1\,\text{d}\sigma}
+\newcommand\intsnn[1]{\int_{\bdr}#1}
+
+\newcommand\intb[2][x]{\int_{|x|=r}#2\,\text{d}\sigma(#1)}
+\newcommand\intbn[1]{\int_{\mathbb{S}^2}#1\,\text{d}\sigma}
+
+\newcommand\intc[2][(\theta)]{\int_{\mathbb{S}^2}#2\,\text{d}\sigma#1}
+\newcommand\intcn[1]{\int_{\mathbb{S}^2}#1\,\text{d}\sigma}
+
+\DeclareMathOperator\curl{curl}
+\DeclareMathOperator\divv{div}
+%\DeclareMathOperator\curl{\nabla\times}
+%\DeclareMathOperator\divv{\nabla\cdot}
+\DeclareMathOperator\Curlv{{\bf curl}_\bdr}
+\DeclareMathOperator\lapv{\Delta_\bdr}
+\DeclareMathOperator\Lapv{{\bf \Delta}_\bdr}
+\DeclareMathOperator\Grad{\nabla_\bdr}
+\DeclareMathOperator\im{\Im}
+\DeclareMathOperator\re{\Re}
+\DeclareMathOperator\comp{\sf{K}}
+\DeclareMathOperator\img{\EuScript{R}}
+\DeclareMathOperator\pv{pv}
+\DeclareMathOperator\dom{dom}
+\DeclareMathOperator\nul{\EuScript{N}}
+\DeclareMathOperator\rank{rk}
+\DeclareMathOperator\col{col}
+\DeclareMathOperator\range{range}
+\DeclareMathOperator\dist{dist}
+  
+% Trick for defining 'phantom' 
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\begin{document}
+\author{Chang-ye Tu}
+\title{Inverse Electromagnetic Obstacle Scattering Problem for Perfect Conductors: A Personal Survey}
+\date{\today}
+\maketitle
+
+To the best of my knowledge, one of the earliest documented attempt of the factorization method to perfect conductors appears in \citet[Theorem 8.4, pp. 201]{kress02}; see also \citet[pp. 260]{colton13}. Modulo a constant, the far-field operator $F$ can be factorized into the form  
+\begin{align}\label{eq:factorization}
+  F = G N^* G^*.
+\end{align}
+Here $G$ maps the electrical tangential components of radiating solution to the Maxwell equations onto the electric far-field patterns, and $N$ is the electric dipole operator defined by
+\begin{align}
+  (N f)(x) = \nu(x)\times\curl\curl_x\ints{\big(\nu(y)\times f(y)\big)\Phi_k(x,y)},\quad x\in\bdr
+\end{align}
+and $G^*$, $N^*$ denote the adjoint of $G$, $N$ respectively.
+
+The formula \ref{eq:factorization} resembles the corresponding factorization in impenetrable acoustic inverse scattering problem, but with a big caveat: the electric dipole operator $N$, usually operates on $\lTC$ with value in $\lTD$, is no longer coercive. To be exact, no constant $c > 0$ exists such that
+\begin{align*}
+    \left|\left\langle N\varphi,\,\varphi\right\rangle\right|\geqslant c\left\|\varphi\right\|_{\lTC}^2,\quad\forall\varphi\in\dom N
+\end{align*}
+holds. This fact is sketched in a few papers, e.g. \citet{hiptmairschwab}, \citet{hiptmair03}. The underlying function spaces $\lTC, \lTD$ which defined on a piecewise smooth domain are studied in \citet{buffaciarlet1}, \cite{buffaciarlet2}; on general Lipshitz domain \citet{buffasheen} remains the definitive treatment. In \citet{hiptmair03}, a heuristic energy argument is given regarding the noncoercive nature of $N$; in acoustics the potential energy is a compact perturbation of the kinetic energy, but in electromagnetism the electric and the magnetic energy are perfectly symmetric, neither one is a compact perturbation of the other. Furthermore, given the tangential nature of the electromagnetic far-field patterns, there is no hope of circumventing the appearances of $N$ in other impenetrable cases (e.g. the impedance boundary condition); by direct computation this is verified. Finally, factorization with respect to $F^\#$ provides no help in this regard.     
+
+After these considerations and trials, I turned my attention to the improvement of the linear sampling method, mainly from the range inclusion identities viewpoint; this was inspired by \citet{hanke08}. For this purpose, the following papers (in chronological order) are of interest: \citet{douglas}, \citet{fillmore}, \citet{anderson75}, \citet{barnes}. For if the factorization $F=GN^*G^*$ holds, then a priori $\range(F)\subseteq\range(G)$. If $N$ is coercive, then $\range((F^*F)^\frac{1}{4})=\range(G)$; this is established by you and used in \citet{arens04}, \citet{arens09}. Apparently, alternative path has yet to be found.
+
+Interest for persuing the aforementioned papers comes from the following fact (see \citet[Theorem 4.2]{fillmore}, \citet[Theorem 11]{anderson75}):
+\begin{thm}
+  For positive operators $A, B$ on a Hilbert space $H$, define the parallel sum $A:B=(A^{-1} + B^{-1})^{-1}$. Then the following holds:
+  \begin{enumerate}
+    \item $\range(A:B) \supset \range(A)\cap\range(B)$.
+    \item $\range((A:B)^\frac{1}{2}) = \range(A^\frac{1}{2}) \cap \range(B^\frac{1}{2})$.
+  \end{enumerate}
+\end{thm}
+
+Note that $A:B$ = $A(A+B)^{-1}B$; if we take $A=I, B=F^*F$, then $A:B = (I + F^*F)^{-1}F^*F$, which resembles the Tikhonov regularization. By item 2 of the above theorem, $\range(((I + F^*F)^{-1}F^*F)^\frac{1}{2}) = \range((F^*F)^\frac{1}{2})$. In the perfect conductor case $F$ is normal, so $\range((F^*F)^\frac{1}{2}) = \range((FF^*)^\frac{1}{2})$, which equals $\range(F)$ by \citet[Theorem 1]{douglas}.
+
+\section{Notations, Definitions and Prerequisites} 
+
+\begin{dfn}[Boundary]
+  Let $\Omega$ be an open subset in $\mathbb{R}^n$. The boundary $\bdr=\partial\Omega$ is $C^{k,1}$ (resp. Lipchitz) if for $x\in\bdr$ there exists a neighborhood $V$ of $x$ and new orthogonal coordinates $\{y_1, y_2, \ldots, y_n\}$ such that 
+  \begin{enumerate}
+    \item $V$ is an hypercube in the new coordinates:
+      \begin{align*}
+        V = \{(y_1, y_2, \ldots,y_n)|\,-a_j<y_j<a_j, 1\leqslant j\leqslant n\}
+      \end{align*}
+    \item There exists a $C^{k, 1}$ (resp. Lipschitz) function $\varphi$, defined in
+      \begin{align*}
+        V' = \{(y_1, y_2, \ldots,y_{n-1})|\,-a_j<y_j<a_j, 1\leqslant j\leqslant n-1\}
+      \end{align*}
+      such that
+      \begin{align*}
+        |\varphi(y')| &\leqslant \frac{a_n}{2}\quad\forall y'=(y_1, y_2,\ldots, y_{n-1})\in V' \\
+        \Omega\cap V &= \{y=(y', y_n)\in V|\,y_n<\varphi(y')\} \\
+        \bdr\cap V &= \{y=(y', y_n)\in V|\,y_n=\varphi(y')\} \\
+      \end{align*}
+  \end{enumerate}
+\end{dfn}
+
+\begin{prp}[Vector Green Formula]
+  \begin{multline*}
+    \intvn{\left(E\cdot\Delta H - H\cdot\Delta E\right)}\\=\intsn{\left(E\times\curl H + E\divv H - H\times\curl E - H\divv E\right)\cdot\nu}
+  \end{multline*}
+  If $\divv E=\divv H=0$, then
+  \begin{equation}\label{eq:green}
+  \begin{split}
+    \intvn{E\cdot\curl\curl H - H\cdot\curl\curl E} &=\intsn{\left(E\times\curl H - H\times\curl E\right)\cdot\nu}\\
+    &=\intsn{(\nu\times E)\cdot\curl H - (\nu\times H)\cdot\curl E}
+  \end{split}
+\end{equation}
+\end{prp}
+
+\begin{prp}[Fundamental Theorem of Vector Analysis]
+  \begin{align*}
+    E(x)= &-\curl\ints{\nu(y)\times E(y)\,\Phi_k(x,y)}+\nabla\ints{\nu(y)\cdot E(y)\,\Phi_k(x,y)} \\
+    &-ik\ints{\nu(y)\times H(y)\,\Phi_k(x,y)}+\curl\intv{\bigl\{\curl E(y)-ikH(y)\bigr\}\,\Phi_k(x,y)} \\
+          &-\nabla\intv{\divv E(y)\,\Phi_k(x,y)}+ik\intv{\bigl\{\curl H(y)+ikE(y)\bigr\}\,\Phi_k(x,y)}.
+  \end{align*}
+\end{prp}
+
+\begin{prp}[Stratton-Chu Representation Formula]\label{prp:chu}
+  If $E, H\in C^1(\Omega_+)\cap C(\Omega_+\cup\bdr)$ satisfy Maxwell equations in $\Omega_+$ and the Silver-M\"uller radiation condition, then for $x\in\Omega_+$
+  \begin{align*}
+    E(x) = \curl\ints{\nu(x)\times E(y)\,\Phi_k(x,y)}+\frac{i}{k}\curl\curl\ints{\nu(y)\times H(y)\,\Phi_k(x,y)}
+  \end{align*}
+  \begin{align*}
+    H(x) = \curl\ints{\nu(x)\times H(y)\,\Phi_k(x,y)}-\frac{i}{k}\curl\curl\ints{\nu(y)\times E(y)\,\Phi_k(x,y)}.
+  \end{align*}
+For $x\in\Omega_-$: 
+\begin{align*}
+  E(x) = -\curl\ints{\nu(y)\times E(y)\,\Phi_k(x,y)}-\frac{i}{k}\curl\curl\ints{\nu(y)\times H(y)\,\Phi_k(x,y)}
+\end{align*}
+\begin{align*}
+  H(x) = -\curl\ints{\nu(y)\times H(y)\,\Phi_k(x,y)}+\frac{i}{k}\curl\curl\ints{\nu(y)\times E(y)\,\Phi_k(x,y)}
+\end{align*}
+\end{prp}
+
+\begin{prp}[Far Field Patterns]\label{prp:far}
+  \begin{align*}
+    E^\infty(\hat{x}) &= ik\,\hat{x}\times\ints{\bigl\{\nu(y)\times E(y)+(\nu(y)\times H(y))\times\hat{x}\bigr\}e^{-ik\hat{x}\cdot y}} \\
+    H^\infty(\hat{x}) &= ik\,\hat{x}\times\ints{\bigl\{\nu(y)\times H(y)-(\nu(y)\times E(y))\times\hat{x}\bigr\}e^{-ik\hat{x}\cdot y}} 
+  \end{align*}
+\end{prp}
+
+\begin{prp}[Rellich Lemma]
+  If $E, H\in C^1(\Omega_+)$ is a radiating solution of Maxwell equations such that the electric far field pattern vanishes identically, then $E=H=0$ in $\Omega_+$.
+\end{prp}
+
+\begin{dfn}
+  \begin{enumerate}
+    \item $\bdr$: The regular (Lipschitzian) boundary of the open bounded set $\Omega_\text{i}$ in $\mathbb{R}^3$. 
+    %\item Let $\pi_\bdr v$ be the projection on the tangent plane to $\bdr$ of the restriction $v|_\bdr$ of any element $v\in\mathcal{D}(\overline{\Omega})$:
+    %  \begin{align*}
+    %    \pi_\bdr v=-\nu\times(\nu\times v|_\bdr),\quad\forall v\in\mathcal{D}(\overline{\Omega})
+    %  \end{align*}
+    \item The tangential differentiation $\nabla_{\text{t}}$ is defined by 
+      \begin{align*}
+        \nabla_{\text{t}} :=\nu\times(\nu\times\nabla).
+      \end{align*}
+    \item Given a tangential vector field $a$, the surface divergence $\Div a$ is defined as
+      \begin{align*}
+        \intsn{\phi\,\Div a}=-\intsn{\nabla_{\text{t}}\phi\cdot a},\quad\forall\phi\in C^\infty(\mathbb{R}^3)
+      \end{align*} 
+    \item $\lTD = \{v\,|\,v\in {\bf L}_2(\bdr),\, \nu\cdot v=0, \,\Div v\in L_2(\bdr)\}$.
+    \item $\lTC = \{v\,|\,v\in {\bf L}_2(\bdr),\, \nu\cdot v=0, \,\Curlv v\in L_2(\bdr)\}$.
+  \end{enumerate}
+\end{dfn}
+
+%[cf. \citet{cessenat} section 2.4, corollary 2]
+\begin{prp}\label{thm:nuiso}
+  $v\to\nu\times v$ is an isomorphism from $\lTD$ to $\lTC$ with inverse $w\to -\nu\times w$, and we have 
+  \begin{align*}
+    \Curl v &= -\Div (\nu\times v) \\
+    \Div w  &= \Curl (\nu\times w)
+  \end{align*}
+  for $v\in\lTC, w\in\lTD$.
+\end{prp}
+
+\begin{dfn}[The Maxwell Problem]
+  The Maxwell problem is to find a pair of solution $(E, H)$ to the Maxwell equations
+  \begin{align*}
+    \curl E - ikH &= 0\\
+    \curl H + ikE &= 0
+  \end{align*}
+  in $\Omega_+$, with the boundary condition 
+  \begin{align}\label{eq:bcmax}
+    \nu\times E|_+ = f
+  \end{align}  
+  on $\bdr$ where $f\in\lTD$, and $(E, H)$ satisfies the Silver-M\"uller radiation condition
+  \begin{align}\label{eq:rdmax}
+    H\times\frac{x}{|x|} - E = \mathcal{O}\left(|x|^{-2}\right)\quad |x|\to\infty.
+  \end{align}
+  The data to far field pattern operator $G:\lTD\rightarrow\lTS$ is defined as 
+  \begin{align}\label{eq:Gmax}
+    G f = E^\infty
+  \end{align} 
+  where $E^\infty$ denotes the far field pattern of the solution $E$ of the Maxwell problem.
+\end{dfn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{dfn}[The Tangential Maxwell Problem]
+  The tangential Maxwell problem is to find a pair of solution $(E_\perp, H_\perp)$ to the Maxwell equations
+  \begin{align*}
+    \curl E_\perp - ikH_\perp &= 0\\
+    \curl H_\perp + ikE_\perp &= 0
+  \end{align*}
+  in $\Omega_+$, with the boundary condition 
+  \begin{align}\label{eq:bcmaxt}
+    \left(\nu\times E_\perp\right)\times\nu|_+ = g
+  \end{align}  
+  on $\bdr$ where $g\in\lTC$, and $(E_\perp, H_\perp)$ satisfies the Silver-M\"uller radiation condition
+  \begin{align}\label{eq:rdmaxt}
+    H_\perp\times\frac{x}{|x|} - E_\perp = \mathcal{O}\left(|x|^{-2}\right)\quad |x|\to\infty.
+  \end{align}
+  The tangential Maxwell data-to-pattern operator $G_\perp:\lTC\rightarrow\lTS$ is defined as 
+  \begin{align}\label{eq:Gmaxt}
+    G_\perp g = E_\perp^\infty
+  \end{align} 
+  where $E_\perp^\infty$ denotes the far field pattern of the solution $E_\perp$ of the tangential Maxwell problem.
+\end{dfn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Reciprocity Relations}
+
+Assume $x, z\in\Omega_+$, $\hat{x}, d\in\mathbb{S}^2$, $p, q\in\mathbb{R}^3$.  
+
+Given the incident electromagentic wave 
+\begin{align*}
+  E^\text{i}(x, d, p) &= \frac{i}{k}\curl_x\curl_x p e^{ikx\cdot d} = ik(d\times p)\times d e^{ikx\cdot d}, \\
+  H^\text{i}(x, d, p) &= \curl_x p e^{ikx\cdot d} = ik(d\times p)e^{ikx\cdot d}, 
+\end{align*} 
+the scattered field is denoted by 
+$$E^\text{s}(x, d, p),\quad H^\text{s}(x, d, p)$$
+with corresponding far field pattern
+$$E^\infty(\hat{x}, d, p), \quad H^\infty(\hat{x}, d, p).$$
+
+Given the incident dipole 
+\begin{align*}
+  E_\text{p}^\text{i}(x, z, p) &= \frac{i}{k}\curl_x\curl_x p\,\Phi_k(x, z), \\
+  H_\text{p}^\text{i}(x, z, p) &= \curl_x p\,\Phi_k(x, z),
+\end{align*}
+the scattered field is denoted by 
+$$E_\text{p}^\text{s}(x, z, p),\quad H_\text{p}^\text{s}(x, z, p)$$ 
+with the corresponding far field pattern
+$$E_\text{p}^\infty(\hat{x}, z, p),\quad H_\text{p}^\infty(\hat{x}, z, p).$$
+
+The total field is denoted by 
+\begin{align*}
+  E(x, d, p) &= E^\text{i}(x, d, p) + E^\text{s}(x, d, p)\\
+  H(x, d, p) &= H^\text{i}(x, d, p) + H^\text{s}(x, d, p) \\
+  E_\text{p}(x, z, p) &= E_\text{p}^\text{i}(x, z, p) + E_\text{p}^\text{s}(x, z, p)\\
+  H_\text{p}(x, z, p) &= H_\text{p}^\text{i}(x, z, p) + H_\text{p}^\text{s}(x, z, p)
+\end{align*}
+
+\begin{thm}[Mixed Reciprocity Relation]
+  \begin{align*}
+    p\cdot E^\text{s}(z, -\hat{x}, q) = 4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p)
+  \end{align*}
+\end{thm}
+
+\begin{proof}
+  \begin{multline}\label{eq:mr1}
+    4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p) = \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H^\text{i}(y, -\hat{x}, q) \\+ \nu(y)\times H_\text{p}^\text{s}(y, z, p)\cdot E^\text{i}(y, -\hat{x}, q)} 
+  \end{multline}
+  From Green formula 
+  \begin{align}\label{eq:mr2}
+    \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H^\text{s}(y, -\hat{x}, q) + \nu(y)\times H_\text{p}^\text{s}(y, z, p)\cdot E^\text{s}(y, -\hat{x}, q)} = 0 
+  \end{align}
+  Add \eqref{eq:mr1}, \eqref{eq:mr2} and apply the boundary condition $$\nu(y)\times E(y, -\hat{x}, q)=0\quad y\in\bdr$$ we have
+  \begin{align}\label{eq:mr3}
+    4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p)= \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H(y, -\hat{x}, q)} 
+  \end{align}
+  From Stratton-Chu representation,  
+  \begin{multline}\label{eq:mr4}
+    E^\text{s}(z, -\hat{x}, q) = \curl\ints{\nu(y)\times E^\text{s}(y, -\hat{x}, q)\,\Phi_k(z, y)}\\+\frac{i}{k}\curl\curl\ints{\nu(y)\times H^\text{s}(y, -\hat{x}, q)\,\Phi_k(z, y)}
+  \end{multline}
+  From Green formula 
+  \begin{multline}\label{eq:mr5}
+    0 = \curl\ints{\nu(y)\times E^\text{i}(y, -\hat{x}, q)\,\Phi_k(z, y)}\\+\frac{i}{k}\curl\curl\ints{\nu(y)\times H^\text{i}(y, -\hat{x}, q)\,\Phi_k(z, y)}
+  \end{multline}
+  Add \eqref{eq:mr4}, \eqref{eq:mr5} and apply the boundary condition $$\nu(y)\times E(y, -\hat{x}, q)=0\quad y\in\bdr$$ we have
+  \begin{align}\label{eq:mr6}
+    E^\text{s}(z, -\hat{x}, q) = \frac{i}{k}\curl\curl\ints{\nu(y)\times H(y, -\hat{x}, q)\,\Phi_k(z, y)}
+  \end{align}
+  From \eqref{eq:mr6}, the identity $$p\cdot\curl\curl_z\{a(y)\,\Phi_k(z, y)\}=a(y)\cdot\curl\curl_z\{p\,\Phi_k(z, y)\},$$ and the boundary condition $$\nu(y)\times E_\text{p}^\text{i}(y, z, p) = -\nu(y)\times E_\text{p}^\text{s}(y, z, p)\quad y\in\bdr$$ we have 
+  \begin{align*}
+    p\cdot E^\text{s}(z, -\hat{x}, q) &= \frac{i}{k}\,p\cdot\curl\curl\ints{\nu(y)\times H(y, -\hat{x}, q)\,\Phi_k(z, y)} \\
+    &=\frac{i}{k}\ints{\nu(y)\times H(y, -\hat{x}, q)\cdot\curl\curl\{p\,\Phi_k(z, y)\}} \\
+    &=\ints{\nu(y)\times H(y, -\hat{x}, q)\cdot E_\text{p}^\text{i}(y, z, p)} \\
+    &=-\ints{\nu(y)\times E_\text{p}^\text{i}(y, z, p)\cdot H(y, -\hat{x}, q)} \\
+    &=\ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H(y, -\hat{x}, q)},
+   \end{align*}
+   which equals \eqref{eq:mr3}.
+\end{proof}
+
+\begin{thm}[Reciprocity Relation]
+  \begin{align*}
+    q\cdot E^\infty(\hat{x}, d, p) = p\cdot E^\infty(-d, -\hat{x}, q)
+  \end{align*}
+\end{thm}
+
+\begin{proof}
+  Apply Green formula to $E^\text{i}$ in $\Omega_-$, $E^\text{s}$ in $\Omega_+$, we have
+  \begin{align}
+    \ints{\bigl\{\nu(y)\times E^\text{i}(y, d, p)\cdot H^\text{i}(y, -\hat{x}, q) - \nu(y)\times E^\text{i}(y, -\hat{x}, q)\cdot H^\text{i}(y, d, p)\bigr\}} = 0 \label{eq:r1} \\ 
+    \ints{\bigl\{\nu(y)\times E^\text{s}(y, d, p)\cdot H^\text{s}(y, -\hat{x}, q) - \nu(y)\times E^\text{s}(y, -\hat{x}, q)\cdot H^\text{s}(y, d, p)\bigr\}} = 0 \label{eq:r2}
+  \end{align}
+  \begin{multline}\label{eq:r3}
+    4\pi q\cdot E^\infty(\hat{x}, d, p)=\ints{\bigl\{\nu(y)\times E^\text{s}(y, d, p)\cdot H^\text{i}(y, -\hat{x}, q)\\+\nu(y)\times H^\text{s}(y, d, p)\cdot E^\text{i}(y, -\hat{x}, q)\bigr\}} 
+  \end{multline}
+  Interchange $p, q$ and $d, \hat{x}$ respectively in \eqref{eq:r3}, we have 
+  \begin{multline}\label{eq:r4}
+    4\pi q\cdot E^\infty(\hat{x}, d, p)=\ints{\bigl\{\nu(y)\times E^\text{s}(y, -\hat{x}, q)\cdot H^\text{i}(y, d, p)\\+\nu(y)\times H^\text{s}(y, -\hat{x}, q)\cdot E^\text{i}(y, d, p)\bigr\}} 
+  \end{multline}
+  Subtract \eqref{eq:r3} with \eqref{eq:r4} and add \eqref{eq:r1}, \eqref{eq:r2}, together with the boundary condition 
+  \begin{align*}
+    \nu(y)\times E(y, d, p)=\nu(y)\times E(y, -\hat{x}, p)=0,\quad y\in\bdr
+  \end{align*}
+  the result follows. 
+\end{proof}
+
+\section{The Uniqueness Theorem}
+\begin{thm}
+  If $D_1$ and $D_2$ are two perfect conductors such that the electric far field patterns coincide for a fixed wave number, all incident directions and all observation directions, then $D_1=D_2$.
+\end{thm}
+
+\begin{proof}
+  Let $U$ be the unbounded component of $\mathbb{R}^3\setminus(D_1\cup D_2)$. By Rellich lemma, 
+  $$E_1^\text{s}(x, d, p)=E_2^\text{s}(x, d, p)\quad\forall x\in U, d, p\in\mathbb{S}^2.$$ 
+  By mixed reciprocity relation,
+  $$E_1^\infty(\hat{x}, z, p)=E_2^\infty(\hat{x}, z, p)\quad\forall z\in U, \hat{x}, p\in\mathbb{S}^2.$$ 
+  Again by Rellich lemma,
+  $$E_{\text{p},1}^\text{s}(x, z, p)=E_{\text{p},2}^\text{s}(x, z, p)\quad\forall x, z\in U, p\in\mathbb{S}^2.$$
+
+  Assume $D_1\not=D_2$, then $\exists\,\widetilde{x}\in U$ such that $\widetilde{x}\in\partial D_1, \widetilde{x}\not\in\overline{D_2}$. Construct $\{z_n\}$ such that $z_n=\widetilde{x}+\frac{1}{n}\nu(\widetilde{x})\in U$ for sufficiently large $n$. From the well-posedness of the solution on $D_2$, $E_{\text{p},2}^\text{s}(\widetilde{x}, \widetilde{x}, p)$ is well-behaved. But $$E_{\text{p},1}^\text{s}(\widetilde{x}, z_n, q)\to\infty\text{ as } z_n\to\widetilde{x}\text{ and given } p\,\bot\,\nu(\widetilde{x})$$ in order to fulfill the boundary condition with the incident dipole $E_{\text{p},1}^\text{i}(\widetilde{x}, z_n, p)$, which becomes unbounded as $z_n\to\widetilde{x}$.
+\end{proof}
+
+\section{The Factorization Method}
+
+\begin{dfn}[The Far Field Operator]
+  The far field operator $F:\lTS\rightarrow\lTS$ is  
+  \begin{align}
+    \left(Fg\right)\left(\hat{x}\right)=\intc{E^\infty(\hat{x}, \theta, g(\theta))},\quad\hat{x}\in\mathbb{S}^2.
+  \end{align}
+\end{dfn}
+
+\begin{prp}
+  The far field operator $F$ is compact, injective with dense range.
+\end{prp}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{prp}
+  The far field operator $F$ is normal, i.e. $F^*F=FF^*$.
+\end{prp}
+
+\begin{proof}
+  Let $g, h\in\lTS$ and define the Herglotz wave functions $v^\text{i}, w^\text{i}$ with density $g, h$ respectively:
+  \begin{align*}
+    v^\text{i}(x)&=\intc{g(\theta)\,e^{i k x\cdot\theta}},\quad x\in\mathbb{R}^3\\
+    w^\text{i}(x)&=\intc{h(\theta)\,e^{i k x\cdot\theta}}.\quad x\in\mathbb{R}^3 
+  \end{align*}
+  Let $v, w$ be solutions of the scattering problem corresponding to incident fields $v^\text{i}, w^\text{i}$ with scattered fields $v^\text{s}=v-v^\text{i}, w^\text{s}=w-w^\text{i}$ and far field patterns $v^\infty, w^\infty$ respectively. Apply Green theorem in $\Omega_R=\{x\in\mathbb{R}^3\setminus\overline{\Omega}: |x|<R\}$ with sufficiently big $R$, together with the boundary condition we have
+  \begin{align}
+    0 &= \int_{\Omega_R}\left\{v\,\Delta\overline{w}-\overline{w}\,\Delta v\right\}\,\text{d}V \\
+    &= \intbn{\left\{\overline{w}\times\curl{v} - v\times\curl{\overline{w}}\right\}\cdot\nu}.\label{int}
+  \end{align} 
+  Decomposing $v=v^\text{i}+v^\text{s}$ and $w=w^\text{i}+w^\text{s}$, we split \eqref{int} into the sum of the following four parts:
+  \begin{align}
+    &\intbn{\left\{\overline{w^\text{i}}\times\curl{v^\text{i}} - v^\text{i}\times\curl{\overline{w^\text{i}}}\right\}\cdot\nu},\label{int0} \\
+    &\intbn{\left\{\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right\}\cdot\nu},\label{int1} \\
+    &\intbn{\left\{\overline{w^\text{i}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{i}}}\right\}\cdot\nu},\label{int2} \\
+    &\intbn{\left\{\overline{w^\text{s}}\times\curl{v^\text{i}} - v^\text{i}\times\curl{\overline{w^\text{s}}}\right\}\cdot\nu}.\label{int3}
+  \end{align}
+  The integral \eqref{int0} vanishes by applying Green theorem in $B_R=\{x:|x|<R\}$. To evaluate the integral \eqref{int1}, we note by the radiation condition
+  \begin{align}
+    \overline{w^\text{s}}\times\hat{x} - \frac{1}{ik} \curl{\overline{w^\text{s}}} &= \mathcal{O}\left(r^{-2}\right) \\
+    v^\text{s}\times\hat{x} + \frac{1}{ik} \curl{v^\text{s}} &= \mathcal{O}\left(r^{-2}\right) 
+  \end{align}
+  and relations between scattered fields and far field patterns
+  \begin{align*}
+    \overline{w^\text{s}} &= \frac{e^{-ikr}}{4\pi r}\left\{\overline{w^\infty} + \mathcal{O}\left(r^{-1}\right)\right\} \\
+    v^\text{s} &= \frac{e^{ikr}}{4\pi r}\left\{v^\infty + \mathcal{O}\left(r^{-1}\right)\right\} 
+  \end{align*}
+  one obtains
+  \begin{align*}
+    &\left\{\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right\}\cdot\hat{x}\\
+    &=ik\left\{\overline{w^\text{s}}\times\left(\hat{x}\times v^\text{s}\right)+v^\text{s}\times\left(\hat{x}\times\overline{w^\text{s}}\right)\right\}\cdot\hat{x} \\
+    &=2ik\left\{\overline{w^\text{s}}\cdot v^\text{s}-\left(\overline{w^\text{s}}\cdot\hat{x}\right)\left(v^\text{s}\cdot\hat{x}\right)\right\}\\
+    &=2ik\,\overline{w^\text{s}}\cdot v^\text{s}\\
+    &=\frac{ik}{8\pi^2 r^2}\,\overline{w^\infty}\cdot v^\infty + \mathcal{O}\left(r^{-3}\right)
+  \end{align*}
+  Hence
+  \begin{align*}
+    &\intbn{\left\{\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right\}\cdot\nu}\\ 
+    &\longrightarrow \frac{ik}{8\pi^2}\intcn{\overline{w^\infty}\cdot v^\infty}=\frac{ik}{8\pi^2}\left(Fg, Fh\right)_{L^2(\mathbb{S}^2)}
+  \end{align*}
+
+  To evaluate the integral \eqref{int2}, one note that it can be rearranged as
+  \begin{align}
+    &\intbn{\left\{\overline{w^\text{i}}\times\curl{v^\text{s}}-v^\text{s}\times\curl{\overline{w^\text{i}}}\right\}\cdot\nu} \\
+    =&-\intbn{\left\{\left(\hat{x}\times\curl{v^\text{s}}\right)\cdot\overline{w^\text{i}}+\left(\hat{x}\times v^\text{s}\right)\cdot\curl{\overline{w^\text{i}}}\right\}} \label{int2a}
+  \end{align}
+
+  Substitute  
+  \begin{align*}
+    \overline{w^\text{i}}(x) &= \intc{h(\theta)\,e^{-i k x\cdot\theta}}, \\
+    \curl{\overline{w^\text{i}}(x)} &= ik\intc{\left(h(\theta)\times\theta\right)e^{-i k x\cdot\theta}}
+  \end{align*}
+  
+  into \eqref{int2a}, it becomes 
+  \begin{multline}\label{int2b}
+    -\intb{\left(\hat{x}\times\curl{v^\text{s}}\right)\cdot\left\{\intc{h(\theta)\,e^{-i k x\cdot\theta}}\right\}} \\
+    -\intb{\left(\hat{x}\times v^\text{s}\right)\cdot\left\{ik\,\intc{\left(h(\theta)\times\theta\right)\,e^{-i k x\cdot\theta}}\right\}}.
+  \end{multline}
+
+  From $h(\theta)\cdot\theta=0$ and $\theta\cdot\theta=1$, by formulae
+  \begin{align*}
+    a\times\left(b\times c\right) &= b\,\left(a\cdot c\right) - c\,\left(a\cdot b\right) \\
+    a\cdot\left(b\times c\right) &= -b\cdot\left(a\times c\right) 
+  \end{align*}
+  we have  
+  \begin{align*}
+    h(\theta)\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)=&\,h(\theta)\cdot\left\{\left(\hat{x}\times\curl{v^\text{s}}\right)-\theta\left(\theta\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)\right)\right\} \\
+    =&\,h(\theta)\cdot\left\{\theta\times\left(\left(\hat{x}\times\curl{v^\text{s}}\right)\times\theta\right)\right\} 
+  \end{align*}
+  and 
+  \begin{align*}
+    \left(\hat{x}\times v^\text{s}\right)\cdot\left(h(\theta)\times\theta\right) = h(\theta)\cdot\left(\theta\times\left(\hat{x}\times v^\text{s}\right)\right)
+  \end{align*}
+  Substitute into \eqref{int2b}, the integral \eqref{int2} is  
+  \begin{align*}
+    &-\intc{\intb{\bigl\{h(\theta)\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)+ik\,\left(\hat{x}\times v^\text{s}\right)\cdot\left(h(\theta)\times\theta\right)\bigr\}\,e^{-i k x\cdot\theta}}} \\
+    =&-\intc{h(\theta)\cdot\left\{\intb{\bigl\{\theta\times\left(\left(\hat{x}\times\curl{v^\text{s}}\right)\times\theta\right) + ik\,\theta\times\left(\hat{x}\times v^\text{s}\right)\bigr\}\,e^{-i k x\cdot\theta}}\right\}} \\
+    &\longrightarrow-\left(Fg, h\right)_{L^2(\mathbb{S}^2)}.
+  \end{align*}
+  By the same token, the integral \eqref{int3} is $\left(g, Fh\right)_{L^2(\mathbb{S}^2)}$. Hence
+  \begin{align*}
+    0 = \left(g, Fh\right)_{L^2(\mathbb{S}^2)} -\left(Fg, h\right)_{L^2(\mathbb{S}^2)} + \frac{ik}{8\pi^2}\left(Fg, Fh\right)_{L^2(\mathbb{S}^2)},
+  \end{align*}
+  the identity
+  \begin{align*}
+    F - F^* = \frac{ik}{8\pi^2} F^*F
+  \end{align*}
+  follows.
+  
+  Now set $S=I + \frac{ik}{8\pi^2}F$, we have
+  \begin{align*}
+    S^*S&=\left(I - \frac{ik}{8\pi^2}F^*\right)\left(I + \frac{ik}{8\pi^2}F\right)\\
+        &= I + \frac{ik}{8\pi^2}F - \frac{ik}{8\pi^2}F^* + \frac{k^2}{64\pi^2}F^*F\\
+        &= I. 
+  \end{align*}
+  If $Sg=0$, then $g=S^*Sg=0$, hence $S$ is injective. Note that $S$ is a compact perturbation of the identity, from Fredholm theory $S$ is an isomorphism. Therefore $S^*=S^{-1}$ and $SS^*=I$. Comparing $S^*S$ and $SS^*$ we can see that $F^*F=FF^*$, i.e. $F$ is normal.
+\end{proof}
+
+\begin{prp}
+  The data to far field pattern operator $G$ is compact, injective with dense range.
+\end{prp}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{prp}
+  For $z\in\mathbb{R}^3$ and a fixed $d\in\mathbb{S}^2$, define
+  \begin{align*}
+    \varphi_z(\hat{x}) = ik\,(\hat{x}\times d)\,e^{ik\hat{x}\cdot z},\quad\hat{x}\in\mathbb{S}^2,
+  \end{align*}
+  then $\varphi_z$ belongs to the range of $G$ if and only if $z\in\Omega$.
+\end{prp}
+
+\begin{proof}
+  Assume first $z\in\Omega$. define
+  \begin{align*}
+    v(x)=\curl_x\left\{\Phi_k(x, z)\,d\right\},\quad\forall x\in\mathbb{R}^3\setminus\Omega 
+  \end{align*}
+  and $f=v|_\bdr$. The far field pattern of $v$, denoted by $v^\infty$, is 
+  \begin{align*}
+    v^\infty(\hat{x}) = ik\,(\hat{x}\times d)\,e^{ik\hat{x}\cdot z},\quad\hat{x}\in\mathbb{S}^2,
+  \end{align*}
+  which is identical to $\varphi_z$. From $Gf=v^\infty=\varphi_z$, $\varphi_z$ belongs to the range of $G$.  
+  
+  Now assume $z\not\in\Omega$ and there exists $f$ with $Gf=\varphi_z$. Let $v$ be the radiating solution of the Maxwell problem with boundary data $f$ and $v^\infty=Gf$ be the far field pattern of $v$. Note that the far field pattern of $\curl\left\{\Phi_k(\cdot, z)\,d\right\}$ is $\varphi_z$, from Rellich lemma $v(x)=\curl\left\{\Phi_k(x, z)\,d\right\}$ for all $x$ outside of any sphere which contains both $z$ and $\Omega$. By analytic continuation, $v$ and $\curl\left\{\Phi_k(\cdot, z)\,d\right\}$ coincide on $\mathbb{R}^3\setminus\bigl(\overline{\Omega}\cup\{z\}\bigr)$. But if $z\not\in\overline{\Omega}$, then $\curl\left\{\Phi_k(x, z)\,d\right\}$ is singular on $x=z$, while $v$ is analytic on $\mathbb{R}^3\setminus\overline{\Omega}$, a contradiction. Otherwise if $z\in\bdr$, then $x\mapsto\curl\left\{\Phi_k(x, z)\,d\right\}$ for $x\in\bdr, x\neq z$, is in ${\bf H}^{\frac{1}{2}}(\bdr)$. But $\curl\left\{\Phi(x, z)\,d\right\}$ does not belong to ${\bf H}_\text{loc}(\curl, \mathbb{R}^3\setminus\Omega)$ or ${\bf H}(\curl, \Omega)$, for $\curl\Phi_k(x, z)=\mathcal{O}\left(|x-z|^{-2}\right)$ if $x\to z$.
+\end{proof}
+
+\begin{dfn}
+  The single layer operator $S_k:H^{-\frac{1}{2}}(\bdr)\to H^{\frac{1}{2}}(\bdr)$ with density $f$ is
+  \begin{align}
+    (S_k f)(x) = \ints{f(y)\,\Phi_k(x,y)},\quad x\in\bdr.
+  \end{align}
+  The vector single layer operator $S_k:\Hhmg\to\Hhpg$ is formed with vector density $g$: 
+  \begin{align}
+    (S_k g)(x) = \ints{g(y)\,\Phi_k(x,y)},\quad x\in\bdr.
+  \end{align}
+  The electric dipole operator $N_k:\lTC\rightarrow\lTD$ is
+  \begin{align}
+    (N_k f)(x) = \nu(x)\times\curl\curl_x\ints{\big(\nu(y)\times f(y)\big)\Phi_k(x,y)},\quad x\in\bdr.
+  \end{align}
+\end{dfn}
+By $\curl\curl\cdot=\nabla\divv\cdot + \Delta\cdot$, 
+\begin{align}\label{eq:N}
+  N_k f &= \nu\times\curl\curl S_k(\nu\times f)\nonumber \\ 
+  &= k^2\nu\times S_k(\nu\times f) + \nu\times\nabla S_k(\Div(\nu\times f))
+\end{align}
+
+We note the following formula: for scalar $f$, vector $g$
+\begin{align*}
+  \intsnn{\langle\nu\times\nabla f, g\rangle} = -\intsnn{f\langle\nu, \curl g\rangle}
+\end{align*}
+This can be verified with
+\begin{align*}
+  \intvnn{\curl u} &= \intsnn{\nu\times u}
+\end{align*}
+and the proof runs as follows:
+\begin{align*}
+  \intsnn{\langle\nu\times\nabla f, g\rangle} 
+  &= -\intsnn{\langle g\times\nabla f, \nu\rangle} =-\intvnn{\divv(g\times\nabla f)} \\
+  &=-\intvnn{\langle\curl g, \nabla f\rangle} \\
+  &=-\intvnn{\divv(f\curl g)} =-\intsnn{f\langle\nu,\curl g\rangle} \\
+\end{align*}
+Set $f=S_k(\Div(\nu\times\varphi))$, $g=\overline{\psi}$ and recall that $\Div(\nu\times\overline{\psi}) = -\nu\cdot\curl\overline{\psi}$, we have 
+\begin{align}\label{eq:Nsesqui}
+  \langle N_k\varphi,\,\psi\rangle 
+  &=\langle k^2\nu\times S_k(\nu\times\varphi) + \nu\times\nabla S_k(\Div\nu\times\varphi),\,\psi\rangle\nonumber\\ 
+  &=k^2\intsnn{\left(\nu\times S_k(\nu\times\varphi)\right)\cdot\overline{\psi}}+\intsnn{\left(\nu\times\nabla S_k(\Div(\nu\times\varphi))\right)\cdot\overline{\psi}}\nonumber\\
+  &=-k^2\intsnn{S_k(\nu\times\varphi)\cdot\left(\nu\times\overline{\psi}\right)}+\intsnn{S_k(\Div(\nu\times\varphi))\,\left(\nu\cdot\curl\overline{\psi}\right)}\nonumber\\
+  &=-k^2\intsnn{S_k(\nu\times\varphi)\cdot\overline{\left(\nu\times\psi\right)}}+\intsnn{S_k(\Div(\nu\times\varphi))\,\overline{\Div\left(\nu\times\psi\right)}}\nonumber\\
+  &=-k^2\left\langle S_k(\nu\times\varphi),\,\nu\times\psi\right\rangle + \left\langle S_k(\Div(\nu\times\varphi)),\,\Div(\nu\times\psi)\right\rangle.
+\end{align}
+
+\begin{prp}
+  The adjoint operator $N_k^*:\lTC\rightarrow\lTD$ is $N_{-k}$, i.e. 
+  \begin{align}
+    (N_k^*f)(x)=\nu(x)\times\curl_x\curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi_{-k}(x, y)},\quad x\in\bdr.
+  \end{align}
+\end{prp}
+
+\begin{proof}
+  Note that 
+  \begin{gather*}
+    \nabla_x\cdot\nabla_y\Phi_{-k}(x, y) = -\nabla_y\cdot\nabla_y\Phi_{-k}(x, y),\\
+    \left(\left(\nu(y)\times\overline{g(y)}\right)\cdot\nabla_x\right)\nabla_y\Phi_{-k}(x, y) = -\left(\left(\nu(y)\times\overline{g(y)}\right)\cdot\nabla_y\right)\nabla_y\Phi_{-k}(x, y), 
+  \end{gather*}
+  which can be verified by straightforward differentiation. Then
+  \begin{align*}
+    \langle f, N_k g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\nu(x)\times\curl_x\curl_x\ints{\left(\nu(y)\times g(y)\right)\,\Phi_k(x,y)}\right\}}} \\
+    &=\ints[x]{\ints{f(x)\cdot\left\{\nu(x)\times\curl_x\left(\nabla_x\Phi_{-k}(x, y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)\right\}}} \\
+    &=\ints{\ints[x]{f(x)\cdot\left\{\nu(x)\times\curl_x\left(\nabla_x\Phi_{-k}(x, y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)\right\}}} \\
+    &=\ints{\ints[x]{\left(f(x)\times\nu(x)\right)\cdot\curl_x\left(\nabla_x\Phi_{-k}(x, y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)}} \\
+    &=\ints{\ints[x]{\left(\nu(x)\times f(x)\right)\cdot\curl_x\left(\nabla_y\Phi_{-k}(x, y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)}} \\
+    &=\int_{\bdr}\int_{\bdr}\left(\nu(x)\times f(x)\right)\cdot\Big\{-\left(\nu(y)\times\overline{g(y)}\right)\left(\nabla_x\cdot\nabla_y\Phi_{-k}(x, y)\right) \\
+    &\hspace{12em} + \left(\left(\nu(y)\times\overline{g(y)}\right)\cdot\nabla_x\right)\nabla_y\Phi_{-k}(x, y)\Big\}\,\text{d}\sigma(x)\,\text{d}\sigma(y) \\ % have no choice but to expand in full: \ints
+    &=\int_{\bdr}\int_{\bdr}\left(\nu(x)\times f(x)\right)\cdot\Big\{\left(\nu(y)\times\overline{g(y)}\right)\left(\nabla_y\cdot\nabla_y\Phi_{-k}(x, y)\right) \\
+    &\hspace{12em} - \left(\left(\nu(y)\times\overline{g(y)}\right)\cdot\nabla_y\right)\nabla_y\Phi_{-k}(x, y)\Big\}\,\text{d}\sigma(x)\,\text{d}\sigma(y) \\ % have no choice but to expand in full: \ints
+    &=\ints{\left\{-\curl_y\curl_y\ints[x]{\left(\nu(x)\times f(x)\right)\Phi_{-k}(x, y)}\right\}\cdot\left(\nu(y)\times\overline{g(y)}\right)} \\
+    &=\ints{\left\{\nu(y)\times\curl_y\curl_y\ints[x]{\left(\nu(x)\times f(x)\right)\Phi_{-k}(x, y)}\right\}\cdot\overline{g(y)}} \\
+    &=\langle N_k^*f, g\rangle.
+  \end{align*} 
+\end{proof}
+
+\begin{prp}
+  \begin{align*}
+    F=\frac{1}{k^2}GN_{-k}G^*.
+  \end{align*}
+\end{prp}
+
+\begin{proof}
+  Define auxiliary operator $\mathcal{H}:\lTS\rightarrow\lTD$ as
+  \begin{align*}
+    \left(\mathcal{H}g\right)(x)=\nu(x)\times\intc{g(\theta)\,e^{ikx\cdot\theta}}\quad x\in\bdr,
+  \end{align*}
+then the adjoint operator $\mathcal{H}^*:\lTC\rightarrow\lTS$ is 
+  \begin{align}
+    \left(\mathcal{H}^*f\right)(\theta)=\theta\times\left(\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)e^{-ik x\cdot\theta}}\right),\quad\theta\in\mathbb{S}^2.
+  \end{align}
+This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\nu(x)\times\intc{g(\theta)\,e^{i k x\cdot\theta}}\right\}}} \\
+    &=\ints[x]{\intc{f(x)\cdot\left(\nu(x)\times\overline{g(\theta)}\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{f(x)\cdot\left(\nu(x)\times\overline{g(\theta)}\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(f(x)\times \nu(x)\right)\cdot\overline{g(\theta)}\,e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(f(x)\times \nu(x)\right)\cdot\left(\left(\theta\times\overline{g(\theta)}\right)\times\theta\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(\theta\times\left(f(x)\times\nu(x)\right)\right)\cdot\left(\theta\times\overline{g(\theta)}\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(\theta\times\left(\left(f(x)\times \nu(x)\right)\times\theta\right)\right)\cdot\overline{g(\theta)}\,e^{-i k x\cdot\theta}}} \\
+    &=\intc{\left\{\left(\theta\times\ints[x]{\left(f(x)\times \nu(x)\right)e^{-i k x\cdot\theta}}\right)\times\theta\right\}\cdot\overline{g(\theta)}} \\
+    &=\intc{\left\{\theta\times\left(\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)e^{-i k x\cdot\theta}}\right)\right\}\cdot\overline{g(\theta)}} \\
+    &=\langle\mathcal{H}^*f, g\rangle.
+  \end{align*} 
+
+  Given $f\in\lTC$, define $u(x)$ by
+  \begin{align*}
+    u(x) = \curl\curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi_k(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align*}
+  
+  From the asymptotic relation (c.f. \citet{colton13} (6.27))
+  \begin{align*}
+    \curl\curl_x\left\{a(y)\frac{e^{ik|x-y|}}{|x-y|}\right\} &= -k^2\frac{e^{ik|x|}}{|x|}\left\{\hat{x}\times\left(\hat{x}\times a(y)\,e^{-ik\hat{x}\cdot y}\right)+ \mathcal{O}\left(|x|^{-1}\right)\right\} 
+  \end{align*}
+  the far field pattern of $u$ can be seen as $-k^2\mathcal{H}^*f$; the trace $\nu(x)\times u(x) = N_k f$. Hence, $-k^2\mathcal{H}^*f = G N_k f\Longrightarrow\mathcal{H}^* = -\frac{1}{k^2} G N_k$, so $\mathcal{H} = -\frac{1}{k^2} N_k^* G^* = -\frac{1}{k^2}N_{-k}G^*$. By definition $F=-G\mathcal{H}$, hence 
+  \begin{align}
+    F = -G\mathcal{H} = -G\left(-\frac{1}{k^2}N_{-k}G^*\right)= \frac{1}{k^2}GN_{-k}G^*.
+  \end{align}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{align}
+  \Lambda_k = -N_kR\left(\frac{I}{2}+M_k\right)^{-1}\frac{1}{ik}.
+\end{align}
+\begin{align}
+  \Lambda_k^{-1} &= -\left(ik\right)\left(\frac{I}{2}+M_k\right)\left(-R\right)N_k^{-1}\nonumber \\
+  &= ik\left(\frac{I}{2}+M_k\right)RN_k^{-1}.
+\end{align}
+\begin{align}
+  \left(\Lambda_k^{-1}\right)^* &= \left(N_k^{-1}\right)^*R^*\left(\frac{I}{2}+M_k\right)^*\left(ik\right)^*\nonumber \\
+   &=\left(N_{-k}\right)^{-1}(-R)\left(\frac{I}{2}+M_k\right)^*(-ik)\nonumber\\
+   &= ik\left(N_{-k}\right)^{-1}R\left(\frac{I}{2}+M_k\right)^*.
+\end{align}
+\begin{align}
+  \Lambda_k^{-1}N_{-k}\left(\Lambda_k^{-1}\right)^* &= \left\{ik\left(\frac{I}{2}+M_k\right)RN_k^{-1}\right\}N_{-k}\left\{ik\left(N_{-k}\right)^{-1}R\left(\frac{I}{2}+M_k\right)^*\right\}\nonumber \\
+  &=-k^2\left(\frac{I}{2}+M_k\right)RN_k^{-1}R\left(\frac{I}{2}+M_k\right)^*.
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prp}
+  \begin{align*}
+    F_0 = \frac{1}{k^2}G\Lambda_k^{-1}N_{-k}\left(\Lambda_k^{-1}\right)^*G^*.
+  \end{align*}
+\end{prp}
+
+\begin{proof}
+  Define auxiliary operator $\mathcal{H}_0:\lTS\rightarrow\lTD$ as
+  \begin{align}
+    (\mathcal{H}_0 g)(x)=\nu(x)\times\intc{\left(\theta\times g(\theta)\right)e^{ikx\cdot\theta}},\quad x\in\bdr.
+  \end{align}
+  The adjoint operator $\mathcal{H}_0^*:\lTC\rightarrow\lTS$ is 
+  \begin{align}
+    (\mathcal{H}_0^*f)(\theta)=\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)e^{-ik x\cdot\theta}},\quad\theta\in\mathbb{S}^2.
+  \end{align}
+  This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}_0 g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\nu(x)\times\intc{\left(\theta\times g(\theta)\right)e^{i k x\cdot\theta}}\right\}}} \\
+    &=\ints[x]{\intc{f(x)\cdot \left(\nu(x)\times\left(\theta\times\overline{g(\theta)}\right)\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{f(x)\cdot \left(\nu(x)\times\left(\theta\times\overline{g(\theta)}\right)\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(f(x)\times\nu(x)\right)\cdot\left(\theta\times\overline{g(\theta)}\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\left(\theta\times\left(\nu(x)\times f(x)\right)\right)\cdot\overline{g(\theta)}\,e^{-i k x\cdot\theta}}} \\
+    &=\intc{\left\{\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)e^{-i k x\cdot\theta}}\right\}\cdot\overline{g(\theta)}} \\
+    &=\langle\mathcal{H}_0^*f, g\rangle.
+  \end{align*} 
+
+  Given $f\in\lTC$, define $u_0(x)$ by
+  \begin{align*}
+    u_0(x) = \curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi_k(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align*}
+  From the asymptotic relation
+  \begin{align*}
+    \curl_x\left\{a(y)\frac{e^{ik|x-y|}}{4\pi|x-y|}\right\} &= ik\frac{e^{ik|x|}}{4\pi|x|}\left\{\hat{x}\times a(y)\,e^{-ik\hat{x}\cdot y} + \mathcal{O}\left(|x|^{-1}\right)\right\} 
+  \end{align*}
+  the far field pattern of $u_0$ can be seen as $ik\mathcal{H}_0^*f$; the trace $\nu(x)\times\frac{1}{ik}\curl_x u_0(x)|_+ = \frac{1}{ik}N_k f$. Hence, $ik\mathcal{H}_0^*f = G_0 \frac{1}{ik} N_k f\Longrightarrow\mathcal{H}_0^* = -\frac{1}{k^2} G_0 N_k$, so $\mathcal{H}_0 = -\frac{1}{k^2} N_k^* G_0^* = -\frac{1}{k^2}N_{-k}G_0^*$. By definition $F_0=-G_0\mathcal{H}_0$, then 
+  \begin{align}
+    F_0 = -G_0\left(-\frac{1}{k^2}N_{-k}G_0^*\right) = \frac{1}{k^2}G_0N_{-k}G_0^*.
+  \end{align}
+  Also $G_0 = G\Lambda_k^{-1}, G_0^* = \left(\Lambda_k^{-1}\right)^*G^*$. Hence finally
+  \begin{align}
+    F_0 = \frac{1}{k^2}G_0N_{-k}G_0^* = \frac{1}{k^2}G\Lambda_k^{-1}N_{-k}\left(\Lambda_k^{-1}\right)^*G^*.
+  \end{align}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\begin{prp}
+  \begin{align*}
+    F_\perp = -\frac{1}{k^2}G_\perp R N_{-k} G_\perp^*.
+  \end{align*}
+\end{prp}
+
+\begin{proof}
+  Define auxiliary operator $\mathcal{H}_1:\lTS\rightarrow\lTC$ as
+  \begin{align}
+    (\mathcal{H}_1 g)(x)=\left(\nu(x)\times\intc{g(\theta)\,e^{ikx\cdot\theta}}\right)\times\nu(x),\quad\lambda\in\mathbb{R},\,x\in\bdr.
+  \end{align}
+  The adjoint operator $\mathcal{H}_1^*:\lTD\rightarrow\lTS$ is 
+  \begin{align}
+    (\mathcal{H}_1^*f)(\theta)=-\theta\times\left(\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)\times\nu(x)\,e^{-i k x\cdot\theta}}\right),\quad\theta\in\mathbb{S}^2.
+  \end{align}
+  This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}_1 g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\left(\nu(x)\times\intc{g(\theta)\,e^{i k x\cdot\theta}}\right)\times\nu(x)\right\}}} \\
+    &=\ints[x]{\intc{f(x)\cdot \left(\left(\nu(x)\times\overline{g(\theta)}\,e^{-i k x\cdot\theta}\right)\times\nu(x)\right)}} \\
+    &=\intc{\ints[x]{f(x)\cdot \left(\left(\nu(x)\times\overline{g(\theta)}\,e^{-i k x\cdot\theta}\right)\times\nu(x)\right)}} \\
+    &=\intc{\ints[x]{\left(\nu(x)\times f(x)\right)\cdot\left(\nu(x)\times\overline{g(\theta)}\,e^{-i k x\cdot\theta}\right)}} \\
+    &=\intc{\ints[x]{\left(\left(\nu(x)\times f(x)\right)\times\nu(x)\,e^{-i k x\cdot\theta}\right)\cdot\overline{g(\theta)}}} \\
+    &=\intc{\ints[x]{\left(\left(\nu(x)\times f(x)\right)\times\nu(x)\,e^{-i k x\cdot\theta}\right)\cdot\left(\left(\theta\times\overline{g(\theta)}\right)\times\theta\right)}} \\
+    &=\intc{\ints[x]{\left\{\theta\times\left(\nu(x)\times f(x)\right)\times\nu(x)\,e^{-i k x\cdot\theta}\right\}\cdot\left(\theta\times\overline{g(\theta)}\right)}} \\
+    &=\intc{\left\{-\theta\times\left(\theta\times\ints[x]{\left(\nu(x)\times f(x)\right)\times\nu(x)\,e^{-i k x\cdot\theta}}\right)\right\}\cdot\overline{g(\theta)}} \\
+    &=\langle\mathcal{H}_1^*f, g\rangle.
+  \end{align*} 
+
+  Given $f\in\lTD$, define $u_1(x)$ by
+  \begin{align*}
+    u_1(x) = \curl\curl_x\ints{\left(\nu(y)\times f(y)\right)\times\nu(y)\,\Phi_k(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align*}
+  From the asymptotic relation
+  \begin{align*}
+    \curl\curl_x\left\{a(y)\frac{e^{ik|x-y|}}{|x-y|}\right\} &= -k^2\frac{e^{ik|x|}}{|x|}\left\{\hat{x}\times\left(\hat{x}\times a(y)\,e^{-ik\hat{x}\cdot y}\right)+ \mathcal{O}\left(|x|^{-1}\right)\right\} 
+  \end{align*}
+  the far field pattern of $u_1$ can be seen as $k^2\mathcal{H}_1^*f$; the trace $\left(\nu(x)\times u_1(x)\right)\times\nu(x) = -R N_k (-R) f = R N_k R f$. Hence, $k^2\mathcal{H}_1^*f = G_\perp R N_k R f\Longrightarrow\mathcal{H}_1^* = \frac{1}{k^2} G_\perp R N_k R$, so $\mathcal{H}_1 = \frac{1}{k^2} R^* N_k^* R^* G_\perp^* = \frac{1}{k^2} (-R) N_{-k} (-R) G_\perp^* = \frac{1}{k^2} R N_{-k} R G_\perp^*$. By definition $F_\perp=-G_\perp\mathcal{H}_1$, hence 
+  \begin{align}
+    F_\perp = -G_\perp\mathcal{H}_1 = -G_\perp\left(\frac{1}{k^2}R N_{-k} R G_\perp^*\right)= -\frac{1}{k^2}G_\perp R N_{-k} R G_\perp^*.
+  \end{align}
+\end{proof}
+
+\begin{prp}
+  \begin{enumerate}
+    \item The data-to-pattern operators $G$ and $G_\perp$ satisfy
+      \begin{align}\label{eq:GG}
+        G = -G_\perp R.
+      \end{align}
+      In particular, the ranges of $G$ and $G_\perp$ coincide.
+    \item $G_\perp$ is compact and injective. 
+  \end{enumerate}
+\end{prp}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Consider the Maxwell problem with $\nu\times E=f$ on $\bdr$, then $E$ also solves the tangential Maxwell problem with $g=(\nu\times E)\times\nu=-Rf$. So for the far field pattern $E^\infty$ of $E$, 
+      \begin{align}
+        E^\infty = Gf = G_\perp g = -G_\perp Rf,
+      \end{align}
+      which implies \eqref{eq:GG}.
+    \item The compactness and the injectivity of $G_\perp$ follows from \eqref{eq:GG} and the compactness and injectivity of $G$.
+  \end{enumerate}
+\end{proof}
+
+Right multiply both sides of \eqref{eq:GG} by $R$, we have $G_\perp = GR$; so $G_\perp^* = (GR)^* = R^* G^* = -RG^*$. Hence $F_\perp = -\frac{1}{k^2}G_\perp R N_{-k} R G_\perp^* = -\frac{1}{k^2}(GR) R N_{-k} R (-RG^*) = \frac{1}{k^2}G N_{-k} G^*$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prp}\label{prp:ImS}
+  $\Im\langle S_{-k}\varphi,\,\varphi\rangle < 0$ for $\varphi\in\Hhmg$ and $\varphi\not=0$.
+\end{prp}
+
+\begin{proof}
+  Given $\varphi\in\Hhmg$, define 
+  \begin{align}\label{eq:v}
+    v(x) = \ints{\varphi(y)\,\Phi_{-k}(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align}
+  Note that $\Delta v + k^2 v=0$ for $x\in\mathbb{R}^3\setminus\bdr$,
+  \begin{align*}
+    \frac{\partial v_\pm}{\partial\nu} &= \ints{\varphi(y)\left(\nabla_x\Phi_{-k}(x, y)\cdot\nu(x)\right)}\mp\frac{1}{2}\varphi(x), 
+  \end{align*}
+  and $v$ satisfies the radiation condition
+  \begin{align}\label{eq:rad}
+    \frac{\partial v(x)}{\partial\nu} + i k v(x) = \mathcal{O}\left(|x|^{-2}\right),\quad|x|\to\infty. 
+  \end{align}
+  Then
+  \begin{align}
+    \langle S_{-k}\varphi,\,\varphi\rangle &=\left\langle v, \frac{\partial v_-}{\partial\nu} -\frac{\partial v_+}{\partial\nu}\right\rangle\nonumber\\
+    &=\intsn{v\cdot\frac{\partial\overline{v}_-}{\partial\nu}} - \intsn{v\cdot\frac{\partial\overline{v}_+}{\partial\nu}}\nonumber\\
+    &=\int_{B_R\cup\Omega_-}\left\{|\nabla v|^2 - k^2|v|^2\right\}\,\text{d}V - \intbn{v\cdot\frac{\partial\overline{v}}{\partial\nu}}\label{eq:needrad}\\
+    &=\int_{B_R\cup\Omega_-}\left\{|\nabla v|^2 - k^2|v|^2\right\}\,\text{d}V - ik\intbn{|v|^2} + \mathcal{O}\left(|x|^{-1}\right)\label{eq:Sk}
+  \end{align}
+  where we use the radiation condition \eqref{eq:rad} into the second integral of \eqref{eq:needrad}. Now take the imaginary part and let $R\to\infty$, 
+  \begin{align*}
+    \Im\langle S_{-k}\varphi,\,\varphi\rangle = -k\lim_{R\to\infty}\intbn{|v|^2} = -\frac{k}{16\pi^2}\intc{}{|v^\infty|^2}\leqslant 0.
+  \end{align*}
+  Let $\Im\langle S_{-k}\varphi,\,\varphi\rangle = 0$ for some $\varphi\in\Hhmg$, then by \eqref{eq:Sk} $v^\infty=0$; via Rellich's lemma and unique continuation $v=0$ in $\Omega_+$, hence $S_{-k}\varphi=0\Longrightarrow\varphi = 0$, for $S_{-k}$ is an isomorphism.    
+\end{proof}
+
+\begin{prp}
+  $\Im\langle\varphi, N_k\varphi\rangle>0$ for $k>0$ and $\varphi\in\lTC$.
+\end{prp}
+
+\begin{proof}
+  Given $\varphi\in\lTC$, define 
+  \begin{align}\label{eq:vv}
+    v(x) = \curl\ints{\nu(y)\times\varphi(y)\,\Phi(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align}
+  Note that $\divv v\equiv0$ for $x\in\mathbb{R}^3$, $\Delta v + k^2 v=0$ for $x\in\mathbb{R}^3\setminus\bdr$,
+  \begin{align*}
+    v_\pm(x) &= \ints{\nabla_x\Phi(x, y)\times\big(\nu(y)\times\varphi(y)\big)}\mp\frac{1}{2}\nu(x)\times\big(\nu(x)\times\varphi(x)\big)\\ 
+    &= \ints{\nabla_x\Phi(x, y)\times\big(\nu(y)\times\varphi(y)\big)}\pm\frac{1}{2}\varphi(x)
+  \end{align*}
+  (c.f. \citet{colton13} Theorem 6.13), and the radiation condition
+  \begin{align}\label{eq:radv}
+    \curl v(x)\times\frac{x}{|x|} - i k v(x) = \mathcal{O}\left(|x|^{-2}\right),\quad|x|\to\infty. 
+  \end{align}
+  By vector Green formula 
+  \begin{align*}
+    \intvnn{a\cdot\Delta b+\curl a\cdot\curl b + \divv a\divv b}=\intsnn{-a\cdot\left(\nu\times\curl b\right)+\left(\nu\cdot a\right)\divv b}
+  \end{align*}
+  with $a=v_\pm, b=\overline{v}$, we have
+  \begin{align}
+    \langle\varphi, N_k\varphi\rangle &=\left\langle v_+-v_-,\,\nu\times\curl v\right\rangle\nonumber\\
+    &=\intsn{\left(v_+ - v_-\right)\cdot\left(\nu\times\curl \overline{v}\right)}\nonumber\\
+    &=\intsn{v_+\cdot\left(\nu\times\curl\overline{v}\right)}- \intsn{v_-\cdot\left(\nu\times\curl\overline{v}\right)}\nonumber\\
+    &=\int_{B_R\cup\Omega_-}\left\{|\curl v|^2 - k^2|v|^2\right\}\,\text{d}V + \intbn{v\cdot\left(\hat{x}\times\curl\overline{v}\right)}\label{eq:needradv}\\
+    &=\int_{B_R\cup\Omega_-}\left\{|\curl v|^2 - k^2|v|^2\right\}\,\text{d}V + ik\intbn{|v|^2} + \mathcal{O}\left(|x|^{-1}\right)\label{eq:Nk}
+  \end{align}
+  where we use the radiation condition \eqref{eq:radv} into the second integral of \eqref{eq:needradv}. Now take the imaginary part and let $R\to\infty$, 
+  \begin{align*}
+    \Im\langle\varphi, N_k\varphi\rangle = k\lim_{R\to\infty}\intbn{|v|^2} = \frac{k}{16\pi^2}\intc{}{|v^\infty|^2}\geqslant 0.
+  \end{align*}
+  Let $\Im\langle\varphi, N_k\varphi\rangle = 0$ for some $\varphi\in\lTC$, then by \eqref{eq:Nk} $v^\infty=0$; via Rellich's lemma and unique continuation $v=0$ in $\Omega_+$, hence $N_k\varphi=0\Longrightarrow\varphi = 0$, for $N_k$ is an isomorphism.    
+\end{proof}
+
+\section{Range Inclusion Identities}
+Throughout this section $X, Y, Z$ are reflexive Banach spaces. The collection of all bounded linear opertors from $X$ into $Y$ is denoted by $\mathcal{L}(X, Y)$. For $S\in\mathcal{L}(X, Y)$, let $\img(S)$ and $\nul(S)$ be the range and the null space of $S$, respectively. The dual space of $X$ is denoted by $X^*$. The duality pairing in $X^*\times X$ is denoted by $\langle\cdot,\cdot\rangle$. The adjoint of $S\in\mathcal{L}(X, Y)$ is denoted by $S^*\in\mathcal{L}(Y^*, X^*)$. An operator $U\in\mathcal{L}(X, Y)$ is an isomorphism if $U$ is a bijection mapping. By the corollary of Open Mapping Theorem (\citet{rudinfa}, 2.12 Corollaries (b), pp. 49) $U^{-1}\in\mathcal{L}(Y, X)$. Note that $U^*\in\mathcal{L}(Y^*, X^*)$ is an isomorphism if $U\in\mathcal{L}(X, Y)$ is, and $(U^{-1})^* = (U^*)^{-1}$.
+
+Let $M\subseteq X, N\subseteq X^*$. The annihilators $M^\bot, {}^\bot N$ are defined as
+\begin{align*}
+  M^\bot &= \{x^*\in X^*: \langle x^*, x\rangle = 0\quad\forall x\in M\}, \\
+  N^\bot &= \{x\in X: \langle x^*, x\rangle = 0\quad\forall x^*\in N\}. \\
+\end{align*}
+For $S\in\mathcal{L}(X, Y)$, the following identities hold (\citet{rudinfa}, 4.12 Theorem, pp.99):
+\begin{align}\label{eq:range}
+  \nul(S) = \img(S^*)^\bot,\quad\nul(S^*) = \img(S)^\bot.
+\end{align}
+
+\begin{dfn}(\citet{barnes} Definition 1)\label{def:major}
+  Let $T\in\mathcal{L}(X, Y)$ and $S\in\mathcal{L}(X, Z)$. We say that $T$ majorize $S$ if there exists $c > 0$ such that
+  \begin{align*}
+    \|S x\|\leqslant c\|T x\|\quad\forall x\in X .
+  \end{align*}
+\end{dfn}
+
+\begin{prp}\label{thm:major}(\citet{barnes} Proposition 3, Theorem 7(1))
+  Let $T\in\mathcal{L}(X, Y)$ and $S\in\mathcal{L}(X, Z)$.
+  \begin{enumerate}
+    \item $T$ majorize $S$ if and only if there exists $V\in\mathcal{L}(\overline{\img(T)}, Z)$ with $S=VT$.
+    \item If $T$ majorize $S$, then $\img(S^*)\subseteq\img(T^*)$.
+  \end{enumerate}
+\end{prp}
+
+\begin{proof}
+  \begin{enumerate}
+    \item ($\Longrightarrow$) Define $V:\img(T)\to Z$ by $V(Tx)=Sx$; V is well defined since $\nul(T)\subseteq\nul(S)$. By definition $\|V(Tx)\|=\|Sx\|\leqslant c\|T\|\,\|x\|$, hence $V$ has a bounded extension on $\overline{\img(T)}$, which we still denote as $V$. ($\Longleftarrow$) $\|Sx\|=\|VTx\|\leqslant\|V\|\,\|Tx\|$ for all $x\in X$.
+    \item From (1) $\exists V\in\mathcal{L}(\overline{\img(T)}, Z)$ with $S=VT$. Naturally $S^*\in\mathcal{L}(Z^*, X^*), T^*\in\mathcal{L}(Y^*, X^*)$. Let $\alpha\in Z^*$; for $x\in X$ 
+      \begin{align*}
+        \langle x, S^*\alpha\rangle=\langle Sx,\alpha\rangle=\langle VTx,\alpha\rangle=\langle Tx, V^*\alpha\rangle
+      \end{align*}
+      where $V^*\alpha$ is a continuous linear function on $\overline{\img(T)}$. By Hahn-Banach theorem there exists an extension of $V^*\alpha$ to $Y^*$, say $\beta$. Then for $x\in X$
+      \begin{align*}
+        \langle x, S^*\alpha\rangle=\langle Tx,\beta\rangle=\langle x, T^*\beta\rangle,
+      \end{align*}
+$S^*\alpha=T^*\beta$. Hence $\img(S^*)\subseteq\img(T^*)$.
+  \end{enumerate}
+\end{proof}
+
+%\begin{prp}\label{thm:rangef1}(\citet{barnes} Theorem 7(3))
+%  Let $T\in\mathcal{L}(X, Y)$ and $S\in\mathcal{L}(Z, Y)$. If $\img(S)\subseteq\img(T)$, then $T^*$ majorize $S^*$.
+%\end{prp}
+
+\begin{prp}
+  Let $U\in\mathcal{L}(Y, Z)$ be an isomorphism. For $T\in\mathcal{L}(X, Y)$,
+  \begin{align*}
+    \img(T^*) = \img(T^*U^*).
+  \end{align*}
+\end{prp}
+
+\begin{proof}
+  Set $W= UT\in\mathcal{L}(X, Z)$. Evidently $T$ majorize $W$, by proposition \ref{thm:major}\, $\img(W^*)\subseteq\img(T^*)$. Also we have $T=U^{-1}W\Longrightarrow W$ majorize $T$; $\img(T^*)\subseteq\img(W^*)$. Hence $\img(T^*)=\img(W^*)=\img(T^*U^*)$.    
+\end{proof}
+
+\begin{prp}\label{thm:dense}
+  Let $U\in\mathcal{L}(X, Y)$ be an isomorphism and $D\subseteq X$ be dense in $X$. Then $U(D)$ is dense in $Y$.
+\end{prp}
+
+\begin{proof}
+  If $U(D)$ is not dense in $Y$, then there exists a nonempty open set $O\subseteq(Y\setminus U(D))$. Set $Q = U^{-1}(O)$; $Q$ is nonempty for $U$ is an isomorphism; $Q$ is open for $U$ is continuous. By construction $Q\not\subseteq D$, which contradicts that $D$ is dense in $X$.  
+\end{proof}
+
+\begin{prp}\label{thm:rangef}
+  Let $A\in\mathcal{L}(X, Y), B\in\mathcal{L}(X^*, X)$ with $A$ injective and $U\in\mathcal{L}(X^*, X^*)$ be an isomorphism. Then
+  \begin{align}\label{eq:rangef}
+    \img(A B U A^*) = \img(A B A^*).
+  \end{align}
+\end{prp}
+
+\begin{proof}
+  For injective $A$, by \eqref{eq:range} $\overline{\img(A^*)}=X^*$. By Proposition \ref{thm:dense} $\overline{U(\img(A^*))}=X^*$. Consider 
+  \begin{align*}
+    P_1&=AB:\img(A^*)\to Y ,\\
+    P_2&=AB:U(\img(A^*))\to Y. \\
+  \end{align*}
+  For $Y$ is complete and $\overline{\img(A^*)}=\overline{U(\img(A^*))}=X^*$, by BLT theorem (\citet{reed1} Theorem I.7, pp.9) $P_1, P_2$ have the same extension $P:X^*\to Y$ with the same norm. Redefine $AB$ as $P$, we see that \eqref{eq:range} holds.
+\end{proof}
+
+\section{Factorization Method Revisited}
+
+Let $V, W$ be complex Hilbert spaces with corresponding inner products $(\cdot,\cdot)_V, (\cdot,\cdot)_W$; the induced norms are denoted as $\|\cdot\|_V, \|\cdot\|_W$. The duality pairings are denoted as $\langle \cdot, \cdot\rangle_{V^*, V}, \langle \cdot, \cdot\rangle_{W^*, W}$; subscripts would be suppressed should no confusion arise.
+
+\begin{prp}\label{thm:coer}
+  Let $T\in\mathcal{L}(V, W^*)$ be an isomporphism, then there exists an isomorphism $U\in\mathcal{L}(V, W)$ such that
+  \begin{align}\label{eq:coer}
+    \exists c > 0, \quad\bigl|\langle v, T^*Uv\rangle\bigr|\geqslant c\|v\|_V^2\quad\forall v\in V. 
+  \end{align}
+\end{prp}
+
+\begin{proof}
+  By Riesz Representation Theorem there exists an isomorphism $\Lambda\in\mathcal{L}(W^*, W)$ such that
+  \begin{align*}
+    (\Lambda w^*, w)_W = \langle w^*, w\rangle,\quad\forall(w^*, w)\in W^*\times W. 
+  \end{align*}
+  Set $U = \Lambda\circ T\in\mathcal{L}(V, W)$. $U$ is an isomorphism with continuous inverse $U^{-1}\in\mathcal{L}(W, V)$; hence for $v\in V$
+  \begin{align*}
+    \|v\|_V=\|U^{-1}\,Uv\|_V\leqslant\|U^{-1}\|_V\|Uv\|_W 
+  \end{align*}
+and
+  \begin{align*}
+    \bigl|\langle Tv, Uv\rangle\bigr|=\bigl|(\Lambda\circ Tv, Uv)_W\bigr| = \|Uv\|^2_W\geqslant\frac{1}{\|U^{-1}\|_V^2}\|v\|_V^2. 
+  \end{align*}
+\end{proof}
+
+\begin{prp}
+  Let $V, W$ be complex Hilbert spaces and $A\in\mathcal{L}(V^*, W), B\in\mathcal{L}(V, V^*)$. Let $F = AB^*A^*\in\mathcal{L}(W^*, W)$ and $B$ be an isomorphism. For $\varphi\in W, \varphi\not=0$, define
+  \begin{align*}
+    W_1 &= \{\psi\in W^*: \|\psi\|_{W^*}=1\}, \\
+    W_\varphi &= \{\psi\in W_1: |\langle\psi, \varphi\rangle|\not=0\}.\\
+  \end{align*}
+
+  \begin{enumerate}
+    \item If $\varphi\in\img(A)$, then for $\psi\in W_\varphi$, there exists $\psi_0\in W_1$ such that $|\langle\psi, F\psi_0\rangle| > 0.$
+    \item If $\varphi\not\in\img(A)$, then $\inf_{\psi\in W_\varphi}|\langle\psi, F\psi\rangle| = 0$. 
+  \end{enumerate}
+\end{prp}
+
+\begin{proof}
+  1. By Proposition \ref{thm:coer} there exists an isomorphism $U\in\mathcal{L}(V, V)$ such that 
+  \begin{align}
+    \exists c > 0, \quad\bigl|\langle v, B^*Uv\rangle\bigr|\geqslant c\|v\|_V^2\quad\forall v\in V. 
+  \end{align}
+  Set $\widetilde{F} = AB^*UA^*$. For $\psi\in W^*$, we have
+  \begin{align}
+    \left|\langle\psi, \widetilde{F}\psi\rangle\right|=\bigl|\langle\psi, AB^*UA^*\psi\rangle\bigr|=\bigl|\langle A^*\psi, B^*UA^*\psi\rangle\bigr|\geqslant c\|A^*\psi\|^2.
+  \end{align}
+  For $\varphi\in\img(A)$, there exists $\phi_0\in V^*$ such that $\varphi=A\phi_0$. For $\psi\in W_\varphi$    
+  \begin{align*}
+    \left|\langle\psi, \widetilde{F}\psi\rangle\right|\geqslant c\|A^*\psi\|^2&=\frac{c}{\|\phi_0\|^2}\|A^*\psi\|^2\,\|\phi_0\|^2 \\
+    &\geqslant\frac{c}{\|\phi_0\|^2}\bigl|\langle A^*\psi,\phi_0\rangle\bigr|^2 \\
+    &=\frac{c}{\|\phi_0\|^2}\bigl|\langle \psi,A\phi_0\rangle\bigr|^2 > 0
+  \end{align*}
+  By Proposition \ref{thm:rangef} we have $\img(\widetilde{F})=\img(F)$, thus
+  \begin{align}\label{eq:equalrange}
+    \forall\psi\in W^*, \exists\xi\in W^*\,\text{such that}\,\widetilde{F}\psi=F\xi.
+  \end{align}
+  So 
+  \begin{align*}
+    \bigl|\langle\psi, \widetilde{F}\psi\rangle\bigr|=\bigl|\langle\psi, F\xi\rangle\bigr|=\|\xi\|\,\bigl|\langle\psi, F\frac{\xi}{\|\xi\|}\rangle\bigr| > 0.
+  \end{align*}
+  2. From (\citet{nachman} Lemma 2.1) we have 
+  \begin{align*}
+    \varphi\not\in\img(A)\quad\Longrightarrow\quad\exists\{\psi_n\}\in W^*\text{ such that }|\langle\psi_n,\varphi\rangle|=1, \|A^*\psi_n\|\to 0.
+  \end{align*}
+  Note that for $\psi\in W^*$,
+  \begin{align*}
+    \left|\langle\psi, F\psi\rangle\right|=\bigl|\langle\psi, AB^*A^*\psi\rangle\bigr|=\bigl|\langle A^*\psi, B^*A^*\psi\rangle\bigr|\leqslant\|B^*\|\,\|A^*\psi\|^2,
+  \end{align*}
+  so $\left|\langle\psi_n, F\psi_n\rangle\right|\leqslant\|B^*\|\,\|A^*\psi_n\|^2$.
+\end{proof}
+
+%   thus $\img(\widetilde{F})\subseteq\img(F)$; by Proposition \ref{thm:rangef1} $F^*$ majorize $\widetilde{F}^*$, by Definition \ref{def:major}  
+%  \begin{align*}
+%    \exists c > 0\quad\|\widetilde{F}^* \psi\|\leqslant c\|F^* \psi\|\quad\forall \psi\in W^*.
+%  \end{align*}
+
+\nocite{*}
+\bibliographystyle{plainnat}
+\bibliography{pc}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unused snippets
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prp}[\citet{kirsch07} Lemma 1.17]\label{prp:coer}
+Let $X$ be a reflexive Banach space and $A,A_0:X\to X^*$ be bounded linear operators such that
+\begin{enumerate}
+  \item $\langle A\varphi,\,\varphi\rangle\in\mathbb{C}\setminus(-\infty,0]$ for $\varphi\not=0,\varphi\in\dom{A}$.
+  \item $\langle A_0\varphi,\,\varphi\rangle\geqslant c\left\|\varphi\right\|_X^2$ for some $c>0$.
+  \item $A-A_0$ is compact.
+\end{enumerate}
+Then $A$ is coercive in $X$; i.e. $\exists c > 0$, 
+  \begin{align*}
+    \left|\left\langle A\varphi,\,\varphi\right\rangle\right|\geqslant c\left\|\varphi\right\|_{X}^2,\quad\forall\varphi\in\dom A.
+  \end{align*}
+\end{prp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  Define auxiliary operator $\mathcal{H}_1:\lTS\rightarrow\lTC$ as
+  \begin{align}
+    (\mathcal{H}_1 g)(x)=\left(\nu(x)\times\intc{\left(\theta\times g(\theta)\right)e^{ikx\cdot\theta}}\right)\times\nu(x),\quad x\in\bdr.
+  \end{align}
+  The adjoint operator $\mathcal{H}_1^*:\lTD\rightarrow\lTS$ is 
+  \begin{align}
+    (\mathcal{H}_1^*f)(\theta)=-\theta\times\ints[x]{\bigl(\bigl(\nu(x)\times f(x)\bigr)\times\nu(x)\bigr)e^{-i k x\cdot\theta}},\quad\theta\in\mathbb{S}^2.
+  \end{align}
+  This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}_1 g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\left(\nu(x)\times\intc{\left(\theta\times g(\theta)\right)e^{i k x\cdot\theta}}\right)\times\nu(x)\right\}}} \\
+    &=\ints[x]{\intc{f(x)\cdot\left\{\left(\nu(x)\times\left(\theta\times\overline{g(\theta)}\right)\right)\times\nu(x)\right\}\,e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{f(x)\cdot\left\{\left(\nu(x)\times\left(\theta\times\overline{g(\theta)}\right)\right)\times\nu(x)\right\}\,e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\bigl(\nu(x)\times f(x)\bigr)\cdot\left(\nu(x)\times\left(\theta\times\overline{g(\theta)}\right)\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\ints[x]{\bigl(\bigl(\nu(x)\times f(x)\bigr)\times\nu(x)\bigr)\cdot\left(\theta\times\overline{g(\theta)}\right)e^{-i k x\cdot\theta}}} \\
+    &=\intc{\left\{-\theta\times\ints[x]{\bigl(\left(\nu(x)\times f(x)\right)\times\nu(x)\bigr)e^{-i k x\cdot\theta}}\right\}\cdot\overline{g(\theta)}} \\
+    &=\langle\mathcal{H}_1^*f, g\rangle.
+  \end{align*} 
+
+  Given $f\in\lTD$, define $u_1(x)$ by
+  \begin{align*}
+    u_1(x) = \curl_x\ints{\bigl(\bigl(\nu(y)\times f(y)\bigr)\times\nu(y)\bigr)\Phi_k(x,y)},\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align*}
+  From the asymptotic relation
+  \begin{align*}
+    \curl_x\left\{a(y)\frac{e^{ik|x-y|}}{4\pi|x-y|}\right\} &= ik\frac{e^{ik|x|}}{4\pi|x|}\left\{\left(\hat{x}\times a(y)\right)e^{-ik\hat{x}\cdot y} + \mathcal{O}\left(|x|^{-1}\right)\right\} 
+  \end{align*}
+  the far field pattern of $u_1$ can be seen as $-ik\mathcal{H}_1^*f$; the trace $\left(\nu(x)\times\frac{1}{ik}\curl_x u_1(x)\right)\times\nu(x)|_+ = (-R)\frac{1}{ik}N_k (-R) f=\frac{1}{ik}RN_kRf$. Hence, $-ik\mathcal{H}_1^*f = G_1 \frac{1}{ik} RN_kR f\Longrightarrow\mathcal{H}_1^* = \frac{1}{k^2} G_1 RN_kR$, so $\mathcal{H}_1 = \frac{1}{k^2} R^*N_k^*R^*G_1^* = \frac{1}{k^2}(-R)N_{-k}(-R)G_1^*=\frac{1}{k^2}RN_{-k}RG_1^*$. By definition $F_1=-G_1\mathcal{H}_1$, hence 
+  \begin{align}
+    F_1 = -G_1\left(\frac{1}{k^2}RN_{-k}RG_1^*\right) = -\frac{1}{k^2}G_1RN_{-k}RG_1^*.
+  \end{align}
+
+  $G_1 = G\Lambda^{-1}R, G_1^* = R^*(\Lambda^{-1})^*G^* = -R(\Lambda^{-1})^*G^*$. Hence
+\begin{align}
+  F_1 = -\frac{1}{k^2}G_1 R N_{-k} R G_1^* = -\frac{1}{k^2}\left(G\Lambda^{-1}R\right) R N_{-k} R \left(-R(\Lambda^{-1})^*G^*\right) = \frac{1}{k^2}G\Lambda^{-1}N_{-k}(\Lambda^{-1})^*G^*.
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  Define operator $\mathcal{H}_4:\lTD\rightarrow\lTD$ as
+  \begin{align}
+    (\mathcal{H}_4 g)(x)=\nu(x)\times\curl_x\ints{g(y)\,\Phi_k(x,y)},\quad x\in\bdr.
+  \end{align}
+  The adjoint operator $\mathcal{H}_4^*:\lTC\rightarrow\lTC$ is 
+  \begin{align}
+    (\mathcal{H}_4^*f)(x)=\nu(x)\times\left(\nu(x)\times\curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi_{-k}(x, y)}\right),\quad x\in\bdr.
+  \end{align}
+  This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}_4 g\rangle &= \ints[x]{f(x)\cdot\overline{\left\{\nu(x)\times\curl_x\ints{g(y)\,\Phi_k(x,y)}\right\}}} \\
+    &=\ints[x]{\ints{f(x)\cdot\left(\nu(x)\times\left(\nabla_x\Phi_{-k}(x, y)\times\overline{g(y)}\right)\right)}} \\
+    &=\ints{\ints[x]{f(x)\cdot\left(\nu(x)\times\left(\nabla_x\Phi_{-k}(x, y)\times\overline{g(y)}\right)\right)}} \\
+    &=\ints{\ints[x]{\left(f(x)\times\nu(x)\right)\cdot\left(\nabla_x\Phi_{-k}(x, y)\times\overline{g(y)}\right)}} \\
+    &=\ints{\ints[x]{\left(\nu(x)\times f(x)\right)\cdot\left(\nabla_y\Phi_{-k}(x, y)\times\overline{g(y)}\right)}} \\
+    &=\ints{\left\{-\ints[x]{\nabla_y\Phi_{-k}(x, y)\times\left(\nu(x)\times f(x)\right)}\right\}\cdot\overline{g(y)}} \\
+    &=\ints{\left\{\ints[x]{\nabla_y\Phi_{-k}(x, y)\times\left(\nu(x)\times f(x)\right)}\right\}\cdot\left(\nu(y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)} \\
+    &=\ints{\left\{\curl_y\ints[x]{\left(\nu(x)\times f(x)\right)\Phi_{-k}(x, y)}\right\}\cdot\left(\nu(y)\times\left(\nu(y)\times\overline{g(y)}\right)\right)} \\
+    &=-\ints{\left\{\nu(y)\times\curl_y\ints[x]{\left(\nu(x)\times f(x)\right)\Phi_{-k}(x, y)}\right\}\cdot\left(\nu(y)\times\overline{g(y)}\right)} \\
+    &=\ints{\left\{\nu(y)\times\left(\nu(y)\times\curl_y\ints[x]{\left(\nu(x)\times f(x)\right)\Phi_{-k}(x, y)}\right)\right\}\cdot\overline{g(y)}} \\
+    &=\langle\mathcal{H}_4^*f, g\rangle.
+  \end{align*} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We rewrite $F - \left(1+\frac{1}{k^2}\right)F_\perp = G\mathcal{T}_k G^*$ with 
+\begin{align}\label{eq:Tauk}
+  \mathcal{T}_k=\frac{1}{k^2}N_{-k}-\left(1+\frac{1}{k^2}\right)RS_{-k}R.
+\end{align}
+
+\begin{prp}
+  $\mathcal{T}_k$ is coercive in $\lTC$.
+\end{prp}
+
+\begin{proof}
+  By $\left\langle RS_{-k}R\varphi, \varphi\right\rangle = -\left\langle S_{-k}R\varphi, R\varphi\right\rangle = -\left\langle S_{-k}(\nu\times\varphi),\nu\times\varphi\right\rangle$ and \eqref{eq:Nsesqui}, \eqref{eq:Tauk},  
+  \begin{align*}
+    \left\langle\mathcal{T}_k\varphi,\,\varphi\right\rangle &= \frac{1}{k^2}\big(\left\langle S_{-k}\left(\nu\times\varphi\right),\,\nu\times\varphi\right\rangle + \left\langle S_{-k}\left(\Div\left(\nu\times\varphi\right)\right),\,\Div\left(\nu\times\varphi\right)\right\rangle\big).
+  \end{align*}
+  It is known that (e.g. \citet{mclean} Corollary 8.13) for $\psi\in H^{-\frac{1}{2}}(\bdr)$
+  \begin{align*}
+    \left\langle S_0\psi,\,\psi\right\rangle\geqslant c\left\|\psi\right\|_{H^{-\frac{1}{2}}(\bdr)}^2
+  \end{align*}
+  So
+  \begin{multline}
+    \left\langle S_0\left(\nu\times\varphi\right),\,\nu\times\varphi\right\rangle + \left\langle S_0\left(\Div\left(\nu\times\varphi\right)\right),\,\Div\left(\nu\times\varphi\right)\right\rangle\\
+    \geqslant c\left(\left\|\nu\times\varphi\right\|_{\Hhmg}^2+\left\|\Div\left(\nu\times\varphi\right)\right\|_{\Hhmg}^2\right)\geqslant c\nltwod{\nu\times\varphi}^2\geqslant c\nltwoc{\varphi}^2
+  \end{multline}
+  Also, $S_{-k}-S_0:\Hhmg\to\Hhpg$ is compact, for the analytic kernel. To establish the coercivity of $\mathcal{T}_k$, it suffices to check that $\left\langle\mathcal{T}_k\varphi,\,\varphi\right\rangle\in\mathbb{C}\setminus(-\infty,0]$. Note that
+  \begin{align*}
+    \Im\big(\left\langle S_{-k}\left(\nu\times\varphi\right),\,\nu\times\varphi\right\rangle + \left\langle S_{-k}\left(\Div\left(\nu\times\varphi\right)\right),\,\Div\left(\nu\times\varphi\right)\right\rangle\big) < 0
+  \end{align*}
+  by propostition \ref{prp:ImS}: both terms are nonpositive, and the first is strictly negative for $R$ is injective. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{align*}
+  A &= B + K\\
+  A^{-1} &= B^{-1} - A^{-1}KB^{-1}
+\end{align*}
+
+bounded nonnegative $T$: 
+\begin{align*}
+  \langle T\varphi,\,\varphi\rangle\geqslant\frac{1}{\|T\|}\|T\varphi\|^2.
+\end{align*}
+\begin{proof}
+  Set $t = \frac{1}{\|T\|}$.
+  \begin{align*}
+    0\leqslant\langle T(\varphi-tT\varphi),(\varphi-tT\varphi)\rangle=\langle T\varphi,\,\varphi\rangle + t^2\langle TT\varphi,\,T\varphi\rangle - 2t\langle T\varphi,\,T\varphi\rangle
+  \end{align*}
+  \begin{align*}
+    2t\|T\varphi\|^2\leqslant\langle T\varphi,\,\varphi\rangle + t^2\langle TT\varphi,\,T\varphi\rangle\leqslant\langle T\varphi,\,\varphi\rangle + t^2\|T\|\|T\varphi\|^2
+  \end{align*}
+  \begin{align*}
+    t\left(2-t\|T\|\right)\|T\varphi\|^2\leqslant\langle T\varphi,\,\varphi\rangle
+  \end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Derivation of exterior Calderon projector. Apply $\nu\times\cdot$ to both sides of exterior Stratton-Chu formulas and invoke jump relations, we have
+\begin{align*}
+  \nu\times E &=\left(\frac{I}{2} + M\right)\left(\nu\times E\right) + \frac{i}{k}N\left(\nu\times H\right)\\
+  \nu\times H &=\left(\frac{I}{2} + M\right)\left(\nu\times H\right) - \frac{i}{k}N\left(\nu\times E\right)\\
+\end{align*}
+In matrix notation:
+\begin{align*}
+  \begin{pmatrix} \nu\times E\\ \nu\times H \end{pmatrix} =
+  \begin{pmatrix}
+    \frac{I}{2} + M & \frac{i}{k} N \\
+    -\frac{i}{k} N  & \frac{I}{2} + M
+  \end{pmatrix}
+  \begin{pmatrix} \nu\times E\\ \nu\times H \end{pmatrix}
+\end{align*}
+Hence
+\begin{align*}
+  \begin{pmatrix}
+    \frac{I}{2} + M & \frac{i}{k} N \\
+    -\frac{i}{k} N  & \frac{I}{2} + M
+  \end{pmatrix}
+  \begin{pmatrix}
+    \frac{I}{2} + M & \frac{i}{k} N \\
+    -\frac{i}{k} N  & \frac{I}{2} + M
+  \end{pmatrix} =
+  \begin{pmatrix}
+    \frac{I}{2} + M & \frac{i}{k} N \\
+    -\frac{i}{k} N  & \frac{I}{2} + M
+  \end{pmatrix}
+\end{align*}
+Expand:
+\begin{align*}
+  \left(\frac{I}{2} + M\right)^2 + \frac{1}{k^2}N^2 &= \frac{I}{2} + M \\
+  \left(\frac{I}{2} + M\right)\frac{i}{k}N + \frac{i}{k} N\left(\frac{I}{2} + M\right) &=\frac{i}{k}N\\
+  -\frac{i}{k}N\left(\frac{I}{2} + M\right) - \left(\frac{I}{2} + M\right)\frac{i}{k} N &=-\frac{i}{k}N\\
+  \frac{1}{k^2}N^2 + \left(\frac{I}{2} + M\right)^2 &= \frac{I}{2} + M
+\end{align*}
+There are only two distinct relations, namely
+\begin{align*}
+ \frac{I}{4} - M^2 &= \frac{1}{k^2}N^2 \\
+  MN + NM &= 0
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  For $\varphi\in\lTC$ introduce the Hodge decomposition
+  \begin{align*}
+    \nu(x)\times\varphi(x) &= \Curlv p(x) + \Grad v(x)
+  \end{align*}
+  then
+  \begin{align*}
+    \varphi(x) &= -\Grad p(x) + \Curlv v(x)
+  \end{align*}
+  where $p(x)\in H^{\frac{1}{2}}(\bdr)$ and $v(x)\in H^{\frac{3}{2}}(\bdr)$. In view of \eqref{eq:Nsesqui}, we have
+  \begin{multline*}
+    \langle N_k\varphi,\,\varphi\rangle = -k^2\ints{\ints[x]{\Phi_{-k}(x, y)\,\left(\Curlv p(x)+\Grad v(x)\right)\cdot\left(\Curlv\overline{p(y)} + \Grad\overline{v(y)}\right)}}\\ 
+    + \ints[x]{\ints{\Phi_{-k}(x, y)\,\lapv v(x)\lapv\overline{v(y)}}}
+  \end{multline*}
+
+  \begin{multline*}
+    \langle N_k R\varphi,\,\varphi\rangle = \ints{\ints[x]{\Phi_{-k}(x, y)\,\left(\Curlv p(x)+\Grad v(x)\right)\cdot\left(\Curlv\overline{p(y)} + \Grad\overline{v(y)}\right)}}\\ 
+    + \ints[x]{\ints{\Phi_{-k}(x, y)\,\lapv v(x)\lapv\overline{v(y)}}}
+  \end{multline*}
+
+  \begin{align*}
+    \langle \mathcal{T}_k\varphi,\,\varphi\rangle = &\ints{\ints[x]{\Phi_{-k}(x, y)\,\lapv v(x)\lapv\overline{v(y)}}} \\
+    &+\ints{\ints[x]{\Phi_{-k}(x, y)\,\Curlv p(x)\cdot\Curlv\overline{p(y)}}} \\
+    &+\ints{\ints[x]{\Phi_{-k}(x, y)\,\Curlv p(x)\cdot\Grad\overline{v(y)}}} \\
+    &+\ints{\ints[x]{\Phi_{-k}(x, y)\,\Grad v(x)\cdot\Curlv\overline{p(y)}}} \\
+    &+\ints{\ints[x]{\Phi_{-k}(x, y)\,\Grad v(x)\cdot\Grad\overline{v(y)}}} \\
+  \end{align*}
+
+T-coercive technique: $q = p, w = -v$
+\begin{align*}
+  &-\ints{(y)}{\ints[x]{\Phi_0(x, y)\,\lapv v(x)\lapv\overline{v(y)}}} \\
+  &-k^2\ints{\ints[x]{\Phi_0(x, y)\,\Curlv p(x)\cdot\Curlv\overline{p(y)}}} \\
+  &+k^2\ints{\ints[x]{\Phi_0(x, y)\,\Curlv p(x)\cdot\Grad\overline{v(y)}}} \\
+  &-k^2\ints{\ints[x]{\Phi_0(x, y)\,\Grad v(x)\cdot\Curlv\overline{p(y)}}}\\
+  &+k^2\ints{\ints[x]{\Phi_0(x, y)\,\Grad v(x)\cdot\Grad\overline{v(y)}}}\\
+\end{align*}
+
+\begin{thm}
+  Let $B_1$ and $B_2$ be two open balls such that $\overline{B_1}\subseteq\Omega$ and $\overline{\Omega}\subseteq B_2$. Let $\eta\in\mathbb{C}$ with $\Im{(\eta\overline{k})} > 0$ and $K_j$ be two $\lTD\to\lTC$
+  \begin{align*}
+    \curl^2 u - k^2 u = 0
+  \end{align*}
+  \begin{align*}
+    \gamma_{\text t}\curl u|_{+} - \gamma_{\text t}\curl{u}|_{-} &= \nu\times a\quad\text{ on }\bdr\\
+    \gamma_{\text t}u|_{+} - \gamma_{\text t}u|_{-}  &= 0\quad\text{ on }\bdr\\
+    \gamma_{\text t}\curl u - \eta\,\gamma_{\text t}K_2(\gamma_{\text t}u) &= 0\quad\text{ on }\partial B_2\\
+    \gamma_{\text t}\curl u + \eta\,\gamma_{\text t}K_1(\gamma_{\text t}u) &= 0\quad\text{ on }\partial B_1\\
+  \end{align*}
+  \begin{align*}
+    \intvn{\bigl\{\curl u\curl v - k^2 u\cdot v\bigr\}} - \eta\sum_{j=1}^2\langle \gamma_{\text t} v, K_j(\gamma_{\text t}u)\rangle_{\partial B_j} = \langle\nu\times a, \pi_{\text t} v\rangle_{\bdr}  
+  \end{align*}
+\end{thm}
+
+\begin{align*}
+  w(x) = \sum_{j=1}^2(-1)^j\Bigl\{\curl\,\langle \gamma_{\text t} u, \Phi(x,\cdot)\rangle_{\partial B_j} + \frac{1}{k^2} \curl^2\langle\gamma_{\text t}\curl u, \Phi(x, \cdot)\rangle_{\partial B_j}\Bigr\}  
+\end{align*}
+
+\begin{multline}
+  u(x) = \,-\curl\,\langle \gamma_{\text t} u|_-, \Phi(x,\cdot)\rangle_\bdr -\frac{1}{k^2} \curl^2\langle\gamma_{\text t}\curl u|_-, \Phi(x, \cdot)\rangle_\bdr \\
++ \curl\langle \gamma_{\text t} u, \Phi(x,\cdot)\rangle_{\partial B_1} + \frac{1}{k^2} \curl^2\langle\gamma_{\text t}\curl u, \Phi(x, \cdot)\rangle_{\partial B_1}   
+\end{multline}
+\begin{multline}
+  0  = \,\curl\,\langle \gamma_{\text t} u|_+, \Phi(x,\cdot)\rangle_\bdr + \frac{1}{k^2} \curl^2\langle\gamma_{\text t}\curl u|_+, \Phi(x, \cdot)\rangle_\bdr \\
+-\curl\langle \gamma_{\text t} u, \Phi(x,\cdot)\rangle_{\partial B_2} - \frac{1}{k^2} \curl^2\langle\gamma_{\text t}\curl u, \Phi(x, \cdot)\rangle_{\partial B_2} 
+\end{multline}
+\begin{align*}
+  u(x) = \frac{1}{k^2} \curl^2\langle\nu\times a, \Phi(x, \cdot)\rangle_\bdr - w(x)\\
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

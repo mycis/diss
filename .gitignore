@@ -1,0 +1,21 @@
+# binary files that can be safely ignored
+
+essential/
+*.class
+*.exe
+*.o
+*.so
+*.pyc
+
+*.7z
+*.gz
+*.zip
+
+*.log
+*.blg
+*.out
+*.aux
+*.bbl
+*.toc
+
+*.swp

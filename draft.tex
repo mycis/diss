@@ -1,0 +1,941 @@
+\input{common.tex}
+%\author{Chang-ye Tu}
+\title{Inverse Obstacle Scattering of a Perfect Conductor}
+%\date{\today}
+\maketitle
+
+\section{Prerequisites}
+\begin{prp}[Green Formula]
+  \begin{multline*}
+    \intv{\left(E\cdot\Delta H - H\cdot\Delta E\right)}\\=\ints{\left(E\times\curl H + E\divv H - H\times\curl E - H\divv E\right)\cdot\nu}
+  \end{multline*}
+  If $\divv E=\divv H=0$, then
+  \begin{align}\label{eq:green}
+    \intv{E&\cdot\curl\curl H - H\cdot\curl\curl E}\\
+    &=\ints{\left(E\times\curl H - H\times\curl E\right)\cdot\nu}\\
+    &=\ints{(\nu\times E)\cdot\curl H - (\nu\times H)\cdot\curl E}
+  \end{align}
+\end{prp}
+
+\begin{prp}[Stratton-Chu Representation Formula]\label{prp:chu}
+  If $E, H\in C^1(\Omega_+)\cap C(\Omega_+\cup\bdr)$ satisfy Maxwell equations in $\Omega_+$ and the Silver-M\"uller radiation condition, then for $x\in\Omega_+$
+  \begin{multline*}
+    E(x) = \curl\ints{\nu(x)\times E(y)\Phi(x,y)}(y)\\
+           +\frac{i}{k}\curl\curl\ints{\nu(y)\times H(y)\Phi(x,y)}(y)
+  \end{multline*}
+  \begin{multline*}
+    H(x) = \curl\ints{\nu(x)\times H(y)\Phi(x,y)}(y)\\
+           -\frac{i}{k}\curl\curl\ints{\nu(y)\times E(y)\Phi(x,y)}(y).
+  \end{multline*}
+\end{prp}
+
+\begin{prp}[Far Field Patterns]\label{prp:far}
+  \begin{align*}
+    E^\infty(\hat{x}) &= ik\,\hat{x}\times\ints{\left\{\nu(y)\times E(y)+(\nu(y)\times H(y))\times\hat{x}\right\}e^{-ik\hat{x}\cdot y}}(y) \\
+    H^\infty(\hat{x}) &= ik\,\hat{x}\times\ints{\left\{\nu(y)\times H(y)-(\nu(y)\times E(y))\times\hat{x}\right\}e^{-ik\hat{x}\cdot y}}(y) 
+  \end{align*}
+\end{prp}
+
+\begin{prp}[Rellich Lemma]
+  If $E, H\in C^1(\Omega_+)$ is a radiating solution of Maxwell equations such that the electric far field pattern vanishes identically, then $E=H=0$ in $\Omega_+$.
+\end{prp}
+
+\section{Reciprocity Relations}
+
+Assume $x, z\in\Omega_+$, $\hat{x}, d\in\mathbb{S}^2$, $p, q\in\mathbb{R}^3$.  
+
+Given the incident electromagentic wave 
+\begin{align*}
+  E_\text{w}^\text{i}(x, d, p) &= \frac{i}{k}\curl_x\curl_x p e^{ikx\cdot d} = ik(d\times p)\times d e^{ikx\cdot d}, \\
+  H_\text{w}^\text{i}(x, d, p) &= \curl_x p e^{ikx\cdot d} = ik(d\times p)e^{ikx\cdot d}, 
+\end{align*} 
+the scattered field is denoted by 
+$$E_\text{w}^\text{s}(x, d, p),\quad H_\text{w}^\text{s}(x, d, p)$$
+with corresponding far field pattern
+$$E_\text{w}^\infty(\hat{x}, d, p), \quad H_\text{w}^\infty(\hat{x}, d, p).$$
+
+Given the incident dipole 
+\begin{align*}
+  E_\text{p}^\text{i}(x, z, p) &= \frac{i}{k}\curl_x\curl_x p\Phi(x, z), \\
+  H_\text{p}^\text{i}(x, z, p) &= \curl_x p\Phi(x, z),
+\end{align*}
+the scattered field is denoted by 
+$$E_\text{p}^\text{s}(x, z, p),\quad H_\text{p}^\text{s}(x, z, p)$$ 
+with the corresponding far field pattern
+$$E_\text{p}^\infty(\hat{x}, z, p),\quad H_\text{p}^\infty(\hat{x}, z, p).$$
+
+The total field is denoted by 
+\begin{align*}
+  E_\text{w}(x, d, p) &= E_\text{w}^\text{i}(x, d, p) + E_\text{w}^\text{s}(x, d, p)\\
+  H_\text{w}(x, d, p) &= H_\text{w}^\text{i}(x, d, p) + H_\text{w}^\text{s}(x, d, p) \\
+  E_\text{p}(x, z, p) &= E_\text{p}^\text{i}(x, z, p) + E_\text{p}^\text{s}(x, z, p)\\
+  H_\text{p}(x, z, p) &= H_\text{p}^\text{i}(x, z, p) + H_\text{p}^\text{s}(x, z, p)
+\end{align*}
+
+\begin{thm}[Mixed Reciprocity Relation]
+  $$p\cdot E_\text{w}^\text{s}(z, -\hat{x}, q) = 4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p)$$ 
+\end{thm}
+
+\begin{proof}
+  From proposition \eqref{prp:far} we have
+  \begin{multline}\label{eq:mr1}
+    4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p) = \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H_\text{w}^\text{i}(y, -\hat{x}, q) \\+ \nu(y)\times H_\text{p}^\text{s}(y, z, p)\cdot E_\text{w}^\text{i}(y, -\hat{x}, q)}(y) 
+  \end{multline}
+  From Green formula \eqref{eq:green} we have
+  \begin{multline}\label{eq:mr2}
+    \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H_\text{w}^\text{s}(y, -\hat{x}, q) \\+ \nu(y)\times H_\text{p}^\text{s}(y, z, p)\cdot E_\text{w}^\text{s}(y, -\hat{x}, q)}(y) = 0 
+  \end{multline}
+  Add \eqref{eq:mr1}, \eqref{eq:mr2} and apply the boundary condition $$\nu(y)\times E_\text{w}(y, -\hat{x}, q)=0\quad\forall y\in\bdr$$ we have
+  \begin{align}\label{eq:mr3}
+    4\pi q\cdot E_\text{p}^\infty(\hat{x}, z, p)= \ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H_\text{w}(y, -\hat{x}, q)}(y) 
+  \end{align}
+  From Stratton-Chu representation,  
+  \begin{multline}\label{eq:mr4}
+    E_\text{w}^\text{s}(z, -\hat{x}, q) = \curl\ints{\nu(y)\times E_\text{w}^\text{s}(y, -\hat{x}, q)\Phi(z, y)}(y)\\+\frac{i}{k}\curl\curl\ints{\nu(y)\times H_\text{w}^\text{s}(y, -\hat{x}, q)\Phi(z, y)}(y)
+  \end{multline}
+  From Green formula \eqref{eq:green},
+  \begin{multline}\label{eq:mr5}
+    0 = \curl\ints{\nu(y)\times E_\text{w}^\text{i}(y, -\hat{x}, q)\Phi(z, y)}(y)\\+\frac{i}{k}\curl\curl\ints{\nu(y)\times H_\text{w}^\text{i}(y, -\hat{x}, q)\Phi(z, y)}(y)
+  \end{multline}
+  Add \eqref{eq:mr4}, \eqref{eq:mr5} and apply the boundary condition $$\nu(y)\times E_\text{w}(y, -\hat{x}, q)=0\quad\forall y\in\bdr$$ we have
+  \begin{align}\label{eq:mr6}
+    E_\text{w}^\text{s}(z, -\hat{x}, q) = \frac{i}{k}\curl\curl\ints{\nu(y)\times H_\text{w}(y, -\hat{x}, q)\Phi(z, y)}(y)
+  \end{align}
+  From \eqref{eq:mr6}, the identity $$p\cdot\curl\curl_z\{a(y)\Phi(z, y)\}=a(y)\cdot\curl\curl_z\{p\Phi(z, y)\},$$ and the boundary condition $$\nu(y)\times E_\text{p}^\text{i}(y, z, p) = -\nu(y)\times E_\text{p}^\text{s}(y, z, p)\quad\forall y\in\bdr$$ we have 
+  \begin{align*}
+    p\cdot E_\text{w}^\text{s}(z, -\hat{x}, q) &= \frac{i}{k}\,p\cdot\curl\curl\ints{\nu(y)\times H_\text{w}(y, -\hat{x}, q)\Phi(z, y)}(y) \\
+    &=\frac{i}{k}\ints{\nu(y)\times H_\text{w}(y, -\hat{x}, q)\cdot\curl\curl\{p\Phi(z, y)\}}(y) \\
+    &=\ints{\nu(y)\times H_\text{w}(y, -\hat{x}, q)\cdot E_\text{p}^\text{i}(y, z, p)}(y) \\
+    &=-\ints{\nu(y)\times E_\text{p}^\text{i}(y, z, p)\cdot H_\text{w}(y, -\hat{x}, q)}(y) \\
+    &=\ints{\nu(y)\times E_\text{p}^\text{s}(y, z, p)\cdot H_\text{w}(y, -\hat{x}, q)}(y),
+   \end{align*}
+   which equals \eqref{eq:mr3}.
+\end{proof}
+
+\begin{thm}[Reciprocity Relation]
+  $$q\cdot E_\text{w}^\infty(\hat{x}, d, p) = p\cdot E_\text{w}^\infty(-d, -\hat{x}, q)$$ 
+\end{thm}
+
+\begin{proof}
+  Apply Green formula \eqref{eq:green} to $E_\text{w}^\text{i}$ in $\Omega_-$, $E_\text{w}^\text{s}$ in $\Omega_+$, we have
+  \begin{multline}
+    \ints{\nu(y)\times E_\text{w}^\text{i}(y, d, p)\cdot H_\text{w}^\text{i}(y, -\hat{x}, q) \\- \nu(y)\times E_\text{w}^\text{i}(y, -\hat{x}, q)\cdot H_\text{w}^\text{i}(y, d, p)}(y) = 0 \label{eq:r1} 
+  \end{multline}
+  \begin{multline}
+    \ints{\nu(y)\times E_\text{w}^\text{s}(y, d, p)\cdot H_\text{w}^\text{s}(y, -\hat{x}, q) \\- \nu(y)\times E_\text{w}^\text{s}(y, -\hat{x}, q)\cdot H_\text{w}^\text{s}(y, d, p)}(y) = 0 \label{eq:r2}
+  \end{multline}
+  From proposition \eqref{prp:far} we have
+  \begin{multline}\label{eq:r3}
+    4\pi q\cdot E_\text{w}^\infty(\hat{x}, d, p) = \ints{\nu(y)\times E_\text{w}^\text{s}(y, d, p)\cdot H_\text{w}^\text{i}(y, -\hat{x}, q) \\+ \nu(y)\times H_\text{w}^\text{s}(y, d, p)\cdot E_\text{w}^\text{i}(y, -\hat{x}, q)}(y) 
+  \end{multline}
+  Interchange $p, q$ and $d, \hat{x}$ respectively in \eqref{eq:r3}, we have 
+  \begin{multline}\label{eq:r4}
+    4\pi q\cdot E_\text{w}^\infty(\hat{x}, d, p) = \ints{\nu(y)\times E_\text{w}^\text{s}(y, -\hat{x}, q)\cdot H_\text{w}^\text{i}(y, d, p) \\+ \nu(y)\times H_\text{w}^\text{s}(y, -\hat{x}, q)\cdot E_\text{w}^\text{i}(y, d, p)}(y) 
+  \end{multline}
+  Subtract \eqref{eq:r3} with \eqref{eq:r4} and add \eqref{eq:r1}, \eqref{eq:r2}, together with the boundary condition 
+  \begin{align*}
+    \nu(y)\times E_\text{w}(y, d, p)=\nu(y)\times E_\text{w}(y, -\hat{x}, p)=0\quad\forall y\in\bdr
+  \end{align*}
+  the result follows. 
+\end{proof}
+
+\section{A Uniqueness Theorem}
+\begin{thm}
+  If $D_1$ and $D_2$ are two perfect conductors such that the electric far field patterns coincide for a fixed wave number, all incident directions and all observation directions, then $D_1=D_2$.
+\end{thm}
+
+\begin{proof}
+  Let $U$ be the unbounded component of $\mathbb{R}^3\setminus(D_1\cup D_2)$. 
+  By Rellich lemma, 
+  $$E_{\text{w},1}^\text{s}(x, d, p)=E_{\text{w},2}^\text{s}(x, d, p)\quad\forall x\in U, d, p\in\mathbb{S}^2.$$ 
+  By mixed reciprocity relation,
+  $$E_{\text{w},1}^\infty(\hat{x}, z, p)=E_{\text{w},2}^\infty(\hat{x}, z, p)\quad\forall z\in U, \hat{x}, p\in\mathbb{S}^2.$$ 
+  Again by Rellich lemma,
+  $$E_{\text{p},1}^\text{s}(x, z, p)=E_{\text{p},2}^\text{s}(x, z, p)\quad\forall x, z\in U, p\in\mathbb{S}^2.$$
+
+  Assume $D_1\not=D_2$, then $\exists\,\tilde{x}\in U$ such that $\tilde{x}\in\partial D_1, \tilde{x}\not\in\overline{D_2}$. Construct $\{z_n\}$ such that $z_n=\tilde{x}+\frac{1}{n}\nu(\tilde{x})\in U$ for sufficiently large $n$. From the well-posedness of the solution on $D_2$, $E_{\text{p},2}^\text{s}(\tilde{x}, \tilde{x}, p)$ is well-behaved. But $$E_{\text{p},1}^\text{s}(\tilde{x}, z_n, q)\to\infty\text{ as } z_n\to\tilde{x}\text{ and given } p\bot\nu(\tilde{x})$$ in order to fulfill the boundary condition with the incident dipole $E_{\text{p},1}^\text{i}(\tilde{x}, z_n, p)$, which becomes unbounded as $z_n\to\tilde{x}$.
+
+\end{proof}
+
+\section{Factorization of the Far Field Operator}
+
+Here we set the function spaces which will be of use later.
+%\begin{enumerate}
+  %\item $H(\curl, \Omega) = \{v\,|\,v\in L^2(\Omega)^3, \,\curl v\in L^2(\Omega)^3\}$, with norm $$\|v\|_{H(\curl, \Omega)} = \left(\|v\|_{L^2(\Omega)^3}^2 + \|\curl v\|_{L^2(\Omega)^3}^2\right)^{\frac{1}{2}}.$$
+  %\item $H(\divv, \Omega) = \{v\,|\,v\in L^2(\Omega)^3, \,\divv v\in L^2(\Omega)\}$, with norm $$\|v\|_{H(\divv, \Omega)} = \left(\|v\|_{L^2(\Omega)^3}^2 + \|\divv v\|_{L^2(\Omega)}^2\right)^{\frac{1}{2}}.$$
+  %\item $H^{-\frac{1}{2}}(\divv, \bdr) = \{v\,|\,v\in H^{-\frac{1}{2}}(\bdr)^3,\, \nu\cdot v=0, \,\divv_\bdr v\in H^{-\frac{1}{2}}(\bdr)\}$.
+  %\item $H^{-\frac{1}{2}}(\curl, \bdr) = \{v\,|\,v\in H^{-\frac{1}{2}}(\bdr)^3,\, \nu\cdot v=0, \,\curl_\bdr v\in H^{-\frac{1}{2}}(\bdr)\}$.
+%\end{enumerate}
+
+\begin{enumerate}
+  \item $L_{2,\text{t}}^{\Div} = \{v\,|\,v\in L_2(\bdr)^3,\, \nu\cdot v=0, \,\Div v\in L_2(\bdr)\}$.
+  \item $L_{2,\text{t}}^{\Curl} = \{v\,|\,v\in L_2(\bdr)^3,\, \nu\cdot v=0, \,\Curl v\in L_2(\bdr)\}$.
+\end{enumerate}
+
+\begin{prp}
+  $v\to\nu\times v$ is an isomorphism from $L_{2,\text{t}}^{\Curl}$ to $L_{2,\text{t}}^{\Div}$ with inverse $w\to -\nu\times w$.
+\end{prp}
+
+\begin{dfn}
+  The Maxwell problem is to find a pair of radiating solution $(E, H)\in H_\text{loc}(\curl, \mathbb{R}^3\setminus\Omega)$ to the Maxwell equations
+  \begin{align*}
+    \curl E - ikH &= 0\\
+    \curl H + ikE &= 0
+  \end{align*}
+  in $\mathbb{R}^3\setminus\Omega$ with the boundary condition
+  \begin{align*}
+    \nu\times E = f
+  \end{align*}
+  where $f\in H^{-\frac{1}{2}}(\divv, \bdr)$. The data-to-pattern operator $G:H^{-\frac{1}{2}}(\divv, \bdr)\rightarrow L_\text{t}^2(\mathbb{S}^2)$ is defined by $$Gf=E^\infty$$ where $E^\infty$ denotes the far field pattern of the radiating solution $E$ of the Maxwell problem.
+\end{dfn}
+
+\begin{dfn}
+  The far field operator $F:L_\text{t}^2(\mathbb{S}^2)\rightarrow L_\text{t}^2(\mathbb{S}^2)$ is defined by 
+  \begin{align}
+    (Fg)(\hat{x})=\int_{\mathbb{S}^2} E^\infty(\hat{x}, \theta)g(\theta)\,d\sigma(\theta),\quad\hat{x}\in \mathbb{S}^2.
+  \end{align}
+\end{dfn}
+
+\begin{prp}
+  \begin{enumerate}
+    \item $F - F^* = \frac{ik}{8\pi}F^*F$, where $F^*$ denotes the $L^2$-adjoint of $F$.
+    \item The scattering operator $S=I+\frac{ik}{8\pi^2}F$ is unitary.
+    \item $F$ is normal.
+  \end{enumerate}
+\end{prp}
+
+\begin{proof}
+  Let $g, h\in L_{\text t}^2(\mathbb{S}^2)$ and define the Hergoltz wave functions $v^\text{i}, w^\text{i}$ with density $g, h$ respectively:
+  \begin{align*}
+    v^\text{i}(x) &= \int_{\mathbb{S}^2}g(\theta) e^{i k x\cdot\theta}\, d\sigma(\theta),\qquad x\in\mathbb{R}^3 \\
+    w^\text{i}(x) &= \int_{\mathbb{S}^2}h(\theta) e^{i k x\cdot\theta}\, d\sigma(\theta),\qquad x\in\mathbb{R}^3 
+  \end{align*}
+  Let $v, w$ be solutions of the scattering problem corresponding to incident fields $v^\text{i}, w^\text{i}$, with scattered fields $v^\text{s}=v-v^\text{i}, w^\text{s}=w-w^\text{i}$ and far field patterns $v^\infty, w^\infty$ respectively. Apply Green theorem in $\Omega_R=\{x\in\mathbb{R}^3\setminus\overline{\Omega}: |x|<R\}$ with sufficiently big $R$, together with the boundary condition we have
+  \begin{align}
+    0 &= \int_{\Omega_R}\left(v\Delta\overline{w}-\overline{w}\Delta v\right)\,dV \\
+    &= \int_{|x|=R}\left(\overline{w}\times\curl{v} - v\times\curl{\overline{w}}\right)\cdot\nu\,d\sigma.\label{int}
+  \end{align} 
+  Decomposing $v=v^\text{i}+v^\text{s}$ and $w=w^\text{i}+w^\text{s}$, we split \eqref{int} into the sum of the following four parts:
+  \begin{align}
+    &\int_{|x|=R}\left(\overline{w^\text{i}}\times\curl{v^\text{i}} - v^\text{i}\times\curl{\overline{w^\text{i}}}\right)\cdot\nu\,d\sigma,\label{int0} \\
+    &\int_{|x|=R}\left(\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right)\cdot\nu\,d\sigma,\label{int1} \\
+    &\int_{|x|=R}\left(\overline{w^\text{i}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{i}}}\right)\cdot\nu\,d\sigma,\label{int2} \\
+    &\int_{|x|=R}\left(\overline{w^\text{s}}\times\curl{v^\text{i}} - v^\text{i}\times\curl{\overline{w^\text{s}}}\right)\cdot\nu\,d\sigma.\label{int3}
+  \end{align}
+  The integral \eqref{int0} vanishes by applying Green theorem in $B_R=\{x:|x|<R\}$. To evaluate the integral \eqref{int1}, we note by the radiation condition
+  \begin{align}
+    \overline{w^\text{s}}\times\hat{x} - \frac{1}{ik} \curl{\overline{w^\text{s}}} &= \mathcal{O}\left(\frac{1}{r^2}\right) \\
+    v^\text{s}\times\hat{x} + \frac{1}{ik} \curl{v^\text{s}} &= \mathcal{O}\left(\frac{1}{r^2}\right) 
+  \end{align}
+  and relations between scattered fields and far field patterns
+  \begin{align*}
+    \overline{w^\text{s}} &= \frac{e^{-ikr}}{4\pi r}\left\{\overline{w^\infty} + \mathcal{O}\left(\frac{1}{r}\right)\right\} \\
+    v^\text{s} &= \frac{e^{ikr}}{4\pi r}\left\{v^\infty + \mathcal{O}\left(\frac{1}{r}\right)\right\} 
+  \end{align*}
+  one obtains
+  \begin{align*}
+    &\left(\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right)\cdot\hat{x}\\
+    &=ik\left(\overline{w^\text{s}}\times(\hat{x}\times v^\text{s})+v^\text{s}\times(\hat{x}\times\overline{w^\text{s}})\right)\cdot\hat{x} \\
+    &=2ik\left(\overline{w^\text{s}}\cdot v^\text{s}-(\overline{w^\text{s}}\cdot\hat{x})(v^\text{s}\cdot\hat{x}\right))\\
+    &=2ik\,\overline{w^\text{s}}\cdot v^\text{s}\\
+    &=\frac{ik}{8\pi^2 r^2} \overline{w^\infty}\cdot v^\infty + \mathcal{O}\left(\frac{1}{r^3}\right)
+  \end{align*}
+  Hence
+  \begin{align*}
+    &\int_{|x|=R}\left(\overline{w^\text{s}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{s}}}\right)\cdot\nu\,d\sigma\\ 
+    &\longrightarrow \frac{ik}{8\pi^2}\int_{\mathbb{S}^2}\overline{w^\infty}\cdot v^\infty\,d\sigma =\frac{ik}{8\pi^2}\left(Fg, Fh\right)_{L^2(\mathbb{S}^2)}
+  \end{align*}
+
+  To evaluate the integral \eqref{int2}, one note that it can be rearranged as
+  \begin{align}
+    &\int_{|x|=R}\left(\overline{w^\text{i}}\times\curl{v^\text{s}} - v^\text{s}\times\curl{\overline{w^\text{i}}}\right)\cdot\nu\,d\sigma \\
+    =&-\int_{|x|=R}\left(\hat{x}\times\curl{v^\text{s}}\right)\cdot\overline{w^\text{i}}+\left(\hat{x}\times v^\text{s}\right)\cdot\curl{\overline{w^\text{i}}}\,d\sigma \label{int2a}
+  \end{align}
+
+  Substitute  
+  \begin{align*}
+    \overline{w^\text{i}}(x) &= \int_{\mathbb{S}^2}h(\theta) e^{-i k x\cdot\theta}\, d\sigma(\theta), \\
+    \curl{\overline{w^\text{i}}(x)} &= ik\, \int_{\mathbb{S}^2}\left(h(\theta)\times\theta\right) e^{-i k x\cdot\theta}\, d\sigma(\theta)
+  \end{align*}
+  
+  into \eqref{int2a}, the integral becomes 
+  \begin{multline}\label{int2b}
+    -\int_{|x|=R}\left(\hat{x}\times\curl{v^\text{s}}\right)\cdot\int_{\mathbb{S}^2}h(\theta) e^{-i k x\cdot\theta}\, d\sigma(\theta)\,d\sigma(x) \\-\int_{|x|=R}\left(\hat{x}\times v^\text{s}\right)\cdot ik\, \int_{\mathbb{S}^2}\left(h(\theta)\times\theta\right) e^{-i k x\cdot\theta}\, d\sigma(\theta) \,d\sigma(x).
+  \end{multline}
+
+  From $h(\theta)\cdot\theta=0$ and $\theta\cdot\theta=1$, by formulae
+  \begin{align*}
+    a\times(b\times c) &= b\,(a\cdot c) - c\,(a\cdot b) \\
+    a\cdot(b\times c) &= -b\cdot(a\times c) 
+  \end{align*}
+  we have  
+  \begin{align*}
+    h(\theta)\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)=&\,h(\theta)\cdot\left\{\left(\hat{x}\times\curl{v^\text{s}}\right)-\theta\left(\theta\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)\right)\right\} \\
+    =&\,h(\theta)\cdot\left\{\theta\times\left(\left(\hat{x}\times\curl{v^\text{s}}\right)\times\theta\right)\right\} 
+  \end{align*}
+  and 
+  \begin{align*}
+    \left(\hat{x}\times v^\text{s}\right)\cdot\left(h(\theta)\times\theta\right) = h(\theta)\cdot\left(\theta\times\left(\hat{x}\times v^\text{s}\right)\right)
+  \end{align*}
+  Substitute into \eqref{int2b}, the value of the integral \eqref{int2} is  
+  \begin{align*}
+    &-\int_{\mathbb{S}^2}\int_{|x|=R} \left\{h(\theta)\cdot\left(\hat{x}\times\curl{v^\text{s}}\right)+ik\,\left(\hat{x}\times v^\text{s}\right)\cdot\left(h(\theta)\times\theta\right)\right\} e^{-i k x\cdot\theta}\,d\sigma(x)\,d\sigma(\theta) \\
+    =&-\int_{\mathbb{S}^2}h(\theta)\cdot\int_{|x|=R}\left\{\theta\times\left(\left(\hat{x}\times\curl{v^\text{s}}\right)\times\theta\right) + ik\,\theta\times\left(\hat{x}\times v^\text{s}\right)\right\} e^{-i k x\cdot\theta}\,d\sigma(x)\,d\sigma(\theta) \\
+    &\longrightarrow-\left(Fg, h\right)_{L^2(\mathbb{S}^2)}.
+  \end{align*}
+  By the same token, the integral \eqref{int3} is $\left(g, Fh\right)_{L^2(\mathbb{S}^2)}$. Hence
+  \begin{align*}
+    0 = \left(g, Fh\right)_{L^2(\mathbb{S}^2)} -\left(Fg, h\right)_{L^2(\mathbb{S}^2)} + \frac{ik}{8\pi^2}\left(Fg, Fh\right)_{L^2(\mathbb{S}^2)},
+  \end{align*}
+  the identity
+  \begin{align*}
+    F - F^* = \frac{ik}{8\pi^2} F^*F
+  \end{align*}
+  follows.
+  
+  To see that $S$ is unitary, we compute
+  \begin{align*}
+    S^*S&=\left(I - \frac{ik}{8\pi^2}F^*\right)\left(I + \frac{ik}{8\pi^2}F\right)\\
+        &= I + \frac{ik}{8\pi^2}F - \frac{ik}{8\pi^2}F^* + \frac{k^2}{64\pi^2}F^*F\\
+        &= I. 
+  \end{align*}
+  Thus $S$ is injective as well as surjective, for $S$ is a compact perturbation of the identity. Therefore $S^*=S^{-1}$ and $SS^*=I$. Comparing $S^*S$ and $SS^*$ we can see that $F^*F=FF^*$, hence $F$ is normal.
+  
+\end{proof}
+
+\begin{prp}
+  $$F=-GN^*G^*.$$ 
+\end{prp}
+
+\begin{proof}
+  Define auxiliary operator $\mathcal{H}:L_\text{t}^2(\mathbb{S}^2)\rightarrow H^{-\frac{1}{2}}(\divv, \bdr)$ as
+  \begin{align}
+    (\mathcal{H}g)(x)=\nu(x)\times\int_{\mathbb{S}^2}g(\theta)e^{ikx\cdot\theta}\,d\sigma(\theta),\quad x\in\bdr.
+  \end{align}
+
+  The adjoint operator $\mathcal{H}^*:H^{-\frac{1}{2}}(\curl, \bdr)\rightarrow L_\text{t}^2(\mathbb{S}^2)$ is 
+  \begin{align}
+    (\mathcal{H}^*f)(\theta)=\theta\times\left(\theta\times\ints{\left(\nu(x)\times f(x)\right)e^{-ik x\cdot\theta}}(x)\right),\quad\theta\in\mathbb{S}^2.
+  \end{align}
+  
+  This can be verified by
+  \begin{align*}
+    \langle f, \mathcal{H}g\rangle &= \int_{\bdr}f(x)\cdot\overline{\left\{\nu(x)\times\int_{\mathbb{S}^2}g(\theta)\,e^{i k x\cdot\theta}\,d\sigma(\theta)\right\}}\,d\sigma(x) \\
+    &=\int_{\bdr}\int_{\mathbb{S}^2} f(x)\cdot (\nu(x)\times\overline{g(\theta)})\,e^{-i k x\cdot\theta}\,d\sigma(\theta)\,d\sigma(x) \\
+    &=\int_{\mathbb{S}^2}\int_{\bdr} f(x)\cdot (\nu(x)\times\overline{g(\theta)})\,e^{-i k x\cdot\theta}\,d\sigma(x)\,d\sigma(\theta) \\
+    &=\int_{\mathbb{S}^2}\int_{\bdr}(f(x)\times \nu(x))\cdot\overline{g(\theta)}\,e^{-i k x\cdot\theta}\,d\sigma(x)\,d\sigma(\theta) \\
+    &=\int_{\mathbb{S}^2}\int_{\bdr} \left(\theta\times\left((f(x)\times \nu(x))\times\theta\right)\right)\cdot\overline{g(\theta)}\,e^{-i k x\cdot\theta} d\sigma(x)\,d\sigma(\theta) \\
+    &=\int_{\mathbb{S}^2}\left\{\theta\times\left(\int_{\bdr} (f(x)\times \nu(x))\,e^{-i k x\cdot\theta}\,d\sigma(x)\times\theta\right)\right\}\cdot\overline{g(\theta)}\,d\sigma(\theta) \\
+    &=\int_{\mathbb{S}^2}\left\{\left(\theta\times\int_{\bdr}(f(x)\times \nu(x))\,e^{-i k x\cdot\theta}\,d\sigma(x)\right)\times\theta\right\}\cdot\overline{g(\theta)}\,d\sigma(\theta) \\
+    &=\int_{\mathbb{S}^2}\left\{\theta\times\left(\theta\times\int_{\bdr}(\nu(x)\times f(x))\,e^{-i k x\cdot\theta}\,d\sigma(x)\right)\right\}\cdot\overline{g(\theta)}\,d\sigma(\theta) \\
+    &=\langle\mathcal{H}^*f, g\rangle.
+  \end{align*} 
+
+  Given tangential $f(x)$, define $u(x)$ by
+  \begin{align*}
+    u(x) = \curl\curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi(x,y)}(y),\quad x\in\mathbb{R}^3\setminus\bdr.
+  \end{align*}
+  
+  From the asymptotic relation
+  \begin{align*}
+    \curl\curl_x\left\{a(y)\frac{e^{ik|x-y|}}{|x-y|}\right\} &= k^2\frac{e^{ik|x|}}{|x|}\left\{e^{-ik\hat{x}\cdot y}\,\hat{x}\times(\hat{x}\times a(y)) + \mathcal{O}\left(\frac{1}{|x|}\right)\right\} 
+  \end{align*}
+  %we have
+  %\begin{align*}
+  %  u(x)&=\curl\curl_x\ints{\left(\nu(y)\times f(y)\right)\Phi(x,y)}(y) \\
+  %  &=\ints{\curl\curl_x\left\{\nu(y)\times f(y)\frac{e^{ik|x-y|}}{|x-y|}\right\}}(y) \\
+  %  &= k^2\frac{e^{ik|x|}}{|x|}\left\{e^{-ik\hat{x}\cdot y}\,\hat{x}\times(\hat{x}\times a(y)) + O\left(\frac{|a(y)|}{|x|}\right)\right\} 
+  %\end{align*} 
+  the far field pattern of $u$ can be seen as $\mathcal{H}^*f$. 
+
+  Define the electric dipole operator $N$ as %$N:H^{-\frac{1}{2}}(\divv, \bdr)\rightarrow H^{-\frac{1}{2}}(\divv, \bdr)$ as
+  \begin{align}
+    (Nf)(x) = \nu(x)\times\curl\curl\ints{\left(\nu(y)\times f(y)\right)\Phi(x,y)}(y),\quad x\in\bdr.
+  \end{align}
+  Then
+  \begin{align}
+    \mathcal{H}^*f = GNf.
+  \end{align}
+  We have
+  \begin{align}
+    F=-G\mathcal{H}.
+  \end{align}
+  hence $F=-G\mathcal{H}=-GN^*G^*$.
+\end{proof}
+
+\begin{prp}
+$\Im\langle N\varphi, \varphi\rangle\geqslant 0$. 
+\end{prp}
+
+\begin{proof}
+Define 
+\begin{align}\label{eq:v}
+  v(x) = \curl\ints{\nu(y)\times\varphi(y)\,\Phi(x,y)}(y),\qquad x\in\mathbb{R}^3\setminus\bdr.
+\end{align}
+Note that 
+  \begin{align*}
+  v_\pm(x) &= \pv\ints{\nabla_x\Phi(x, y)\times\left(\nu(y)\times\varphi(y)\right)}(y)\mp\frac{1}{2}\nu(x)\times(\nu(x)\times\varphi(x))\\ 
+  &= \pv\ints{\nabla_x\Phi(x, y)\times\left(\nu(y)\times\varphi(y)\right)}(y)\pm\frac{1}{2}\varphi(x) 
+  \end{align*}
+and $\divv v=0, \Delta v + k^2 v=0$. 
+
+set $a=\overline{v}, b=v$ in vector Green formula
+\begin{align*}
+  \intvv{a\cdot\Delta b+\curl a\cdot\curl b + \divv a\divv b}=\intss{-(\nu\times\curl b)\cdot a+(\nu\cdot a)\divv b}
+\end{align*}
+we can see that
+  \begin{align*}
+    \langle N\varphi, \varphi\rangle &=\left\langle \nu\times\curl v, v_+-v_-\right\rangle \\
+    &=\ints{\nu\times\curl v\cdot(\overline{v_+} - \overline{v_-})} \\
+    &=\ints{\nu\times\curl v\cdot\overline{v_+}}- \ints{\nu\times\curl v\cdot\overline{v_-}}\\
+    &=-\int_{\Omega\cup B_R}k^2|v|^2 - |\curl v|^2\,dV + \int_{|x|=R}\hat{x}\times\curl v\cdot\overline{v}\,d\sigma \\
+    &=-\int_{\Omega\cup B_R}k^2|v|^2 - |\curl v|^2\,dV + ik\,\int_{|x|=R}|v|^2\,d\sigma+\mathcal{O}\left(\frac{1}{R}\right)
+  \end{align*}
+Take the imaginary part and let $R\to\infty$, we have
+  \begin{align*}
+    \Im\langle N\varphi,\varphi\rangle = k\lim_{R\to\infty}\int_{|x|=R}|v|^2\,d\sigma = \frac{k}{16\pi^2}\int_{\mathbb{S}^2}|v^\infty|^2\,d\sigma\geqslant 0.
+  \end{align*}
+\end{proof}
+
+\begin{prp}
+  \label{pr:lip}
+  Given a bounded Lipschitz domain $\Omega$, the followings hold:
+  \begin{enumerate}
+    \item\label{it:lip1}
+      There exists a regular family of cones $\{\zeta\}$.
+    \item There exists a sequence of $C^{\infty}$ domains 
+      $\Omega_i\subset \Omega$ and corresponding homeomorphisms 
+      $\Lambda_j:\bdr\to\bdr_i$ such that 
+      $\sup_{x\in\bdr}|\Lambda_j(x)-x|\to 0$ as $j\to\infty$ and
+      for all $j$ and all $x\in\bdr$, $\Lambda_j(x)\in\zeta(x)$.
+    \item There exist positive functions 
+      $\omega_j:\bdr\to\mathbb{R}^+$ bounded away from zero and infinity 
+      uniformly in $j$ such that 
+      \begin{enumerate}
+	\item For any measurable set $V\subset\bdr$
+	  \begin{align*}
+	    \int_V \omega_j\,d\sigma=\int_{\Lambda_j(V)}\,d\sigma_j.
+	  \end{align*}
+	\item $\omega_j(x)\to 1$ pointwise a.e. for $x\in\bdr$. 
+      \end{enumerate}
+    \item $\nu(\Lambda_j(x))\to\nu(x)$ pointwise a.e. for $x\in\bdr$. 
+    \item\label{it:kk}
+      There exists a real-valued $C^{\infty}$ vector field $h$ such that for
+      all $j$ and $x\in\bdr$, 
+      $\nu(\Lambda_j(x))\cdot h(\Lambda_j(x))\geqslant \kappa>0$, where 
+      $\kappa$ depends on the Lipschitz character of $\Omega$. 
+      Without loss of generality, $\kappa<1$.
+  \end{enumerate}
+\end{prp}
+
+\begin{lmm}[Rellich identity]
+  For a complex-valued $C^{\infty}(\overline{\Omega})$ vector field $E$ and
+  a real-valued $C^{\infty}(\mathbb{R}^3)$ vector field $h$
+  \begin{multline}
+    \ints{\Bigl\{\frac{1}{2}|E|^2 (h\cdot\nu)-\re\bigl((\overline{E}\cdot h)
+    (E\cdot\nu)\bigr)\Bigr\}}\\
+    =\intv{\re\Bigl\{\frac{1}{2}|E|^2\divv h-(\overline{E}\cdot h)\divv E
+    -\overline{E}\cdot(\nabla h)E+(h\times\overline{E})\cdot\curl E\Bigr\}},
+    \label{eq:Rellich}
+  \end{multline}
+  where $\overline{E}\cdot(\nabla h)E$ denotes the quadratic form
+  $\Sigma_{i,j}(D_i h_j) E_i \overline{E_j}$.
+\end{lmm}
+\begin{proof}
+  It is evident from
+  \begin{multline*}
+    \divv\Bigl\{\frac{1}{2}|E|^2 h-\re\bigl((\overline{E}\cdot h)E\bigr)
+    \Bigr\}\\
+    =\re\Bigl\{\frac{1}{2}|E|^2\divv h-(\overline{E}\cdot h)\divv E-
+    \overline{E}\cdot(\nabla h)E+(h\times\overline{E})\cdot\curl E\Bigr\}
+  \end{multline*}
+  and Divergence theorem. 
+\end{proof}
+
+\begin{lmm}\label{lm:start}
+  For a complex-valued $C^{\infty}(\overline{\Omega})$ vector field $E$
+  \begin{align}
+    \ints{|E|^2} &\lesssim \ints{|E_{\text{n}}|^2}+\intv{|E|^2+|\curl E|^2+|\divv E|^2}
+    \label{eq:En}\\
+    \ints{|E|^2} &\lesssim \ints{|E_{\text{t}}|^2}+\intv{|E|^2+|\curl E|^2+|\divv E|^2}
+    \label{eq:Et}.
+  \end{align}
+  If $E\in C^{\infty}(\overline{\Omega_+})$ and decays at infinity then the
+  above hold with $\Omega$ replaced by $\Omega_+$.
+\end{lmm}
+\begin{proof}
+  Let $h$ be the real-valued vector field which satisfies proposition 
+  \ref{pr:lip}, item \eqref{it:kk}, i.e. $h\cdot\nu\geqslant\kappa
+  >0$ on $\bdr$. Decomposing $E$, $h$ into mutually orthogonal parts 
+  $E=E_{\text{t}}+E_{\text{n}}$, $h=h_{\text{t}}+h_{\text{n}}$, we have 
+  \begin{multline*}
+    \frac{1}{2}|E|^2(h\cdot\nu)-\re\bigl((\overline{E}\cdot h)(E\cdot\nu)
+    \bigr)\\
+    =\frac{1}{2}|E_{\text{t}}|^2(h\cdot\nu)-\frac{1}{2}|E_{\text{n}}|^2(h\cdot\nu)-
+    \re\bigl((\overline{E_{\text{t}}}\cdot h_{\text{t}})(E_{\text{n}}\cdot\nu)\bigr),
+  \end{multline*}
+  thus the Rellich identity \eqref{eq:Rellich} is rewritten as
+  \begin{align}
+    \ints{\frac{1}{2}|E_{\text{t}}|^2(h\cdot\nu)}&=
+    \ints{\frac{1}{2}|E_{\text{n}}|^2(h\cdot\nu)}+\Theta_1+\Theta_2,
+    \label{eq:Rellich1}
+  \end{align}
+  where
+  \begin{align*}
+    \Theta_1 &:=\ints{\re\bigl((\overline{E_{\text{t}}}\cdot h_{\text{t}})(E_{\text{n}}\cdot\nu)\bigr)},
+    \\
+    \Theta_2 &:=\intv{\re\Bigl\{\frac{1}{2}|E|^2\divv h-(\overline{E}\cdot h)
+    \divv E-\overline{E}\cdot(\nabla h)E+(h\times\overline{E})\cdot\curl E
+    \Bigr\}}
+  \end{align*}
+  In view of \eqref{eq:Rellich1} and $h\cdot\nu\geqslant\kappa>0$
+  we have
+  \begin{align}\label{eq:ineq1}
+    \frac{1}{2}\kappa\ints{|E_{\text{t}}|^2}&\leqslant\frac{1}{2}\ints{|E_{\text{n}}|^2}
+    +\Theta_1+\Theta_2.
+  \end{align} 
+  By Young's inequality 
+  \begin{align*}
+    ab\leqslant\varepsilon a^2+\frac{1}{\varepsilon}b^2\quad\forall
+    \varepsilon>0
+  \end{align*}
+  \eqref{eq:ineq1} becomes
+  \begin{align}
+    \ints{|E|^2}\lesssim\ints{|E_{\text{n}}|^2}+\intv{|E|^2+|E||\curl E|+|E||\divv E|}
+    \label{eq:Ennn}
+  \end{align}
+  Similarly, from \eqref{eq:Rellich1} and (\ref{it:kk}) $h\cdot\nu\geqslant\kappa>0$  we have
+  \begin{equation}\label{eq:ineq2}
+    \begin{split}
+      \frac{1}{2}\kappa\ints{|E_{\text{n}}|^2} 
+      &\leqslant \frac{1}{2}\ints{|E_{\text{t}}|^2}-\Theta_1-\Theta_2\\
+      &\leqslant\frac{1}{2}\ints{|E_{\text{t}}|^2}+|\Theta_1|+|\Theta_2|,
+    \end{split}
+  \end{equation}
+  hence by Young's inequality \eqref{eq:ineq2} becomes
+  \begin{align}
+    \ints{|E|^2}\lesssim\ints{|E_{\text{t}}|^2}+\intv{|E|^2+|E||\curl E|+|E||\divv E|}
+    \label{eq:Ettt}.
+  \end{align}
+  Once by Young's inequality 
+  \begin{align*}
+    \intv{|E|^2+|E||\curl E|+|E||\divv E|}\lesssim\intv{|E|^2+|\curl E|^2+
+    |\divv E|^2},
+  \end{align*}
+  and we may rewrite \eqref{eq:Ennn}, \eqref{eq:Ettt} into \eqref{eq:En}, 
+  \eqref{eq:Et} respectively.
+\end{proof}
+
+\begin{lmm}\label{lm:tt}
+  For the complex-valued $C^{\infty}(\overline{\Omega})$ vector field $E$
+  which satisfies $(\triangle+k^2)E=0$ and $\divv E=0$ in $\Omega$,  
+  \begin{align*}
+    \nltwo{E} + \nltwo{\curl E} &\approx \nltwod{\nu\times\curl E}
+  \end{align*}
+\end{lmm}
+\begin{proof}
+  Setting $a=\overline{E}$ and $b=E$ in vector Green's theorem 
+  \begin{align*}
+    \intvv{a\triangle b+\curl a\cdot\curl b+\divv a\cdot\divv b}=\intss{(\nu\times a)\cdot\curl b+(\nu\cdot a)\divv b}
+  \end{align*}
+  we have
+  \begin{align*}
+    \ints{(\nu\times\overline{E})\cdot\curl{E}+(\overline{E}\cdot\nu)\divv E}
+    =\intv{|\curl E|^2+|\divv E|^2-k^2|E|^2}.
+  \end{align*}
+  
+  
+  The above identity becomes
+  \begin{multline*}
+    \intv{|E|^2+|\curl E|^2+|\divv E|^2}\\\lesssim\Bigl|\ints{(\nu\times
+    \overline{E})\cdot\curl E}\Bigr|+\ints{|E\cdot\nu||\divv E|}.
+  \end{multline*}
+  Once by $|E\cdot\nu|\leqslant |E|$ and Young's inequality
+  \begin{align*}
+    \ints{|E\cdot\nu||\divv E|}\leqslant\text{(small)}\ints{|E|^2}+
+    \text{(large)}\ints{|\divv E|^2},
+  \end{align*}
+  which turns \eqref{eq:En} into
+  \begin{align}
+    \ints{|\nu\times E|^2}\lesssim\ints{|E\cdot\nu|^2+|\divv E|^2}+\Bigl|
+    \ints{(\nu\times\overline{E})\cdot\curl{E}}\Bigr|.
+    \label{eq:ee} 
+  \end{align}
+  % We begin with a simple observation: if $a$, $b$, $c$, $d$ are 
+  % non-negative and $d^2\lesssim a^2+b^2+c^2$, then $d\lesssim a+b+c$.
+  % Indeed, if there exists $\alpha>0$ such that 
+  % $d^2\leqslant\alpha(a^2+b^2+c^2)$, then 
+  % $d^2\leqslant\alpha(a^2+b^2+c^2+2ab+2bc+2ac)$ 
+  % because $a,b,c$ and $\alpha$ are nonnegative; hence 
+  % $d\leqslant\sqrt{\alpha}(a+b+c)$.  
+  Together with the result of lemma \ref{lm:start}, we have
+  \begin{equation}
+    \begin{split}\label{eq:nl1}
+      \nltwo{E} &\lesssim \nltwo{E_{\text{n}}}+\nltwo{(\curl E)_{\text{t}}}+\nltwo{\divv E},\\
+      \nltwo{E} &\lesssim \nltwo{E_{\text{t}}}+\nltwo{(\curl E)_{\text{t}}}+\nltwo{\divv E}.
+    \end{split}
+  \end{equation}
+  By writing 
+  $H=\frac{1}{ik}\curl E$, \eqref{eq:nl1} becomes
+  \begin{align}
+    \nltwo{E} &\lesssim \nltwo{E_{\text{n}}}+\nltwo{H_{\text{t}}},\label{eq:Enn}\\
+    \nltwo{E} &\lesssim \nltwo{E_{\text{t}}}+\nltwo{H_{\text{t}}}.\label{eq:Ett}
+  \end{align}
+  From $\curl\curl E=-\triangle E+\nabla\divv E$ we are free to permute $E$ 
+  and $H$ in \eqref{eq:Enn}, \eqref{eq:Ett} and obtain
+  \begin{align}
+    \nltwo{H} &\lesssim \nltwo{H_{\text{n}}}+\nltwo{E_{\text{t}}},\label{eq:int}\\
+    \nltwo{H} &\lesssim \nltwo{H_{\text{t}}}+\nltwo{E_{\text{t}}}.\label{eq:intt}
+  \end{align}
+  By \eqref{eq:Ett} and \eqref{eq:int},
+  \begin{equation}
+    \begin{split}\label{eq:e1}
+      \nltwo{E} &\lesssim \nltwo{E_{\text{t}}}+\nltwo{H_{\text{t}}}\\
+      &\lesssim \nltwo{E_{\text{t}}}+\nltwo{H_{\text{t}}}+\nltwo{H_{\text{n}}}\\
+      &\lesssim \nltwo{E_{\text{t}}}+\nltwo{H}\\
+      &\lesssim\nltwo{E_{\text{t}}}+\nltwo{H_{\text{n}}}+\nltwo{E_{\text{t}}}\\
+      &\lesssim\nltwo{H_{\text{n}}}+\nltwo{E_{\text{t}}}.
+    \end{split}
+  \end{equation}
+  From \eqref{eq:e1}, \eqref{eq:int} and $\nltwo{E_{\text{t}}}+\nltwo{H_{\text{n}}}\lesssim\nltwo{E}
+  +\nltwo{H}$, we have 
+  \begin{align}
+    \nltwo{E}+\nltwo{H} &\approx \nltwo{E_{\text{t}}}+\nltwo{H_{\text{n}}}.\label{eq:fin}
+  \end{align}
+  Once by permutting $E$ and $H$ in \eqref{eq:fin} we have
+  \begin{align}
+    \nltwo{H}+\nltwo{E} &\approx \nltwo{H_{\text{t}}}+\nltwo{E_{\text{n}}},\label{eq:finn}
+  \end{align}
+  By $\nltwod{\cdot}\equiv\nltwo{\cdot}+\nltwo{\Div(\cdot)}$ and $\Div(\nu\times E)=-\nu\cdot\curl E$, \eqref{eq:finn} is written as
+  \begin{align}
+    \nltwo{E} + \nltwo{\curl E} &\approx \nltwod{\nu\times\curl E}
+  \end{align}
+  as claimed.
+\end{proof}
+
+\begin{prp}
+  $-\langle N_i\varphi,\varphi\rangle \geqslant c \|\varphi\|^2$.
+\end{prp}
+
+\begin{proof}
+  \begin{align*}
+   -\langle N_i\varphi,\varphi\rangle =\int_{\Omega\cup B_R}|v|^2 + |\curl v|^2\,dV +\,\int_{|x|=R}|v|^2\,d\sigma+\mathcal{O}\left(\frac{1}{R}\right)
+  \end{align*}
+  As $R\to\infty$, 
+  \begin{align*}
+    -\langle N_i\varphi,\varphi\rangle =\int_{\mathbb{R}^3}|v|^2 + |\curl v|^2\,dV\geqslant \int_{\bdr}|v|^2 + |\curl v|^2\,d\sigma.  
+  \end{align*}
+  Recall that 
+  \begin{align*}
+  v = \curl\ints{\nu(y)\times\varphi(y)\,\Phi(x,y)}(y)
+  \end{align*}
+  Set $E=v$ in lemma \ref{lm:tt}, we have
+  \begin{align*}
+    \nltwo{v} + \nltwo{\curl v} &\approx \nltwod{\nu\times\curl v}
+  \end{align*}   
+  Hence
+  \begin{align*}
+    -\langle N_i\varphi,\varphi\rangle \geqslant c\,\nltwod{\nu\times\curl v}^2 = c\,\nltwod{N_i\varphi}^2 \geqslant c\,\nltwoc{\varphi}^2.
+  \end{align*}
+\end{proof}
+
+\begin{prp}
+  For $z\in\mathbb{R}^3$ and a fixed $d\in\mathbb{S}^2$, define $\varphi_z\in L^2(\mathbb{S}^2)$ by
+  \begin{align*}
+    \varphi_z(\hat{x}) = ik\,(\hat{x}\times d) e^{ik\hat{x}\cdot z}\qquad\hat{x}\in\mathbb{S}^2,
+  \end{align*}
+  then $\varphi_z$ belongs to the range of $G$ if and only if $z\in\Omega$.
+\end{prp}
+
+\begin{proof}
+  Assume first $z\in\Omega$. For $x\in\mathbb{R}^3\setminus\Omega$ define
+  \begin{align*}
+    v(x)=\curl_x d\,\Phi(x, z)=\curl_x d\,\frac{e^{ik|x-z|}}{4\pi|x-z|}
+  \end{align*}
+  and $f=v|_\bdr$. The far field pattern of $v$, denoted by $v^\infty$, is 
+  \begin{align*}
+    v^\infty(\hat{x}) = ik\,(\hat{x}\times d)\,e^{ik\hat{x}\cdot z},\qquad\hat{x}\in\mathbb{S}^2,
+  \end{align*}
+  which is identical to $\varphi_z$. From $Gf=v^\infty=\varphi_z$, $\varphi_z$ belongs to the range of $G$.  
+  
+  Now assume $z\not\in\Omega$ and there exists $f$ with $Gf=\varphi_z$. Let $v$ be the radiating solution of the Maxwell problem with boundary data $f$ and $v^\infty=Gf$ be the far field pattern of $v$. Note that the far field pattern of $\curl d\,\Phi(\cdot, z)$ is $\varphi_z$, from Rellich lemma $v(x)=\curl d\,\Phi(x, z)$ for all $x$ outside of any sphere which contains both $z$ and $\Omega$. By analytic continuation, $v$ and $\curl d\,\Phi(\cdot, z)$ coincide on $\mathbb{R}^3\setminus(\overline{\Omega}\cup\{z\})$. But if $z\not\in\overline{\Omega}$, then $\curl d\,\Phi(x, z)$ is singular on $x=z$, while $v$ is analytic on $\mathbb{R}^3\setminus\overline{\Omega}$, a contradiction. Otherwise if $z\in\bdr$, then $x\mapsto\curl d\,\Phi(x, z)$ for $x\in\bdr, x\neq z$, is in $H^{\frac{1}{2}}(\bdr)$. But $\curl d\,\Phi(x, z)$ does not belong to $H_\text{loc}(\curl, \mathbb{R}^3\setminus\Omega)$ or $H(\curl, \Omega)$, for $\curl\Phi(x, z)=\mathcal{O}\left(1/|x-z|^2\right)$ if $x\to z$.
+
+\end{proof}
+
+\section{An Illustration Using Spherical Wave Expansion}
+
+In this section we follow the notations and treatments in \cite{jackson} closely.
+
+The spherical Bessel and Hankel functions which denoted by $j_l(x)$, $n_l(x)$, $h_l(x)$, $h_l^{(1)}(x)$ are defined as
+
+\begin{align}
+  j_l(x) &= \sqrt{\frac{\pi}{2x}}J_{l+\frac{1}{2}}(x) \\
+  n_l(x) &= \sqrt{\frac{\pi}{2x}}N_{l+\frac{1}{2}}(x) \\
+  h_l(x) &= \sqrt{\frac{\pi}{2x}}\left(J_{l+\frac{1}{2}}(x) + iN_{l+\frac{1}{2}}(x)\right) \\
+  h_l^{(1)}(x) &= \sqrt{\frac{\pi}{2x}}\left(J_{l+\frac{1}{2}}(x) - iN_{l+\frac{1}{2}}(x)\right)
+\end{align}
+
+The spherical Bessel functions satisfy the recursion formulae
+\begin{align}
+  f_l(x)  &= \frac{x}{2l+1}\left(f_{l-1}(x) + f_{l+1}(x)\right) \\
+  f_l'(x) &= \frac{1}{2l+1}\left(lf_{l-1}(x) - (l+1)f_{l+1}(x)\right)
+\end{align}
+where $f_l(x)$ is any one of the function $j_l(x)$, $n_l(x)$, $h_l(x)$, $h_l^{(1)}(x)$.
+
+The orbital angular momentum operator $\bf{L}$ is defined by
+\begin{align}
+  {\bf L} = \frac{1}{i}\,x\times\nabla
+\end{align}
+where $x$ is the position vector. 
+
+Define the operators $L_x,L_y,L_z$ to be the cartesian components of the orbital angular-momentum operator $\bf{L}$ respectively, and let $L^2=L_x^2+L_y^2+L_z^2$. 
+
+\begin{align}
+  -\left\{\frac{1}{\sin\vartheta}\frac{\partial}{\partial\vartheta}\left(\sin\vartheta\frac{\partial}{\partial\vartheta}\right)+\frac{1}{\sin^2 \vartheta}\frac{\partial^2}{\partial\varphi^2}\right\} Y_l^m = l(l+1) Y_l^m
+\end{align}
+
+\begin{align}
+  L_+ &= L_x+iL_y = e^{i\varphi}\left(\frac{\partial}{\partial\vartheta} + i\cot\vartheta\frac{\partial}{\partial\varphi}\right) \\
+  L_- &= L_x-iL_y = e^{-i\varphi}\left(-\frac{\partial}{\partial\vartheta} + i\cot\vartheta\frac{\partial}{\partial\varphi}\right) \\
+  L_z &= -i\frac{\partial}{\partial\varphi}
+\end{align}
+  
+The vector spherical harmonic $X_l^m(\vartheta,\varphi)$ is defined by 
+\begin{align}
+  X_l^m(\vartheta, \varphi) = \frac{1}{\sqrt{l(l+1)}}\,{\bf L}\,Y_l^m(\vartheta, \varphi)
+\end{align}
+
+With $\hat{x} = \frac{x}{\|x\|}$, we have the orthogonal relations
+
+\begin{align}\label{orth1}
+  &\int\overline{X_l^m}\cdot X_{l'}^{m'}\,d\Omega =\delta_{ll'}\delta_{mm'}\\
+  &\int\overline{X_l^m}\cdot (\hat{x}\times X_{l'}^{m'})\,d\Omega =0
+\end{align}
+
+\begin{align}\label{orth2}
+  \hat{x}\cdot X_l^m(\vartheta, \varphi) = 0,
+\end{align}
+
+\begin{align}
+  L_+Y_l^m &= \sqrt{(l-m)(l+m+1)}Y_l^{m+1}\\
+  L_-Y_l^m &= \sqrt{(l+m)(l-m+1)}Y_l^{m-1}\\
+  L_zY_l^m &= mY_l^m
+\end{align}
+
+\begin{multline}
+  \nabla\times f_l(r)\,X_l^m(\vartheta, \varphi)\\=i\hat{x}\,\sqrt{l(l+1)}\,\frac{f_l(r)}{r}\,Y_l^m(\vartheta, \varphi) +\frac{1}{r}\,\frac{\partial}{\partial r}(r f_l(r))\,\hat{x}\times X_l^m(\vartheta, \varphi) 
+\end{multline}
+where $f_l(x)$ is any one of the function $j_l(x)$, $n_l(x)$, $h_l(x)$, $h_l^{(1)}(x)$.
+
+\begin{align}
+  g_l(kr) = A^{(1)}_l h^{(1)}_l(kr) + A^{(2)}_l h^{(2)}_l(kr)
+\end{align}
+
+% for future use
+\begin{align}
+  &\int\overline{f_l(r)X_l^m}\cdot g_l(r)X_{l'}^{m'}\,d\Omega =\overline{f_l}g_l\delta_{ll'}\delta_{mm'}\\
+  &\int\overline{f_l(r)X_l^m}\cdot (\nabla\times g_l(r)X_{l'}^{m'})\,d\Omega =0
+\end{align}
+
+\begin{multline}
+  \int\overline{\nabla\times f_l(r)X_l^m}\cdot (\nabla\times g_l(r)X_{l'}^{m'})\,d\Omega\\=k^2\delta_{ll'}\delta_{mm'}\left(\overline{f_l}g_l + \frac{1}{k^2 r^2}\frac{\partial}{\partial r}(r\overline{f_l}\frac{\partial}{\partial r}(rg_l))\right), 
+\end{multline}
+ 
+where $f_l$, $g_l$ are any of the spherical bessel functions.
+
+The addition theorem for spherical harmonics
+
+\begin{align}
+  P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^l \overline{Y_l^m(\vartheta',\varphi')}Y_l^m(\vartheta, \varphi)
+\end{align}
+where $\cos\gamma=\cos\vartheta\cos\vartheta' + \sin\vartheta\sin\vartheta'\cos(\varphi-\varphi')$
+
+The multipole expansion of the plane wave is
+\begin{align}
+  E_\text{w}(x) = \sum_{l=1}^\infty i^l\sqrt{4\pi(2l+1)}\left(j_l(kr)X_l^{\pm 1}\pm
+                  \frac{1}{k}\nabla\times j_l(kr)X_l^{\pm 1}\right)
+\end{align}
+
+This is shown as follows. First note the Jacobi-Anger expansion
+\begin{align}
+  e^{i\bf{k}\cdot\bf{x}} &= \sum_{l=0}^{\infty}i^l(2l+1)j_l(kr)P_l(\cos\gamma) \\
+              &= \sum_{l=0}^{\infty}i^l\sqrt{4\pi(2l+1)}j_l(kr)Y_l^0(\cos\gamma)
+\end{align}
+where $\gamma$ is the angle between $\bf{k}$ and $\bf{x}$.
+
+We consider an equivalent expansion for a circularly polarized plane wave with helicity $\pm$ along the $z$ axis:
+\begin{align}
+  E(x) &= (\varepsilon_1\pm i\varepsilon_2)e^{ikz} \\
+  B(x) &= \varepsilon_3\times E = \mp iE
+\end{align}
+
+\begin{align}
+  E(x)&=\sum_{l,m}\left\{a_\pm(l, m)j_l(kr)X_l^m + \frac{i}{k} b_\pm(l, m)\nabla\times j_l(kr)X_l^m\right\} \\
+  B(x)&=\sum_{l,m}\left\{\frac{-i}{k}a_\pm(l, m)j_l(kr)X_l^m + b_\pm(l, m)\nabla\times j_l(kr)X_l^m\right\}
+\end{align}
+
+From the orthogonality of $X_l^m$, we have 
+\begin{align}
+  a_\pm(l, m)j_l(kr) &= \int \overline{X_l^m}\cdot E(x)\,d\Omega \\
+  b_\pm(l, m)j_l(kr) &= \int \overline{X_l^m}\cdot B(x)\,d\Omega
+\end{align}
+
+In view of the expression of $E, B$ and the definition of $X_l^m$, after some manipulation we observed 
+\begin{align}
+  a_\pm(l, m)j_l(kr) = \frac{1}{\sqrt{l(l+1)}}\int\overline{L_{\mp}Y_l^m}e^{ikz}\,d\Omega
+\end{align}
+
+\begin{align}
+  a_\pm(l, m)j_l(kr) = \frac{\sqrt{(l\pm m)(l\mp m + 1)}}{\sqrt{l(l+1)}}\int \overline{Y_l^{m\pm 1}}e^{ikz}\,d\Omega
+\end{align}
+
+Insert the Jacobi-Anger expansion for $e^{ikz}$, the orthogonality of $Y_l^m$ leads to
+\begin{align}
+  a_\pm(l, m) = i^l\sqrt{4\pi(2l+1)}\delta_{m,\pm 1}
+\end{align}
+
+From $B=\mp iE$, we obtain immediately
+\begin{align}
+  b_\pm(l, m) = \mp i a_\pm(l, m)
+\end{align}
+
+The scattered electric field is
+\begin{multline}
+  E_\text{s}(x) = \frac{1}{2}\,\sum_{l=1}^\infty i^l\sqrt{4\pi(2l+1)}\cdot\\ \left(\frac{j_l(k)}{h_l(k)}\, h_l(kr)X_l^{\pm 1}\pm \frac{1}{k}\frac{kj_l'(k)+j_l(k)}{kh_l'(k)+h_l(k)}\,\nabla\times h_l(kr)\,X_l^{\pm 1}\right)
+\end{multline}
+
+The far field pattern of the scattered electric field is
+\begin{multline}
+  E_\infty(\hat{x}) = \frac{-i}{2k}\,\sum_{l=1}^\infty\sqrt{4\pi(2l+1)}\cdot\\ \left(\frac{j_l(k)}{h_l(k)}\,\hat{x}\times X_l^{\pm 1}\mp \frac{kj_l'(k)+j_l(k)}{kh_l'(k)+h_l(k)}\,X_l^{\pm 1}\right)
+\end{multline}
+
+Hence $\{X_l^{\pm 1}, \hat{x}\times X_l^{\pm 1}\}$ are the eigenfunctions of the far field operator with corresponding eigenvalues $\{\frac{\pm i\sqrt{\pi(2l+1)}}{k}\frac{kj_l'(k)+j_l(k)}{kh_l'(k)+h_l(k)}, \frac{-i\sqrt{\pi(2l+1)}}{k}\frac{j_l(k)}{h_l(k)}\}$.
+
+We wish to compute
+\begin{align}\label{sum}
+  \sum_m\frac{|\langle\hat{x}\times E_w, \phi_m\rangle|^2}{|\lambda_m|}
+\end{align}
+where the index $m$ runs through the eigenpairs $\{\phi_m, \lambda_m\}$ of the far field operator and $\langle\cdot,\cdot\rangle$ denote the $L^2(\mathbb{S}^2)$ inner product. Note that
+\begin{align}
+  \hat{x}\times E_\text{w}(x) = \sum_{l=1}^\infty i^l\sqrt{4\pi(2l+1)}\left(j_l(kr)\hat{x}\times X_l^{\pm 1}\mp\frac{1}{k r}\frac{\partial}{\partial r}(r j_l(kr))X_l^{\pm 1}\right)
+\end{align}
+In view of the vector formula $$(a\times b)\cdot(c\times d)=(a\cdot c)(b\cdot d)-(a\cdot d)(b\cdot c)$$ we have
+\begin{align}
+  (\hat{x}\times X_l^{\pm 1})\cdot (\hat{x}\times\overline{X_{l'}^{\pm 1}}) &= (\hat{x}\cdot\hat{x})(X_l^{\pm 1}\cdot\overline{X_{l'}^{\pm 1}}) - (\hat{x}\cdot\overline{X_{l'}^{\pm 1}})(X_l^{\pm 1}\cdot\hat{x}) \\
+  &= X_l^{\pm 1}\cdot\overline{X_{l'}^{\pm 1}}
+\end{align}
+Together with orthogonal relations \eqref{orth1} and \eqref{orth2}, the infinite sum \eqref{sum} becomes
+\begin{align}
+  \frac{4\sqrt\pi}{k}\sum_l \sqrt{2l+1}\left(\frac{|j_l(kr)|^2}{\left|\frac{j_l(k)}{h_l(k)}\right|} + \frac{|\frac{1}{k r}\frac{\partial}{\partial r}(r j_l(kr))|^2}{\left|\frac{kj_l'(k)+j_l(k)}{kh_l'(k)+h_l(k)}\right|}\right)
+\end{align}
+We wish to investigate the convergence of this sum.
+
+Using the asymptotic relations of $j_l(k), h_l(k)$
+\begin{align}
+  j_l(k) &= \frac{k^l}{1\cdot 3\cdots(2l+1)}\left(1 + \mathcal{O}\left(\frac{1}{l}\right)\right) \\
+  h_l(k) &= \frac{1\cdot 3\cdots(2l-1)}{ik^{l+1}}\left(1 + \mathcal{O}\left(\frac{1}{l}\right)\right) 
+\end{align}
+we have
+\begin{align}
+  \frac{j_l(k)}{h_l(k)} &= -i\frac{k^{2l+1}}{(2l-1)!!(2l+1)!!}\left(1 + \mathcal{O}\left(\frac{1}{l}\right)\right) \\
+  \frac{kj_l'(k)+j_l(k)}{kh_l'(k)+h_l(k)} &= ?\left(1 + \mathcal{O}\left(\frac{1}{l}\right)\right)
+\end{align}
+
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{draft}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For $x, z\in\Omega_+$, $\hat{x}, d\in\mathbb{S}^2$, let $u_\text{w}^\text{s}(x, d)$ be the scattered field due to the incident plane wave $u_\text{w}^\text{i}(x, d) = e^{ikx\cdot d}$ and $u_\text{p}^\infty(\hat{x}, z)$ be the far field pattern of the scattered field $u_\text{p}^\text{s}(x, z)$ due to the incident point source $u_\text{p}^\text{i}(x, z) = \Phi(x, z)$.
+
+\begin{thm}[Mixed Reciprocity Relation]
+  $$u_\text{w}^\text{s}(z, -\hat{x}) = 4\pi u_\text{p}^\infty(\hat{x}, z)$$
+\end{thm}
+
+\begin{proof}
+  \begin{align}
+    u_\text{w}^\text{s}(z, -\hat{x}) = \ints{\left\{u_\text{w}^\text{s}(y, -\hat{x})\frac{\partial\Phi(z, y)}{\partial\nu(y)} - \frac{\partial u_\text{w}^\text{s}(y, -\hat{x})}{\partial\nu(y)}\Phi(z, y)\right\}}(y)\label{eq:q1}
+  \end{align}
+  \begin{align}
+    u_\text{p}^\infty(\hat{x}, z) &= \frac{1}{4\pi}\ints{\left\{u_\text{p}^\text{s}(y, z)\frac{\partial e^{-ik\hat{x}\cdot y}}{\partial\nu(y)} - \frac{\partial u_\text{p}^\text{s}(y, z)}{\partial\nu(y)}e^{-ik\hat{x}\cdot y}\right\}}(y) \\ &=\frac{1}{4\pi}\ints{\left\{u_\text{p}^\text{s}(y, z)\frac{\partial u_\text{w}^\text{i}(y, -\hat{x})}{\partial\nu(y)} - \frac{\partial u_\text{p}^\text{s}(y, z)}{\partial\nu(y)}u_\text{w}^\text{i}(y, -\hat{x})\right\}}(y)\label{eq:q2}
+  \end{align}
+  \begin{align}
+    0 = \ints{\left\{u_\text{p}^\text{s}(y, z)\frac{\partial u_\text{w}^\text{s}(y, -\hat{x})}{\partial\nu(y)} - \frac{\partial u_\text{p}^\text{s}(y, z)}{\partial\nu(y)}u_\text{w}^\text{s}(y, -\hat{x})\right\}}(y)\label{eq:q3}
+  \end{align}
+
+  Mulitiply \eqref{eq:q3} with $\frac{1}{4\pi}$ and add to \eqref{eq:q2}, we have 
+  \begin{align}
+    u_\text{p}^\infty(\hat{x}, z) = \frac{1}{4\pi}\ints{u_\text{p}^\text{s}(y, z)\frac{\partial u(y, -\hat{x})}{\partial\nu(y)}}(y).\label{eq:q4}
+  \end{align}
+
+\end{proof}
+
+\section{A Result that May Be of Interest}
+
+\begin{prp}[\cite{douglas}, Theorem 1]
+  Let $X, Y, Z$ be Hilbert spaces and there are bounded operators $A:X\rightarrow Z$, $B:Y\rightarrow Z$. Then the followings are equivalent:
+  \begin{enumerate}
+    \item $\range(A)\subseteq\range(B)$.
+    \item $AA^*\leqslant\lambda\,BB^*$ for some $\lambda\geqslant 0$.
+    \item There exists a $C: X\rightarrow Y$ such that $A=BC$.
+  \end{enumerate}
+  Moreover, if all above conditions hold, then there exists an unique $C: X\rightarrow Y$ such that
+  \begin{itemize}
+    \item $\|C\|^2 = \inf\{\lambda\,|\,AA^*\leqslant\lambda\,BB^*\}$,
+    \item $\nul(A)\subseteq\nul(C)$,
+    \item $\range(C)\subseteq\overline{\range(B^*)}$.
+  \end{itemize}
+\end{prp}
+
+\begin{lmm}\label{lmm:0} 
+  The following relations hold:
+  \begin{enumerate}
+    \item $\ker(A') = \ker(AA')$.
+    \item $\col(A) = \col(AA')$.
+    \item\label{it:1} $\rank(A) = \rank(AA') = \rank(A'A)$.
+    \item $\col(AB)\subseteq\col(A)$.
+    \item $\rank(AB)\leqslant\min(\rank(A), \rank(B))$.
+    \item $\rank(AB) = \rank(A)$ if A has full row rank.
+    \item\label{it:0} $\rank(AB) = \rank(B)$ if B has full column rank.
+  \end{enumerate}
+\end{lmm}
+
+%\begin{proof}
+%
+%  \begin{enumerate}
+%    \item $\forall x\in\ker A'$, $A'x=0$. Then $AA'x=0$, so $x\in\ker(AA')$. If $x\in\ker(AA')$ then $AA'x=0$, hence $(A'x)'(A'x) = x'AA'x = 0$ gives $A'x=0$; $x\in\ker(A')$.
+%    \item $ $
+%      
+%  \end{enumerate}
+%\end{proof}
+
+\begin{lmm}\label{lmm:1}
+  Let $A$ be a positive semidefinite $n\times n$ matrix of rank $r$, then an $n\times r$ matrix $T$ exists such that $A = TT'.$ If $A$ is positive definite, then $T$ is $n\times n$ and nonsingular.
+\end{lmm}
+
+\begin{proof}
+  From semidefiniteness of $A$ we have $S'AS=\Lambda$ with $S'S=I_n$ and diagonal $\Lambda$. Let $\Lambda_1$ be the diagonal $r\times r$ submatrix of $\Lambda$ with positive eigenvalues of $A$. Partitioning $S=(S_1:S_2)$ and from $AS = S\Lambda$, we have $AS_1=S_1\Lambda_1$ and $AS_2=O$ with $S_1'S_1=I_r$, $S_2'S_2=I_{n-r}$, and $S_1'S_2=O$. Note that $A=S\Lambda S'=S_1\Lambda_1 S_1'$. Now let $T=S_1\Lambda_1^{1/2}$, then $TT'=S_1\Lambda_1 S_1'=A$. 
+\end{proof}
+
+\begin{thm}\label{thm:0}
+  Let $A$ be a positive semidefinite $n\times n$ matrix and $B$ be an $n\times m$ matrix.
+  \begin{enumerate}
+    \item $\rank(B'AB) = \rank(AB)$.
+    \item\label{it:2} If $A$ is positive definite, then $\rank(B'AB) = \rank(B)$.
+  \end{enumerate}
+\end{thm}
+
+\begin{proof}
+  From lemma \ref{lmm:1} we have $A = TT'$ for some $n\times r$ matrix $T$. Then $B'AB = B'TT'B = (T'B)'(T'B)$. 
+  \begin{enumerate}
+    \item From lemma \ref{lmm:0}\eqref{it:1}, $\rank(T'B) = \rank\left( (T'B)'(T'B) \right)$. So $\rank(T'B) = \rank(B'TT'B)\leqslant\rank(TT'B)\leqslant\rank(T'B)$, which gives $\rank(B'AB)=\rank(T'B)=\rank(TT'B)=\rank(AB)$.
+    \item Now $T$ is $n\times n$ and nonsingular, $\rank(B'AB) = \rank(T'B) = \rank(B)$ from lemma \ref{lmm:0}\eqref{it:0}.
+  \end{enumerate}
+\end{proof}
+
+Note that in theorem \ref{thm:0}\eqref{it:2}, the conclusion does not hold if $A$ is merely invertible. For example, let 
+$$B=\begin{pmatrix}0 & 0 & 0\\ 1 & 1 & 1\\0 & 0 & 1\end{pmatrix},\quad A=\begin{pmatrix}1 & -1 & 0\\ -1 & -1 & 1\\0 & 1 & -1\end{pmatrix}.$$ 
+Then $$B'AB=\begin{pmatrix}-1 & -1 & 0\\ -1 & -1 & 0\\0 & 0 & 0\end{pmatrix},$$ 
+$1=\rank(B'AB)\not=\rank(B)=2$.  

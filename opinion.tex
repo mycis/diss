@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article} 
+\usepackage{amsmath,amssymb,amsthm,graphicx,hyperref}
+\usepackage[BoldFont,SlantFont]{xeCJK}  
+\setCJKmainfont{cwTeX Q Ming Medium}
+\defaultCJKfontfeatures{AutoFakeBold=6,AutoFakeSlant=.4} 
+\newCJKfontfamily\Kai{cwTeX Q Kai Medium} 
+\newCJKfontfamily\Hei{cwTeX Q Hei Bold}
+\newCJKfontfamily\Yuan{cwTeX Q Yuan Medium}
+\newCJKfontfamily\Ming{cwTeX Q Ming Medium}
+\newCJKfontfamily\Song{cwTeX Q Fangsong Medium}
+\begin{document}
+\title{初步意見}
+\author{}
+\maketitle
+
+\section{文章敘述部份}
+
+\begin{enumerate}
+  \item (2.1)式中 $N_t$ 應為 $N(t)$。
+  \item (2.7)式最後一行的無窮級數表示式的推導過程應再交代清楚。
+  \item Lemma 2.1 證明引用文獻(5)之結果，應標明出處(pp.13(8))。
+  \item Lemma 2.2 敘述與證明過於簡略--可參照文獻(6)之 Proposition 2.1。 
+  \item 作者僅以``All processes are assumed under the risk neutral $Q$ on a complete probability space $(\Omega, \mathcal{F}, Q)$'' (pp.3) 帶過測度空間架構的設定，過份簡略。較完整敘述至少應以文獻(6) Proposition 2.1上方為參考，或參照Cox S. et al. ``Valuation of Structured Risk Management Products'', IME 34, 259--272一文的完整寫法。
+\end{enumerate}
+
+\section{研究結果部份}
+\begin{enumerate}
+  \item 本文與作者另篇文章(文獻(12))多有類似，惟本文另外考慮option issuer提早違約風險；數值結果應再包含與文獻(12)，未考慮提早違約風險情形之比較。
+  \item 是否可修改option issuer dynamic (2.5)式為jump-diffusion？
+\end{enumerate}
+
+\end{document}

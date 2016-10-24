@@ -1,0 +1,98 @@
+\documentclass[a4paper,12pt]{book}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,graphicx,hyperref,booktabs}
+\usepackage[mathscr]{eucal}
+\usepackage[a4paper,inner=1.5cm,outer=3cm,top=2cm,bottom=3cm,bindingoffset=1cm]{geometry}
+\usepackage[numbers,sort&compress]{natbib}
+
+\usepackage{listings} 
+\lstset{                 
+basicstyle=\ttfamily,   % code in typewriter font
+numbers=left,           % where to put the line-numbers
+numberstyle=\tiny,      % the size of the fonts used for the line-numbers
+numbersep=5pt,          % how far the line-numbers are from the code
+frame=single,           % adds a frame around the code
+breaklines=true,        % sets automatic line breaking
+columns=flexible        % important!
+}
+
+% 中文配置
+\usepackage{xeCJK}
+\setCJKmainfont{cwTeX Q Ming Medium}
+\defaultCJKfontfeatures{AutoFakeBold=4,AutoFakeSlant=.4} 
+\newCJKfontfamily\Kai{cwTeX Q Kai Medium} 
+\newCJKfontfamily\Hei{cwTeX Q Hei Bold}
+\newCJKfontfamily\Yuan{cwTeX Q Yuan Medium}
+\newCJKfontfamily\Ming{cwTeX Q Ming Medium}
+\newCJKfontfamily\Song{cwTeX Q Fangsong Medium}
+
+\theoremstyle{definition}
+\newtheorem{lmm}{Lemma}
+\newtheorem{thm}{Theorem}
+\newtheorem{dfn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{prp}{Proposition}
+\newtheorem{ex}{Example}
+\newtheorem{prob}{Problem}
+
+% Definition of various shortcuts.
+\DeclareMathOperator\curl{curl}
+\DeclareMathOperator\divv{div}
+%\DeclareMathOperator\curl{\nabla\times}
+%\DeclareMathOperator\divv{\nabla\cdot}
+\DeclareMathOperator\Curlv{{\bf curl}_\Gamma}
+\DeclareMathOperator\im{\Im}
+\DeclareMathOperator\re{\Re}
+\DeclareMathOperator\comp{\sf{K}}
+\DeclareMathOperator\img{\EuScript{R}}
+\DeclareMathOperator\pv{pv}
+\DeclareMathOperator\dom{dom}
+\DeclareMathOperator\nul{\EuScript{N}}
+\DeclareMathOperator\rank{rk}
+\DeclareMathOperator\col{col}
+\DeclareMathOperator\range{range}
+\DeclareMathOperator\dist{dist}
+\newcommand\bdr{\Gamma}
+\newcommand\Div{\divv_\Gamma}
+\newcommand\Curl{\curl_\Gamma}
+\newcommand\lTS{{\bf L}^2_\text{t}(\mathbb{S}^2)}
+\newcommand\lTD{{\bf H}^{-\frac{1}{2}}(\Div)}
+\newcommand\lTC{{\bf H}^{-\frac{1}{2}}(\Curl)}
+\newcommand\lT{L_{2,\text{t}}(\bdr)}
+\newcommand\nltwo[1]{\|#1\|_{L_2(\bdr)}}
+\newcommand\nltwod[1]{\|#1\|_{\lTD}}
+\newcommand\nltwoc[1]{\|#1\|_{\lTC}}
+\newcommand\intv[1]{\int_{\Omega}#1\,\text{d}V}
+\newcommand\ints[1]{\int_{\bdr}#1\,\text{d}\sigma}
+\newcommand\intvv[1]{\int_{\Omega}#1}
+\newcommand\intss[1]{\int_{\bdr}#1}
+\newcommand\prb[1]{\begin{prob}#1\end{prob}}
+\newcommand\sol[1]{\begin{proof}[Solution]#1\end{proof}}
+  
+% Trick for defining 'phantom' 
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+% number within chapter: e.g.(1.1)
+\numberwithin{equation}{chapter}
+\numberwithin{thm}{chapter}
+\numberwithin{prp}{chapter}
+\numberwithin{lmm}{chapter}
+\numberwithin{dfn}{chapter}
+\numberwithin{cor}{chapter}
+
+% principal value integral
+\def\Xint#1{\mathchoice
+  {\XXint\displaystyle\textstyle{#1}} 
+  {\XXint\textstyle\scriptstyle{#1}} 
+  {\XXint\scriptstyle\scriptscriptstyle{#1}} 
+  {\XXint\scriptscriptstyle\scriptscriptstyle{#1}} 
+\!\int}
+
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.56\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% in tables with \toprule, set 12pt vertical space
+\setlength{\abovetopsep}{12pt}
+
+\begin{document}

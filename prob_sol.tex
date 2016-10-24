@@ -1,0 +1,133 @@
+\input{common.tex}
+\title{Mathematical Problems and Solutions}
+\author{Chang-ye Tu}
+\maketitle
+
+\begin{prob}[Folklore Knowledge]
+  Derive the followings.
+  \begin{enumerate}
+    \item spherical coordinate, volume element, volume/surface area of $n$-ball
+    \item gradient/divergence/laplacian/curl in cylindrical/spherical coordinates
+    \item scalar/vector Green identities 
+    \item $\int_{-\infty}^\infty e^{-x^2}\,dx$
+    \item $\int_0^\infty \frac{\sin x}{x}\,dx$
+  \end{enumerate}
+\end{prob}
+
+\begin{prob}[Theorems]
+  Describe the following theorems, their usages and proofs.
+  \begin{enumerate}
+    \item inverse function theorem
+    \item implicit function theorem
+    \item partition of unity
+    \item Fatou lemma
+    \item Lebesgue dominated convergence theorem
+    \item Radon-Nikodym theorem
+    \item Calderon-Zygmund decomposition
+    \item Rellich-Kondrachov theorem
+    \item Sobolev embedding theorem
+  \end{enumerate}
+\end{prob}
+
+\begin{prob}[Inequalities]
+  Describe the following inequalities, their usages and proofs.
+  \begin{enumerate}
+    \item Cauchy-Schwarz
+    \item H\"older
+    \item Minkowski 
+    \item Hardy
+    \item Poincar\'e
+  \end{enumerate}
+\end{prob}
+
+\prb{Let $\mathbb{P}_l$ be the space of monomials of three variables with total degree less or equal than $l$. Then $$\dim \mathbb{P}_l={l+3\choose 3}.$$}
+
+\sol{Use
+  \begin{align*}
+    \sum_{k=0}^{l}{m+k\choose k} = \sum_{k=0}^{l}\left\{{m+k+1\choose k}-{m+k\choose k-1}\right\} = {m+l+1\choose m+1}
+  \end{align*}
+  Then
+  \begin{align*}
+    \dim\mathbb{P}_l = \sum_{k=0}^{l}{2+k\choose k} = {l+3\choose 3}
+  \end{align*}
+}
+
+\prb{Evaluate $$\int_0^\infty\frac{1-e^{-k x}}{\sqrt{x^3}}\,\text{d}x,\qquad k\geqslant 0.$$}
+\sol{Let
+$$f(k)=\int_0^\infty\frac{1-e^{-k x}}{\sqrt{x^3}}\,\text{d}x$$
+Then
+\begin{align*}
+  f'(k)&=\int_0^\infty\frac{\text{d}}{\text{d}k}\left(\frac{1-e^{-k x}}{\sqrt{x^3}}\right)\,\text{d}x \\
+       &=\int_0^\infty\frac{e^{-k x}}{\sqrt{x}}\,\text{d}x \\
+       &=\frac{\sqrt\pi}{\sqrt k}
+\end{align*}
+Hence
+\begin{align*}
+  f(k) = 2\sqrt{k \pi} + C
+\end{align*}
+From $f(0)=0$ we have $C=0$, so $f(k)=2\sqrt{k \pi}$.
+}
+
+\prb{Let $z=\cos\theta$ and $w(z)=y(\theta)$, rewrite the equation
+\begin{align*}
+  \sin\theta(\sin\theta\,y'(\theta))' - (m^2 + \lambda\sin^2\theta)y(\theta) = 0
+\end{align*}
+into
+\begin{align*}
+  (1-z^2) w''(z) - 2z w'(z) - \left(\frac{m^2}{1-z^2} + \lambda\right) w(z) = 0
+\end{align*}
+}
+
+\sol{
+\begin{align*}
+ \frac{\text{d}y}{\text{d}\theta}&=\frac{\text{d}y}{\text{d}z}\frac{\text{d}z}{\text{d}\theta} = -y'(1-z^2) \\
+ \frac{\text{d}^2 y}{\text{d}\theta^2}&=\frac{\text{d}}{\text{d}\theta}\left(\frac{\text{d}y}{\text{d}z}\right)\frac{\text{d}z}{\text{d}\theta} + \frac{\text{d}y}{\text{d}z}\frac{\text{d}}{\text{d}\theta}\left(\frac{\text{d}z}{\text{d}\theta}\right) \\
+ &=\left(\frac{\text{d}}{\text{d}z}\left(\frac{\text{d}y}{\text{d}z}\right)\frac{\text{d}z}{\text{d}\theta}\right)\frac{\text{d} z}{\text{d}\theta} + \frac{\text{d}y}{\text{d}z}\frac{\text{d}}{\text{d}\theta}\left(\frac{\text{d}z}{\text{d}\theta}\right) \\
+ &= y''\left(\frac{\text{d} z}{\text{d}\theta}\right)^2 + y' \frac{\text{d}^2 z}{\text{d}\theta^2} \\
+ &= (1-z^2) y'' - z\,y'
+\end{align*}
+Substitute into the equation, we have
+\begin{align*}
+  -(1-z^2)z\,y'+(1-z^2)\left((1-z^2) y'' - z\,y'\right) - (m^2 + \lambda(1-z^2)) y = 0
+\end{align*}
+}
+
+
+\prob{
+Let $u\in H^1(\Omega)$. Then $\forall\lambda>0$, $\exists c>0$ s.t.
+\begin{align*}
+  \intvv{|\nabla u|^2} + \lambda\intss{u^2} \geqslant c\|u\|_{H^1(\Omega)}
+\end{align*}
+}
+
+\sol{
+\url{http://math.stackexchange.com/questions/604577/a-question-about-a-sobolev-space-trace-inequality-dont-understand-why-it-is-tr?lq=1}
+}
+
+%\section{Trace Operators}
+%\begin{thm}[The trace operator or the generalized boundary values]
+%  Let $\Omega$ be a $C^2$ bounded open domain in $\mathbb{R}^n$ with boundary $\partial\Omega$. For any $f(x)\in W^{1,2}(\Omega)$ and for almost all $\xi\in\partial\Omega$, the limiting value $\varphi(\xi)=\lim_{x\to\xi}f(x)$ exists if we let $x$ tend to $\xi\in\partial\Omega$ along the normal at the point $\xi\in\partial\Omega$. Moreover this boundary value $\varphi(\xi)$ of $f(x)$ belongs to $L^2(\partial\Omega)$ and satisfies
+%  \begin{align*}
+%    \|\varphi(\xi)\|_{L^2(\partial\Omega)}\leqslant C\left\{\|f(x)\|_{L^2(\Omega)} + \sum_{j=1}^n\left\|\frac{\partial f}{\partial x_j}\right\|_{L^2(\Omega)}\right\}
+%  \end{align*}
+%\end{thm}
+
+%\section{Singluar Integral Equations}
+%\section{Mathematical Framework}
+%
+%\begin{thm}
+%  The trace mapping $\gamma_n:v\to n\cdot v|_\bdr$, defined on $D(\overline{\Omega})^n$ has a continuous extension, also denoted by $\gamma_n$, from $H(\divv, \bdr)$ onto $H^{-\frac{1}{2}}(\bdr)$. The kernel of this mapping $\ker\gamma_n$ is $H_0(\divv, \bdr)$.
+%\end{thm}
+%
+%\begin{proof}
+%  We start from the Green formula
+%  \begin{align*}
+%    (v, \grad\varphi)+(\divv v, \varphi)=\int_\bdr n\cdot v\varphi\,d\bdr
+%  \end{align*}
+%\end{proof}
+%
+%\begin{thm}
+%  The trace mapping $\gamma_\tau:v\to n\wedge v|_\bdr$, defined on $D(\overline{\bdr})^n$ has a continuous extension, also denoted by $\gamma_\tau$, from $H(\curl, \bdr)$ onto $H^{-\frac{1}{2}}(\bdr)$. The kernel of this mapping $\ker\gamma_n$ is $H_0(\curl, \Omega)$.
+%\end{thm}
+
+\end{document}
